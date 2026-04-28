@@ -153,7 +153,7 @@ const QUESTION_BANK = {
             {
               type: "short",
               question: "Give one example of a non-ferrous metal.",
-              keywords: ["aluminium"],
+              keywords: ["aluminium", "copper", "zinc", "lead"],
               markScheme: "Aluminium, copper, zinc and lead are examples of non-ferrous metals.",
               explanation: "Non-ferrous metals do not contain iron."
             },
