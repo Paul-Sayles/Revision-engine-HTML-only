@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Revision Machine - Phase 3</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #eef2f7;
+      color: #222;
+    }
+
+    .app {
+      max-width: 900px;
+      margin: 30px auto;
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+      overflow: hidden;
+    }
+
+    header {
+      background: #1f3b57;
+      color: white;
+      padding: 24px;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 32px;
+    }
+
+    header p {
+      margin: 8px 0 0;
+    }
+
+    main {
+      padding: 28px;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .unit {
+      margin-bottom: 28px;
+    }
+
+    .topic-card {
+      display: block;
+      width: 100%;
+      text-align: left;
+      background: #f8fafc;
+      border: 1px solid #d6dde8;
+      border-radius: 12px;
+      padding: 18px;
+      margin: 10px 0;
+      cursor: pointer;
+      font-size: 17px;
+    }
+
+    .topic-card:hover {
+      background: #edf4ff;
+    }
+
+    .progress-box {
+      background: #f1f5f9;
+      padding: 12px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+    }
+
+    .question-box {
+      font-size: 22px;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+
+    .option {
+      display: block;
+      width: 100%;
+      text-align: left;
+      background: white;
+      border: 2px solid #ccd6e0;
+      border-radius: 10px;
+      padding: 15px;
+      margin: 10px 0;
+      font-size: 17px;
+      cursor: pointer;
+    }
+
+    .option.correct {
+      background: #d9f7df;
+      border-color: #32a852;
+    }
+
+    .option.wrong {
+      background: #ffd9d9;
+      border-color: #c0392b;
+    }
+
+    .option:disabled {
+      cursor: not-allowed;
+      opacity: 1;
+    }
+
+    .feedback {
+      margin-top: 20px;
+      padding: 16px;
+      border-radius: 10px;
+      background: #f8fafc;
+      border-left: 6px solid #1f3b57;
+    }
+
+    button {
+      font-family: Arial, sans-serif;
+    }
+
+    .primary-btn,
+    .secondary-btn {
+      padding: 13px 18px;
+      margin: 10px 6px 0 0;
+      border-radius: 10px;
+      border: none;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .primary-btn {
+      background: #1f3b57;
+      color: white;
+    }
+
+    .secondary-btn {
+      background: #dbe3ec;
+      color: #222;
+    }
+
+    .summary-card {
+      background: #f8fafc;
+      border: 1px solid #d6dde8;
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+
+    .small-note {
+      color: #555;
+      font-size: 14px;
+    }
+
+    .error {
+      background: #ffe1e1;
+      border-left: 6px solid #c0392b;
+      padding: 16px;
+      border-radius: 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="app">
+    <header>
+      <h1>Revision Machine</h1>
+      <p>Phase 3 prototype — external question bank</p>
+    </header>
+
+    <main>
+      <section id="topicScreen">
+        <h2>Choose a topic</h2>
+        <p class="small-note">Select a revision topic to begin. Questions are randomised each time.</p>
+        <div id="topics"></div>
+      </section>
+
+      <section id="questionScreen" class="hidden">
+        <h2 id="topicTitle"></h2>
+
+        <div class="progress-box">
+          <div id="progressText"></div>
+          <div id="scoreTextLive"></div>
+        </div>
+
+        <div id="questionText" class="question-box"></div>
+        <div id="options"></div>
+
+        <div id="feedback" class="feedback hidden"></div>
+
+        <button id="nextBtn" class="primary-btn hidden" onclick="nextQuestion()">
+          Next Question
+        </button>
+      </section>
+
+      <section id="summaryScreen" class="hidden">
+        <h2>Session Summary</h2>
+
+        <div class="summary-card">
+          <p id="finalScore"></p>
+          <p id="weakSummary"></p>
+        </div>
+
+        <button id="retryWeakBtn" class="primary-btn hidden" onclick="retryWeakQuestions()">
+          Retry Weak Questions
+        </button>
+
+        <button class="secondary-btn" onclick="restartSameTopic()">
+          Restart Same Topic
+        </button>
+
+        <button class="secondary-btn" onclick="backToTopics()">
+          Back to Topics
+        </button>
+      </section>
+    </main>
+  </div>
+
+  <script src="questions.js"></script>
+
+  <script>
+    let data = null;
+
+    let currentTopic = null;
+    let currentQuestions = [];
+    let currentQuestionIndex = 0;
+    let score = 0;
+    let wrongQuestions = [];
+    let answered = false;
+
+    function initialiseApp() {
+      if (typeof QUESTION_BANK === "undefined") {
+        showQuestionBankError();
+        return;
+      }
+
+      data = QUESTION_BANK;
+      loadTopics();
+    }
+
+    function showQuestionBankError() {
+      const topicsDiv = document.getElementById("topics");
+
+      topicsDiv.innerHTML =
+        "<div class='error'>" +
+        "<strong>Question bank not found.</strong><br><br>" +
+        "Check that <strong>questions.js</strong> is in the same folder as <strong>index.html</strong>.<br><br>" +
+        "Your folder should look like:<br>" +
+        "<pre>revision-machine/\n├── index.html\n└── questions.js</pre>" +
+        "</div>";
+    }
+
+    function loadTopics() {
+      const topicsDiv = document.getElementById("topics");
+      topicsDiv.innerHTML = "";
+
+      data.units.forEach(function(unit) {
+        const unitDiv = document.createElement("div");
+        unitDiv.className = "unit";
+
+        const heading = document.createElement("h3");
+        heading.textContent = unit.title;
+        unitDiv.appendChild(heading);
+
+        unit.topics.forEach(function(topic) {
+          const button = document.createElement("button");
+          button.className = "topic-card";
+
+          button.innerHTML =
+            "<strong>" + topic.title + "</strong><br>" +
+            "<span class='small-note'>" + topic.questions.length + " questions</span>";
+
+          button.onclick = function() {
+            startTopic(topic);
+          };
+
+          unitDiv.appendChild(button);
+        });
+
+        topicsDiv.appendChild(unitDiv);
+      });
+    }
+
+    function startTopic(topic) {
+      currentTopic = topic;
+      currentQuestions = shuffle(copyQuestions(topic.questions));
+      currentQuestionIndex = 0;
+      score = 0;
+      wrongQuestions = [];
+
+      showScreen("questionScreen");
+      document.getElementById("topicTitle").textContent = topic.title;
+
+      showQuestion();
+    }
+
+    function showQuestion() {
+      answered = false;
+
+      const question = currentQuestions[currentQuestionIndex];
+
+      document.getElementById("progressText").textContent =
+        "Question " + (currentQuestionIndex + 1) + " of " + currentQuestions.length;
+
+      document.getElementById("scoreTextLive").textContent =
+        "Current score: " + score + " correct";
+
+      document.getElementById("questionText").textContent = question.question;
+
+      const optionsDiv = document.getElementById("options");
+      optionsDiv.innerHTML = "";
+
+      document.getElementById("feedback").classList.add("hidden");
+      document.getElementById("feedback").textContent = "";
+      document.getElementById("nextBtn").classList.add("hidden");
+
+      question.options.forEach(function(optionText, index) {
+        const button = document.createElement("button");
+        button.className = "option";
+        button.textContent = optionText;
+
+        button.onclick = function() {
+          checkAnswer(index);
+        };
+
+        optionsDiv.appendChild(button);
+      });
+    }
+
+    function checkAnswer(selectedIndex) {
+      if (answered) return;
+      answered = true;
+
+      const question = currentQuestions[currentQuestionIndex];
+      const buttons = document.querySelectorAll(".option");
+      const feedback = document.getElementById("feedback");
+
+      buttons.forEach(function(button, index) {
+        button.disabled = true;
+
+        if (index === question.correct) {
+          button.classList.add("correct");
+        }
+
+        if (index === selectedIndex && selectedIndex !== question.correct) {
+          button.classList.add("wrong");
+        }
+      });
+
+      if (selectedIndex === question.correct) {
+        score++;
+        feedback.textContent = "Correct. " + question.explanation;
+      } else {
+        wrongQuestions.push(question);
+        feedback.textContent = "Incorrect. " + question.explanation;
+      }
+
+      feedback.classList.remove("hidden");
+
+      document.getElementById("scoreTextLive").textContent =
+        "Current score: " + score + " correct";
+
+      document.getElementById("nextBtn").classList.remove("hidden");
+    }
+
+    function nextQuestion() {
+      currentQuestionIndex++;
+
+      if (currentQuestionIndex >= currentQuestions.length) {
+        showSummary();
+      } else {
+        showQuestion();
+      }
+    }
+
+    function showSummary() {
+      showScreen("summaryScreen");
+
+      const percent = Math.round((score / currentQuestions.length) * 100);
+
+      document.getElementById("finalScore").textContent =
+        "You scored " + score + " out of " + currentQuestions.length + " (" + percent + "%).";
+
+      if (wrongQuestions.length > 0) {
+        document.getElementById("weakSummary").textContent =
+          "Weak questions identified: " + wrongQuestions.length + ". You can retry these now.";
+
+        document.getElementById("retryWeakBtn").classList.remove("hidden");
+      } else {
+        document.getElementById("weakSummary").textContent =
+          "Excellent. No weak questions were identified in this session.";
+
+        document.getElementById("retryWeakBtn").classList.add("hidden");
+      }
+    }
+
+    function retryWeakQuestions() {
+      currentQuestions = shuffle(copyQuestions(wrongQuestions));
+      currentQuestionIndex = 0;
+      score = 0;
+      wrongQuestions = [];
+
+      showScreen("questionScreen");
+
+      document.getElementById("topicTitle").textContent =
+        currentTopic.title + " - Weak Question Retry";
+
+      showQuestion();
+    }
+
+    function restartSameTopic() {
+      if (currentTopic) {
+        startTopic(currentTopic);
+      }
+    }
+
+    function backToTopics() {
+      currentTopic = null;
+      currentQuestions = [];
+      currentQuestionIndex = 0;
+      score = 0;
+      wrongQuestions = [];
+
+      showScreen("topicScreen");
+    }
+
+    function showScreen(screenId) {
+      document.getElementById("topicScreen").classList.add("hidden");
+      document.getElementById("questionScreen").classList.add("hidden");
+      document.getElementById("summaryScreen").classList.add("hidden");
+
+      document.getElementById(screenId).classList.remove("hidden");
+    }
+
+    function copyQuestions(questions) {
+      return questions.map(function(question) {
+        return {
+          question: question.question,
+          options: question.options.slice(),
+          correct: question.correct,
+          explanation: question.explanation
+        };
+      });
+    }
+
+    function shuffle(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const randomIndex = Math.floor(Math.random() * (i + 1));
+        const temp = array[i];
+        array[i] = array[randomIndex];
+        array[randomIndex] = temp;
+      }
+
+      return array;
+    }
+
+    initialiseApp();
+  </script>
+</body>
+</html>
