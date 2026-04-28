@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Revision Machine - Phase 5</title>
+
   <style>
     body {
       margin: 0;
@@ -195,7 +196,7 @@
   <div class="app">
     <header>
       <h1>Revision Machine</h1>
-      <p>Phase 5 — session size + generated long-form discussion prompt</p>
+      <p>Phase 5 — session size, improved marking, and long-form discussion prompts</p>
     </header>
 
     <main>
@@ -345,7 +346,8 @@
           button.className = "session-card";
           button.innerHTML =
             "<strong>" + size + " question session</strong><br>" +
-            "<span class='small-note'>Randomly selected from " + topic.questions.length + " banked questions, then followed by one generated long-form prompt.</span>";
+            "<span class='small-note'>Randomly selected from " + topic.questions.length +
+            " banked questions, then followed by one generated long-form prompt.</span>";
 
           button.onclick = function() {
             startTopic(topic, size);
@@ -359,7 +361,8 @@
       allButton.className = "session-card";
       allButton.innerHTML =
         "<strong>Full available set</strong><br>" +
-        "<span class='small-note'>Use all " + topic.questions.length + " independent questions, then generate one long-form prompt.</span>";
+        "<span class='small-note'>Use all " + topic.questions.length +
+        " independent questions, then generate one long-form prompt.</span>";
 
       allButton.onclick = function() {
         startTopic(topic, topic.questions.length);
@@ -478,6 +481,8 @@
       const feedback = document.getElementById("feedback");
 
       const requiredKeywords = question.keywords || [];
+      const markingMode = question.mode || "all";
+
       const hits = [];
       const misses = [];
 
@@ -489,7 +494,13 @@
         }
       });
 
-      const isCorrect = hits.length > 0 && misses.length === 0;
+      let isCorrect = false;
+
+      if (markingMode === "any") {
+        isCorrect = hits.length >= 1;
+      } else {
+        isCorrect = requiredKeywords.length > 0 && misses.length === 0;
+      }
 
       if (isCorrect) {
         score++;
@@ -511,8 +522,17 @@
         });
       }
 
+      let modeMessage = "";
+
+      if (markingMode === "any") {
+        modeMessage = "<p><strong>Marking rule:</strong> Any one accepted answer is enough.</p>";
+      } else {
+        modeMessage = "<p><strong>Marking rule:</strong> All key ideas are needed.</p>";
+      }
+
       feedback.innerHTML =
         (isCorrect ? "<strong>Likely correct.</strong>" : "<strong>Needs improvement.</strong>") +
+        modeMessage +
         keywordHtml +
         "<p><strong>Mark scheme:</strong> " + question.markScheme + "</p>" +
         "<p>" + question.explanation + "</p>";
@@ -650,6 +670,7 @@
       return questions.map(function(question) {
         return {
           type: question.type || "mcq",
+          mode: question.mode || "all",
           question: question.question,
           options: question.options ? question.options.slice() : [],
           correct: question.correct,
