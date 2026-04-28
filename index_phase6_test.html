@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Revision Machine - Phase 6</title>
+
+<style>
+body { margin:0; font-family:Arial; background:#eef2f7; }
+.app { max-width:900px; margin:30px auto; background:white; border-radius:16px; box-shadow:0 8px 25px rgba(0,0,0,0.12); overflow:hidden; }
+header { background:#1f3b57; color:white; padding:24px; }
+main { padding:28px; }
+.hidden { display:none; }
+.topic-card, .session-card { width:100%; padding:15px; margin:8px 0; border-radius:10px; border:1px solid #ccc; cursor:pointer; }
+.primary-btn, .secondary-btn { padding:10px 15px; margin:10px 5px 0 0; border:none; border-radius:8px; cursor:pointer; }
+.primary-btn { background:#1f3b57; color:white; }
+.secondary-btn { background:#dbe3ec; }
+.feedback { margin-top:15px; padding:12px; border-left:5px solid #1f3b57; background:#f8fafc; }
+.option { display:block; width:100%; margin:8px 0; padding:12px; border-radius:8px; border:1px solid #ccc; cursor:pointer; }
+.option.correct { background:#d9f7df; }
+.option.wrong { background:#ffd9d9; }
+.keyword-hit { background:#d9f7df; padding:3px 6px; margin:2px; display:inline-block; }
+.keyword-miss { background:#ffd9d9; padding:3px 6px; margin:2px; display:inline-block; }
+</style>
+</head>
+
+<body>
+
+<div class="app">
+<header>
+<h1>Revision Machine</h1>
+<p>Phase 6 — validation + marking logic</p>
+</header>
+
+<main>
+
+<!-- TOPIC -->
+<section id="topicScreen">
+<h2>Choose Topic</h2>
+
+<button class="secondary-btn" onclick="runBankCheck()">Check Question Bank</button>
+
+<div id="topics"></div>
+</section>
+
+<!-- CHECK SCREEN -->
+<section id="checkScreen" class="hidden">
+<h2>Question Bank Check</h2>
+<div id="checkResults"></div>
+<button class="secondary-btn" onclick="backToTopics()">Back</button>
+</section>
+
+<!-- SESSION -->
+<section id="sessionScreen" class="hidden">
+<h2 id="sessionTitle"></h2>
+<div id="sessionOptions"></div>
+</section>
+
+<!-- QUESTION -->
+<section id="questionScreen" class="hidden">
+<h2 id="topicTitle"></h2>
+<p id="progress"></p>
+
+<div id="questionText"></div>
+
+<div id="mcqArea"></div>
+
+<div id="shortArea" class="hidden">
+<textarea id="shortAnswer"></textarea><br>
+<button onclick="checkShortAnswer()">Check</button>
+</div>
+
+<div id="feedback" class="feedback hidden"></div>
+
+<button id="nextBtn" class="primary-btn hidden" onclick="nextQuestion()">Next</button>
+</section>
+
+<!-- SUMMARY -->
+<section id="summaryScreen" class="hidden">
+<h2>Summary</h2>
+<p id="finalScore"></p>
+<button onclick="backToTopics()">Back</button>
+</section>
+
+</main>
+</div>
+
+<script src="questions.js"></script>
+
+<script>
+let data = QUESTION_BANK;
+let currentTopic, currentQuestions, currentIndex=0, score=0, wrong=[];
+let answered=false;
+
+function showScreen(id){
+  ["topicScreen","sessionScreen","questionScreen","summaryScreen","checkScreen"].forEach(s=>{
+    document.getElementById(s).classList.add("hidden");
+  });
+  document.getElementById(id).classList.remove("hidden");
+}
+
+function loadTopics(){
+  const t = document.getElementById("topics");
+  t.innerHTML="";
+  data.units.forEach(u=>{
+    u.topics.forEach(topic=>{
+      let b=document.createElement("button");
+      b.className="topic-card";
+      b.textContent=topic.title;
+      b.onclick=()=>chooseSession(topic);
+      t.appendChild(b);
+    });
+  });
+}
+
+function chooseSession(topic){
+  currentTopic=topic;
+  showScreen("sessionScreen");
+  document.getElementById("sessionTitle").textContent=topic.title;
+
+  let sizes=[5,10,15];
+  let div=document.getElementById("sessionOptions");
+  div.innerHTML="";
+
+  sizes.forEach(s=>{
+    let b=document.createElement("button");
+    b.className="session-card";
+    b.textContent=s+" questions";
+    b.onclick=()=>startTopic(s);
+    div.appendChild(b);
+  });
+}
+
+function startTopic(size){
+  currentQuestions=shuffle([...currentTopic.questions]).slice(0,size);
+  currentIndex=0; score=0; wrong=[];
+  showScreen("questionScreen");
+  showQuestion();
+}
+
+function showQuestion(){
+  answered=false;
+  let q=currentQuestions[currentIndex];
+
+  document.getElementById("progress").textContent=
+  `Q ${currentIndex+1}/${currentQuestions.length}`;
+
+  document.getElementById("questionText").textContent=q.question;
+
+  document.getElementById("mcqArea").innerHTML="";
+  document.getElementById("shortArea").classList.add("hidden");
+
+  if(q.type==="short"){
+    document.getElementById("shortArea").classList.remove("hidden");
+  } else {
+    q.options.forEach((opt,i)=>{
+      let b=document.createElement("button");
+      b.className="option";
+      b.textContent=opt;
+      b.onclick=()=>checkMCQ(i);
+      document.getElementById("mcqArea").appendChild(b);
+    });
+  }
+
+  document.getElementById("feedback").classList.add("hidden");
+  document.getElementById("nextBtn").classList.add("hidden");
+}
+
+function checkMCQ(i){
+  if(answered)return;
+  answered=true;
+
+  let q=currentQuestions[currentIndex];
+  let correct=i===q.correct;
+
+  if(correct){score++;}
+  else{wrong.push(q);}
+
+  document.getElementById("feedback").innerHTML=
+  correct?"Correct":"Incorrect";
+
+  document.getElementById("feedback").classList.remove("hidden");
+  document.getElementById("nextBtn").classList.remove("hidden");
+}
+
+function checkShortAnswer(){
+  if(answered)return;
+  answered=true;
+
+  let q=currentQuestions[currentIndex];
+  let ans=document.getElementById("shortAnswer").value.toLowerCase();
+
+  let hits=[], misses=[];
+  q.keywords.forEach(k=>{
+    ans.includes(k.toLowerCase())?hits.push(k):misses.push(k);
+  });
+
+  let correct = q.mode==="any" ? hits.length>0 : misses.length===0;
+
+  if(correct){score++;} else{wrong.push(q);}
+
+  let html = correct?"Correct":"Needs improvement";
+  html+="<br>";
+
+  hits.forEach(k=>html+=`<span class='keyword-hit'>${k}</span>`);
+  misses.forEach(k=>html+=`<span class='keyword-miss'>${k}</span>`);
+
+  document.getElementById("feedback").innerHTML=html;
+  document.getElementById("feedback").classList.remove("hidden");
+  document.getElementById("nextBtn").classList.remove("hidden");
+}
+
+function nextQuestion(){
+  currentIndex++;
+  if(currentIndex>=currentQuestions.length){
+    showSummary();
+  } else {
+    showQuestion();
+  }
+}
+
+function showSummary(){
+  showScreen("summaryScreen");
+  document.getElementById("finalScore").textContent=
+  `Score: ${score}/${currentQuestions.length}`;
+}
+
+function backToTopics(){
+  showScreen("topicScreen");
+}
+
+function shuffle(a){
+  for(let i=a.length-1;i>0;i--){
+    let j=Math.floor(Math.random()*(i+1));
+    [a[i],a[j]]=[a[j],a[i]];
+  }
+  return a;
+}
+
+function runBankCheck(){
+  let errors=0, warnings=0, log="";
+
+  data.units.forEach(u=>{
+    u.topics.forEach(t=>{
+      t.questions.forEach((q,i)=>{
+        if(!q.type){log+="❌ Missing type<br>"; errors++;}
+        if(q.type==="short" && !q.keywords){log+="❌ Missing keywords<br>"; errors++;}
+        if(q.type==="mcq" && !q.options){log+="❌ Missing options<br>"; errors++;}
+        if(q.type==="short" && !q.mode){log+="⚠️ Missing mode<br>"; warnings++;}
+      });
+    });
+  });
+
+  if(errors===0 && warnings===0){
+    log="✅ Bank is clean";
+  }
+
+  document.getElementById("checkResults").innerHTML=log;
+  showScreen("checkScreen");
+}
+
+loadTopics();
+</script>
+
+</body>
+</html>
