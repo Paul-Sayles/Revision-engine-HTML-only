@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Revision Machine - Phase 2</title>
+  <title>Revision Machine - Phase 3</title>
 
   <style>
     body {
@@ -34,15 +34,14 @@
 
     header p {
       margin: 8px 0 0;
-      opacity: 0.9;
     }
 
     main {
       padding: 28px;
     }
 
-    h2 {
-      margin-top: 0;
+    .hidden {
+      display: none;
     }
 
     .unit {
@@ -64,11 +63,6 @@
 
     .topic-card:hover {
       background: #edf4ff;
-      border-color: #7aa7dd;
-    }
-
-    .hidden {
-      display: none;
     }
 
     .progress-box {
@@ -88,17 +82,13 @@
       display: block;
       width: 100%;
       text-align: left;
-      background: #ffffff;
+      background: white;
       border: 2px solid #ccd6e0;
       border-radius: 10px;
       padding: 15px;
       margin: 10px 0;
       font-size: 17px;
       cursor: pointer;
-    }
-
-    .option:hover {
-      background: #f3f7fb;
     }
 
     .option.correct {
@@ -122,6 +112,10 @@
       border-radius: 10px;
       background: #f8fafc;
       border-left: 6px solid #1f3b57;
+    }
+
+    button {
+      font-family: Arial, sans-serif;
     }
 
     .primary-btn,
@@ -156,6 +150,13 @@
       color: #555;
       font-size: 14px;
     }
+
+    .error {
+      background: #ffe1e1;
+      border-left: 6px solid #c0392b;
+      padding: 16px;
+      border-radius: 10px;
+    }
   </style>
 </head>
 
@@ -163,7 +164,7 @@
   <div class="app">
     <header>
       <h1>Revision Machine</h1>
-      <p>Phase 2 prototype — browser-based revision slide engine</p>
+      <p>Phase 3 prototype — external question bank</p>
     </header>
 
     <main>
@@ -215,217 +216,9 @@
   </div>
 
   <script src="questions.js"></script>
+
   <script>
-    const data = QUESTION_BANK;
-      units: [
-        {
-          title: "OCR Engineering J823 - Materials",
-          topics: [
-            {
-              title: "Material Properties",
-              questions: [
-                {
-                  question: "Which property describes a material's ability to be stretched into wire?",
-                  options: ["Hardness", "Ductility", "Toughness", "Elasticity"],
-                  correct: 1,
-                  explanation: "Ductility is the ability of a material to be drawn or stretched into wire."
-                },
-                {
-                  question: "Which material is most likely to resist corrosion?",
-                  options: ["Mild steel", "Stainless steel", "Cast iron", "Plain carbon steel"],
-                  correct: 1,
-                  explanation: "Stainless steel contains chromium, which helps form a protective oxide layer."
-                },
-                {
-                  question: "What does hardness mean in engineering materials?",
-                  options: [
-                    "Resistance to scratching or indentation",
-                    "Ability to bend without breaking",
-                    "Ability to conduct electricity",
-                    "Ability to return to original shape"
-                  ],
-                  correct: 0,
-                  explanation: "Hardness describes resistance to scratching, indentation, or wear."
-                },
-                {
-                  question: "Which property describes absorbing energy before breaking?",
-                  options: ["Brittleness", "Toughness", "Conductivity", "Malleability"],
-                  correct: 1,
-                  explanation: "Toughness is the ability to absorb energy and resist fracture."
-                },
-                {
-                  question: "Which property means a material can be hammered or rolled into shape?",
-                  options: ["Malleability", "Ductility", "Hardness", "Density"],
-                  correct: 0,
-                  explanation: "Malleability is the ability to be shaped by hammering or rolling."
-                }
-              ]
-            },
-            {
-              title: "Metals and Alloys",
-              questions: [
-                {
-                  question: "What is a ferrous metal?",
-                  options: [
-                    "A metal that contains iron",
-                    "A metal that contains copper",
-                    "A metal that cannot rust",
-                    "A metal that is always lightweight"
-                  ],
-                  correct: 0,
-                  explanation: "Ferrous metals contain iron."
-                },
-                {
-                  question: "Which of these is a non-ferrous metal?",
-                  options: ["Mild steel", "Cast iron", "Aluminium", "High carbon steel"],
-                  correct: 2,
-                  explanation: "Aluminium is non-ferrous because it does not contain iron."
-                },
-                {
-                  question: "Why are alloys used in engineering?",
-                  options: [
-                    "To remove all useful properties",
-                    "To combine or improve material properties",
-                    "To make metals impossible to shape",
-                    "To make all metals magnetic"
-                  ],
-                  correct: 1,
-                  explanation: "Alloys combine elements to improve properties such as strength, hardness, or corrosion resistance."
-                },
-                {
-                  question: "Which alloy is commonly associated with corrosion resistance?",
-                  options: ["Brass", "Bronze", "Stainless steel", "Solder"],
-                  correct: 2,
-                  explanation: "Stainless steel is an alloy designed to resist corrosion."
-                }
-              ]
-            }
-          ]
-        },
-        {
-          title: "OCR Engineering J823 - Manufacturing",
-          topics: [
-            {
-              title: "Joining Methods",
-              questions: [
-                {
-                  question: "Which process permanently joins metals by melting the edges together?",
-                  options: ["Welding", "Riveting", "Bolting", "Screwing"],
-                  correct: 0,
-                  explanation: "Welding uses heat to fuse materials together permanently."
-                },
-                {
-                  question: "Which joining method is usually temporary and removable?",
-                  options: ["Welding", "Adhesive bonding", "Bolting", "Brazing"],
-                  correct: 2,
-                  explanation: "Bolts can usually be removed, making the joint temporary."
-                },
-                {
-                  question: "Which joining method uses a filler metal with a lower melting point than the parts being joined?",
-                  options: ["Drilling", "Brazing", "Filing", "Casting"],
-                  correct: 1,
-                  explanation: "Brazing joins materials using a filler metal that melts below the melting point of the parent metals."
-                },
-                {
-                  question: "Which method is suitable for joining thin sheet metal permanently?",
-                  options: ["Riveting", "Sanding", "Turning", "Marking out"],
-                  correct: 0,
-                  explanation: "Riveting is often used to permanently join sheet materials."
-                }
-              ]
-            },
-            {
-              title: "Machining and Forming",
-              questions: [
-                {
-                  question: "Which machine process creates a round hole?",
-                  options: ["Drilling", "Milling", "Folding", "Casting"],
-                  correct: 0,
-                  explanation: "Drilling is used to create round holes."
-                },
-                {
-                  question: "Which process removes material using a rotating cutting tool?",
-                  options: ["Milling", "Brazing", "Forging", "Injection moulding"],
-                  correct: 0,
-                  explanation: "Milling removes material using rotating cutters."
-                },
-                {
-                  question: "What is the purpose of filing?",
-                  options: [
-                    "To remove small amounts of material by hand",
-                    "To melt two metals together",
-                    "To heat treat plastic",
-                    "To measure electrical resistance"
-                  ],
-                  correct: 0,
-                  explanation: "Filing is a hand process used to remove small amounts of material and improve shape or finish."
-                },
-                {
-                  question: "Which process shapes metal by hammering or pressing?",
-                  options: ["Forging", "Drilling", "Soldering", "Painting"],
-                  correct: 0,
-                  explanation: "Forging shapes metal using compressive force."
-                }
-              ]
-            }
-          ]
-        },
-        {
-          title: "OCR Engineering J823 - Health and Safety",
-          topics: [
-            {
-              title: "Workshop Safety",
-              questions: [
-                {
-                  question: "Why should safety goggles be worn when drilling?",
-                  options: [
-                    "To improve colour vision",
-                    "To protect eyes from swarf and debris",
-                    "To reduce noise",
-                    "To keep hair tied back"
-                  ],
-                  correct: 1,
-                  explanation: "Drilling can produce swarf and debris that may damage the eyes."
-                },
-                {
-                  question: "What should long hair be done with in a workshop?",
-                  options: [
-                    "Left loose",
-                    "Tied back securely",
-                    "Covered in oil",
-                    "Held by another student"
-                  ],
-                  correct: 1,
-                  explanation: "Long hair must be tied back to stop it becoming caught in machinery."
-                },
-                {
-                  question: "What is a risk assessment used for?",
-                  options: [
-                    "To identify hazards and reduce risk",
-                    "To make tools sharper",
-                    "To increase production speed only",
-                    "To replace teacher supervision"
-                  ],
-                  correct: 0,
-                  explanation: "A risk assessment identifies hazards and control measures to reduce risk."
-                },
-                {
-                  question: "What does PPE stand for?",
-                  options: [
-                    "Personal Protective Equipment",
-                    "Plastic Production Estimate",
-                    "Primary Process Evaluation",
-                    "Practical Performance Exam"
-                  ],
-                  correct: 0,
-                  explanation: "PPE means Personal Protective Equipment."
-                }
-              ]
-            }
-          ]
-        }
-      ]
-    };
+    let data = null;
 
     let currentTopic = null;
     let currentQuestions = [];
@@ -434,11 +227,33 @@
     let wrongQuestions = [];
     let answered = false;
 
+    function initialiseApp() {
+      if (typeof QUESTION_BANK === "undefined") {
+        showQuestionBankError();
+        return;
+      }
+
+      data = QUESTION_BANK;
+      loadTopics();
+    }
+
+    function showQuestionBankError() {
+      const topicsDiv = document.getElementById("topics");
+
+      topicsDiv.innerHTML =
+        "<div class='error'>" +
+        "<strong>Question bank not found.</strong><br><br>" +
+        "Check that <strong>questions.js</strong> is in the same folder as <strong>index.html</strong>.<br><br>" +
+        "Your folder should look like:<br>" +
+        "<pre>revision-machine/\n├── index.html\n└── questions.js</pre>" +
+        "</div>";
+    }
+
     function loadTopics() {
       const topicsDiv = document.getElementById("topics");
       topicsDiv.innerHTML = "";
 
-      data.units.forEach(unit => {
+      data.units.forEach(function(unit) {
         const unitDiv = document.createElement("div");
         unitDiv.className = "unit";
 
@@ -446,14 +261,15 @@
         heading.textContent = unit.title;
         unitDiv.appendChild(heading);
 
-        unit.topics.forEach(topic => {
+        unit.topics.forEach(function(topic) {
           const button = document.createElement("button");
           button.className = "topic-card";
+
           button.innerHTML =
             "<strong>" + topic.title + "</strong><br>" +
             "<span class='small-note'>" + topic.questions.length + " questions</span>";
 
-          button.onclick = function () {
+          button.onclick = function() {
             startTopic(topic);
           };
 
@@ -497,12 +313,12 @@
       document.getElementById("feedback").textContent = "";
       document.getElementById("nextBtn").classList.add("hidden");
 
-      question.options.forEach(function (optionText, index) {
+      question.options.forEach(function(optionText, index) {
         const button = document.createElement("button");
         button.className = "option";
         button.textContent = optionText;
 
-        button.onclick = function () {
+        button.onclick = function() {
           checkAnswer(index);
         };
 
@@ -518,7 +334,7 @@
       const buttons = document.querySelectorAll(".option");
       const feedback = document.getElementById("feedback");
 
-      buttons.forEach(function (button, index) {
+      buttons.forEach(function(button, index) {
         button.disabled = true;
 
         if (index === question.correct) {
@@ -539,6 +355,7 @@
       }
 
       feedback.classList.remove("hidden");
+
       document.getElementById("scoreTextLive").textContent =
         "Current score: " + score + " correct";
 
@@ -583,6 +400,7 @@
       wrongQuestions = [];
 
       showScreen("questionScreen");
+
       document.getElementById("topicTitle").textContent =
         currentTopic.title + " - Weak Question Retry";
 
@@ -614,10 +432,10 @@
     }
 
     function copyQuestions(questions) {
-      return questions.map(function (question) {
+      return questions.map(function(question) {
         return {
           question: question.question,
-          options: [...question.options],
+          options: question.options.slice(),
           correct: question.correct,
           explanation: question.explanation
         };
@@ -635,7 +453,7 @@
       return array;
     }
 
-    loadTopics();
+    initialiseApp();
   </script>
 </body>
 </html>
