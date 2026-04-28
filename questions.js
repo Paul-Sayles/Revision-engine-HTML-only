@@ -50,13 +50,15 @@ const QUESTION_BANK = {
             },
             {
               type: "short",
+              mode: "all",
               question: "Explain what ductility means.",
               keywords: ["draw", "wire"],
               markScheme: "Ductility is the ability of a material to be drawn into wire.",
-              explanation: "A ductile material can be stretched into wire without breaking."
+              explanation: "A ductile material can be stretched or drawn into wire without breaking."
             },
             {
               type: "short",
+              mode: "all",
               question: "State one reason stainless steel resists corrosion.",
               keywords: ["chromium", "oxide"],
               markScheme: "Chromium forms a protective oxide layer.",
@@ -64,6 +66,7 @@ const QUESTION_BANK = {
             },
             {
               type: "short",
+              mode: "all",
               question: "Explain what toughness means.",
               keywords: ["energy", "breaking"],
               markScheme: "Toughness is the ability to absorb energy before breaking.",
@@ -71,6 +74,7 @@ const QUESTION_BANK = {
             },
             {
               type: "short",
+              mode: "all",
               question: "Explain what malleability means.",
               keywords: ["hammered", "shape"],
               markScheme: "Malleability is the ability to be hammered or rolled into shape.",
@@ -78,27 +82,9 @@ const QUESTION_BANK = {
             }
           ],
           longFormBank: {
-            topics: [
-              "stainless steel",
-              "aluminium",
-              "mild steel",
-              "copper",
-              "thermoplastic materials"
-            ],
-            stems: [
-              "Evaluate the suitability of",
-              "Explain why",
-              "Compare the use of",
-              "Justify the choice of",
-              "Describe the advantages and limitations of"
-            ],
-            focuses: [
-              "corrosion resistance",
-              "strength and toughness",
-              "weight reduction",
-              "cost and availability",
-              "manufacturing in a school workshop"
-            ],
+            topics: ["stainless steel", "aluminium", "mild steel", "copper", "thermoplastic materials"],
+            stems: ["Evaluate the suitability of", "Explain why", "Compare the use of", "Justify the choice of", "Describe the advantages and limitations of"],
+            focuses: ["corrosion resistance", "strength and toughness", "weight reduction", "cost and availability", "manufacturing in a school workshop"],
             discussionPoints: [
               "Identify the relevant material properties.",
               "Link properties to the product or situation.",
@@ -115,12 +101,7 @@ const QUESTION_BANK = {
             {
               type: "mcq",
               question: "What is a ferrous metal?",
-              options: [
-                "A metal that contains iron",
-                "A metal that contains copper",
-                "A metal that cannot corrode",
-                "A metal that is always lightweight"
-              ],
+              options: ["A metal that contains iron", "A metal that contains copper", "A metal that cannot corrode", "A metal that is always lightweight"],
               correct: 0,
               explanation: "Ferrous metals contain iron."
             },
@@ -134,12 +115,7 @@ const QUESTION_BANK = {
             {
               type: "mcq",
               question: "Why are alloys used in engineering?",
-              options: [
-                "To improve material properties",
-                "To make all metals magnetic",
-                "To make metals impossible to shape",
-                "To remove useful properties"
-              ],
+              options: ["To improve material properties", "To make all metals magnetic", "To make metals impossible to shape", "To remove useful properties"],
               correct: 0,
               explanation: "Alloys are used to improve properties such as strength, hardness or corrosion resistance."
             },
@@ -152,6 +128,7 @@ const QUESTION_BANK = {
             },
             {
               type: "short",
+              mode: "any",
               question: "Give one example of a non-ferrous metal.",
               keywords: ["aluminium", "copper", "zinc", "lead"],
               markScheme: "Aluminium, copper, zinc and lead are examples of non-ferrous metals.",
@@ -159,6 +136,7 @@ const QUESTION_BANK = {
             },
             {
               type: "short",
+              mode: "all",
               question: "Explain why alloys are useful.",
               keywords: ["improve", "properties"],
               markScheme: "Alloys are useful because they improve properties such as strength, hardness or corrosion resistance.",
@@ -166,27 +144,9 @@ const QUESTION_BANK = {
             }
           ],
           longFormBank: {
-            topics: [
-              "mild steel",
-              "stainless steel",
-              "aluminium",
-              "brass",
-              "copper"
-            ],
-            stems: [
-              "Compare",
-              "Evaluate the suitability of",
-              "Justify the use of",
-              "Explain the difference between",
-              "Describe why a manufacturer might choose"
-            ],
-            focuses: [
-              "ferrous and non-ferrous classification",
-              "corrosion resistance",
-              "strength",
-              "cost",
-              "ease of manufacture"
-            ],
+            topics: ["mild steel", "stainless steel", "aluminium", "brass", "copper"],
+            stems: ["Compare", "Evaluate the suitability of", "Justify the use of", "Explain the difference between", "Describe why a manufacturer might choose"],
+            focuses: ["ferrous and non-ferrous classification", "corrosion resistance", "strength", "cost", "ease of manufacture"],
             discussionPoints: [
               "State whether the material is ferrous or non-ferrous.",
               "Refer to properties, not just names.",
@@ -235,13 +195,15 @@ const QUESTION_BANK = {
             },
             {
               type: "short",
+              mode: "any",
               question: "State one advantage of bolting compared with welding.",
-              keywords: ["removable"],
-              markScheme: "Bolting is removable and allows parts to be taken apart.",
-              explanation: "Temporary joints are useful for maintenance and repair."
+              keywords: ["removable", "maintenance", "repair", "replace"],
+              markScheme: "Bolting is removable and allows parts to be taken apart for maintenance or repair.",
+              explanation: "Temporary joints are useful when parts may need to be replaced or serviced."
             },
             {
               type: "short",
+              mode: "all",
               question: "Explain why welding is classed as a permanent joining method.",
               keywords: ["melt", "fuse"],
               markScheme: "Welding melts and fuses the materials together.",
@@ -249,27 +211,9 @@ const QUESTION_BANK = {
             }
           ],
           longFormBank: {
-            topics: [
-              "welding",
-              "bolting",
-              "riveting",
-              "brazing",
-              "adhesive bonding"
-            ],
-            stems: [
-              "Evaluate the suitability of",
-              "Compare",
-              "Justify the use of",
-              "Explain why",
-              "Describe the advantages and limitations of"
-            ],
-            focuses: [
-              "permanent and temporary joints",
-              "maintenance and repair",
-              "strength",
-              "safety",
-              "manufacturing speed"
-            ],
+            topics: ["welding", "bolting", "riveting", "brazing", "adhesive bonding"],
+            stems: ["Evaluate the suitability of", "Compare", "Justify the use of", "Explain why", "Describe the advantages and limitations of"],
+            focuses: ["permanent and temporary joints", "maintenance and repair", "strength", "safety", "manufacturing speed"],
             discussionPoints: [
               "State whether the joint is permanent or temporary.",
               "Explain why that matters.",
