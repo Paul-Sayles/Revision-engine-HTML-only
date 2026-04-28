@@ -1,1 +1,688 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Revision Machine - Phase 5</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #eef2f7;
+      color: #222;
+    }
 
+    .app {
+      max-width: 900px;
+      margin: 30px auto;
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+      overflow: hidden;
+    }
+
+    header {
+      background: #1f3b57;
+      color: white;
+      padding: 24px;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 32px;
+    }
+
+    header p {
+      margin: 8px 0 0;
+    }
+
+    main {
+      padding: 28px;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .unit {
+      margin-bottom: 28px;
+    }
+
+    .topic-card, .session-card {
+      display: block;
+      width: 100%;
+      text-align: left;
+      background: #f8fafc;
+      border: 1px solid #d6dde8;
+      border-radius: 12px;
+      padding: 18px;
+      margin: 10px 0;
+      cursor: pointer;
+      font-size: 17px;
+    }
+
+    .topic-card:hover, .session-card:hover {
+      background: #edf4ff;
+    }
+
+    .progress-box {
+      background: #f1f5f9;
+      padding: 12px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+    }
+
+    .question-box {
+      font-size: 22px;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+
+    .option {
+      display: block;
+      width: 100%;
+      text-align: left;
+      background: white;
+      border: 2px solid #ccd6e0;
+      border-radius: 10px;
+      padding: 15px;
+      margin: 10px 0;
+      font-size: 17px;
+      cursor: pointer;
+    }
+
+    .option.correct {
+      background: #d9f7df;
+      border-color: #32a852;
+    }
+
+    .option.wrong {
+      background: #ffd9d9;
+      border-color: #c0392b;
+    }
+
+    .option:disabled {
+      cursor: not-allowed;
+      opacity: 1;
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 110px;
+      font-size: 17px;
+      padding: 14px;
+      border-radius: 10px;
+      border: 2px solid #ccd6e0;
+      box-sizing: border-box;
+      resize: vertical;
+      font-family: Arial, sans-serif;
+    }
+
+    .feedback {
+      margin-top: 20px;
+      padding: 16px;
+      border-radius: 10px;
+      background: #f8fafc;
+      border-left: 6px solid #1f3b57;
+    }
+
+    .keyword-hit {
+      display: inline-block;
+      background: #d9f7df;
+      border: 1px solid #32a852;
+      border-radius: 8px;
+      padding: 4px 8px;
+      margin: 3px;
+      font-size: 14px;
+    }
+
+    .keyword-miss {
+      display: inline-block;
+      background: #ffd9d9;
+      border: 1px solid #c0392b;
+      border-radius: 8px;
+      padding: 4px 8px;
+      margin: 3px;
+      font-size: 14px;
+    }
+
+    .primary-btn, .secondary-btn {
+      padding: 13px 18px;
+      margin: 10px 6px 0 0;
+      border-radius: 10px;
+      border: none;
+      font-size: 16px;
+      cursor: pointer;
+      font-family: Arial, sans-serif;
+    }
+
+    .primary-btn {
+      background: #1f3b57;
+      color: white;
+    }
+
+    .secondary-btn {
+      background: #dbe3ec;
+      color: #222;
+    }
+
+    .summary-card, .long-card {
+      background: #f8fafc;
+      border: 1px solid #d6dde8;
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+
+    .long-card {
+      border-left: 6px solid #1f3b57;
+    }
+
+    .small-note {
+      color: #555;
+      font-size: 14px;
+    }
+
+    .error {
+      background: #ffe1e1;
+      border-left: 6px solid #c0392b;
+      padding: 16px;
+      border-radius: 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="app">
+    <header>
+      <h1>Revision Machine</h1>
+      <p>Phase 5 — session size + generated long-form discussion prompt</p>
+    </header>
+
+    <main>
+      <section id="topicScreen">
+        <h2>Choose a topic</h2>
+        <p class="small-note">Select a topic. The question set will be randomised each session.</p>
+        <div id="topics"></div>
+      </section>
+
+      <section id="sessionScreen" class="hidden">
+        <h2 id="sessionTopicTitle"></h2>
+        <p class="small-note">Choose how many independent questions students should complete before the long-form discussion prompt.</p>
+        <div id="sessionOptions"></div>
+        <button class="secondary-btn" onclick="backToTopics()">Back to Topics</button>
+      </section>
+
+      <section id="questionScreen" class="hidden">
+        <h2 id="topicTitle"></h2>
+
+        <div class="progress-box">
+          <div id="progressText"></div>
+          <div id="scoreTextLive"></div>
+        </div>
+
+        <div id="questionText" class="question-box"></div>
+
+        <div id="mcqArea"></div>
+
+        <div id="shortArea" class="hidden">
+          <textarea id="shortAnswer" placeholder="Type your answer here..."></textarea>
+          <br>
+          <button id="checkShortBtn" class="primary-btn" onclick="checkShortAnswer()">Check Answer</button>
+        </div>
+
+        <div id="feedback" class="feedback hidden"></div>
+
+        <button id="nextBtn" class="primary-btn hidden" onclick="nextQuestion()">Next Question</button>
+      </section>
+
+      <section id="longFormScreen" class="hidden">
+        <h2>Long-Form Discussion Prompt</h2>
+
+        <div class="long-card">
+          <p class="small-note">Use this for front-of-class discussion, paired work, or written extension.</p>
+          <h3 id="longPrompt"></h3>
+          <p><strong>Suggested discussion points:</strong></p>
+          <ul id="longPoints"></ul>
+        </div>
+
+        <button class="primary-btn" onclick="showSummary()">Continue to Summary</button>
+      </section>
+
+      <section id="summaryScreen" class="hidden">
+        <h2>Session Summary</h2>
+
+        <div class="summary-card">
+          <p id="finalScore"></p>
+          <p id="weakSummary"></p>
+          <p id="longSummary"></p>
+        </div>
+
+        <button id="retryWeakBtn" class="primary-btn hidden" onclick="retryWeakQuestions()">Retry Weak Questions</button>
+        <button class="secondary-btn" onclick="restartSameTopic()">Restart Same Topic</button>
+        <button class="secondary-btn" onclick="backToTopics()">Back to Topics</button>
+      </section>
+    </main>
+  </div>
+
+  <script src="questions.js"></script>
+
+  <script>
+    let data = null;
+
+    let currentTopic = null;
+    let currentQuestions = [];
+    let currentQuestionIndex = 0;
+    let score = 0;
+    let wrongQuestions = [];
+    let answered = false;
+    let currentLongPrompt = "";
+
+    function initialiseApp() {
+      if (typeof QUESTION_BANK === "undefined") {
+        showQuestionBankError();
+        return;
+      }
+
+      data = QUESTION_BANK;
+      loadTopics();
+    }
+
+    function showQuestionBankError() {
+      document.getElementById("topics").innerHTML =
+        "<div class='error'>" +
+        "<strong>Question bank not found.</strong><br><br>" +
+        "Check that <strong>questions.js</strong> is in the same folder as this file." +
+        "<pre>revision-machine/\n├── index_phase5_test.html\n└── questions.js</pre>" +
+        "</div>";
+    }
+
+    function loadTopics() {
+      const topicsDiv = document.getElementById("topics");
+      topicsDiv.innerHTML = "";
+
+      data.units.forEach(function(unit) {
+        const unitDiv = document.createElement("div");
+        unitDiv.className = "unit";
+
+        const heading = document.createElement("h3");
+        heading.textContent = unit.title;
+        unitDiv.appendChild(heading);
+
+        unit.topics.forEach(function(topic) {
+          const button = document.createElement("button");
+          button.className = "topic-card";
+
+          button.innerHTML =
+            "<strong>" + topic.title + "</strong><br>" +
+            "<span class='small-note'>" +
+            topic.questions.length + " banked independent questions</span>";
+
+          button.onclick = function() {
+            chooseSessionSize(topic);
+          };
+
+          unitDiv.appendChild(button);
+        });
+
+        topicsDiv.appendChild(unitDiv);
+      });
+    }
+
+    function chooseSessionSize(topic) {
+      currentTopic = topic;
+      showScreen("sessionScreen");
+
+      document.getElementById("sessionTopicTitle").textContent = topic.title;
+
+      const optionsDiv = document.getElementById("sessionOptions");
+      optionsDiv.innerHTML = "";
+
+      const sizes = [5, 10, 15, 20];
+
+      sizes.forEach(function(size) {
+        if (topic.questions.length >= size) {
+          const button = document.createElement("button");
+          button.className = "session-card";
+          button.innerHTML =
+            "<strong>" + size + " question session</strong><br>" +
+            "<span class='small-note'>Randomly selected from " + topic.questions.length + " banked questions, then followed by one generated long-form prompt.</span>";
+
+          button.onclick = function() {
+            startTopic(topic, size);
+          };
+
+          optionsDiv.appendChild(button);
+        }
+      });
+
+      const allButton = document.createElement("button");
+      allButton.className = "session-card";
+      allButton.innerHTML =
+        "<strong>Full available set</strong><br>" +
+        "<span class='small-note'>Use all " + topic.questions.length + " independent questions, then generate one long-form prompt.</span>";
+
+      allButton.onclick = function() {
+        startTopic(topic, topic.questions.length);
+      };
+
+      optionsDiv.appendChild(allButton);
+    }
+
+    function startTopic(topic, sessionSize) {
+      currentTopic = topic;
+
+      const shuffled = shuffle(copyQuestions(topic.questions));
+      currentQuestions = shuffled.slice(0, sessionSize);
+
+      currentQuestionIndex = 0;
+      score = 0;
+      wrongQuestions = [];
+      currentLongPrompt = "";
+
+      showScreen("questionScreen");
+      document.getElementById("topicTitle").textContent = topic.title;
+
+      showQuestion();
+    }
+
+    function showQuestion() {
+      answered = false;
+
+      const question = currentQuestions[currentQuestionIndex];
+
+      document.getElementById("progressText").textContent =
+        "Question " + (currentQuestionIndex + 1) + " of " + currentQuestions.length;
+
+      document.getElementById("scoreTextLive").textContent =
+        "Current score: " + score + " correct";
+
+      document.getElementById("questionText").textContent = question.question;
+
+      document.getElementById("mcqArea").innerHTML = "";
+      document.getElementById("shortAnswer").value = "";
+      document.getElementById("shortAnswer").disabled = false;
+      document.getElementById("checkShortBtn").disabled = false;
+      document.getElementById("feedback").classList.add("hidden");
+      document.getElementById("feedback").innerHTML = "";
+      document.getElementById("nextBtn").classList.add("hidden");
+
+      document.getElementById("mcqArea").classList.add("hidden");
+      document.getElementById("shortArea").classList.add("hidden");
+
+      if (question.type === "short") {
+        showShortQuestion();
+      } else {
+        showMcqQuestion(question);
+      }
+    }
+
+    function showMcqQuestion(question) {
+      const mcqArea = document.getElementById("mcqArea");
+      mcqArea.classList.remove("hidden");
+      mcqArea.innerHTML = "";
+
+      question.options.forEach(function(optionText, index) {
+        const button = document.createElement("button");
+        button.className = "option";
+        button.textContent = optionText;
+
+        button.onclick = function() {
+          checkMcqAnswer(index);
+        };
+
+        mcqArea.appendChild(button);
+      });
+    }
+
+    function showShortQuestion() {
+      document.getElementById("shortArea").classList.remove("hidden");
+    }
+
+    function checkMcqAnswer(selectedIndex) {
+      if (answered) return;
+      answered = true;
+
+      const question = currentQuestions[currentQuestionIndex];
+      const buttons = document.querySelectorAll(".option");
+      const feedback = document.getElementById("feedback");
+
+      buttons.forEach(function(button, index) {
+        button.disabled = true;
+
+        if (index === question.correct) {
+          button.classList.add("correct");
+        }
+
+        if (index === selectedIndex && selectedIndex !== question.correct) {
+          button.classList.add("wrong");
+        }
+      });
+
+      if (selectedIndex === question.correct) {
+        score++;
+        feedback.innerHTML = "<strong>Correct.</strong> " + question.explanation;
+      } else {
+        wrongQuestions.push(question);
+        feedback.innerHTML = "<strong>Incorrect.</strong> " + question.explanation;
+      }
+
+      afterAnswer();
+    }
+
+    function checkShortAnswer() {
+      if (answered) return;
+      answered = true;
+
+      const question = currentQuestions[currentQuestionIndex];
+      const answer = normaliseText(document.getElementById("shortAnswer").value);
+      const feedback = document.getElementById("feedback");
+
+      const requiredKeywords = question.keywords || [];
+      const hits = [];
+      const misses = [];
+
+      requiredKeywords.forEach(function(keyword) {
+        if (answer.includes(normaliseText(keyword))) {
+          hits.push(keyword);
+        } else {
+          misses.push(keyword);
+        }
+      });
+
+      const isCorrect = hits.length > 0 && misses.length === 0;
+
+      if (isCorrect) {
+        score++;
+      } else {
+        wrongQuestions.push(question);
+      }
+
+      let keywordHtml = "";
+
+      if (requiredKeywords.length > 0) {
+        keywordHtml += "<p><strong>Keyword check:</strong></p>";
+
+        hits.forEach(function(keyword) {
+          keywordHtml += "<span class='keyword-hit'>Found: " + keyword + "</span>";
+        });
+
+        misses.forEach(function(keyword) {
+          keywordHtml += "<span class='keyword-miss'>Missing: " + keyword + "</span>";
+        });
+      }
+
+      feedback.innerHTML =
+        (isCorrect ? "<strong>Likely correct.</strong>" : "<strong>Needs improvement.</strong>") +
+        keywordHtml +
+        "<p><strong>Mark scheme:</strong> " + question.markScheme + "</p>" +
+        "<p>" + question.explanation + "</p>";
+
+      document.getElementById("checkShortBtn").disabled = true;
+      document.getElementById("shortAnswer").disabled = true;
+
+      afterAnswer();
+    }
+
+    function afterAnswer() {
+      document.getElementById("feedback").classList.remove("hidden");
+
+      document.getElementById("scoreTextLive").textContent =
+        "Current score: " + score + " correct";
+
+      document.getElementById("nextBtn").classList.remove("hidden");
+    }
+
+    function nextQuestion() {
+      currentQuestionIndex++;
+
+      if (currentQuestionIndex >= currentQuestions.length) {
+        showLongFormPrompt();
+      } else {
+        showQuestion();
+      }
+    }
+
+    function showLongFormPrompt() {
+      const longData = currentTopic.longFormBank;
+
+      if (!longData) {
+        showSummary();
+        return;
+      }
+
+      const topic = pickRandom(longData.topics);
+      const stem = pickRandom(longData.stems);
+      const focus = pickRandom(longData.focuses);
+
+      currentLongPrompt = stem + " " + topic + " in relation to " + focus + ".";
+
+      document.getElementById("longPrompt").textContent = currentLongPrompt;
+
+      const pointsList = document.getElementById("longPoints");
+      pointsList.innerHTML = "";
+
+      const points = longData.discussionPoints || [
+        "Refer to material properties.",
+        "Use engineering vocabulary.",
+        "Give a reasoned judgement.",
+        "Link the answer to a real product or process."
+      ];
+
+      points.forEach(function(point) {
+        const li = document.createElement("li");
+        li.textContent = point;
+        pointsList.appendChild(li);
+      });
+
+      showScreen("longFormScreen");
+    }
+
+    function showSummary() {
+      showScreen("summaryScreen");
+
+      const percent = Math.round((score / currentQuestions.length) * 100);
+
+      document.getElementById("finalScore").textContent =
+        "You scored " + score + " out of " + currentQuestions.length + " (" + percent + "%).";
+
+      if (wrongQuestions.length > 0) {
+        document.getElementById("weakSummary").textContent =
+          "Weak questions identified: " + wrongQuestions.length + ". You can retry these now.";
+
+        document.getElementById("retryWeakBtn").classList.remove("hidden");
+      } else {
+        document.getElementById("weakSummary").textContent =
+          "Excellent. No weak questions were identified in this session.";
+
+        document.getElementById("retryWeakBtn").classList.add("hidden");
+      }
+
+      if (currentLongPrompt) {
+        document.getElementById("longSummary").textContent =
+          "Long-form discussion prompt used: " + currentLongPrompt;
+      } else {
+        document.getElementById("longSummary").textContent = "";
+      }
+    }
+
+    function retryWeakQuestions() {
+      currentQuestions = shuffle(copyQuestions(wrongQuestions));
+      currentQuestionIndex = 0;
+      score = 0;
+      wrongQuestions = [];
+      currentLongPrompt = "";
+
+      showScreen("questionScreen");
+      document.getElementById("topicTitle").textContent =
+        currentTopic.title + " - Weak Question Retry";
+
+      showQuestion();
+    }
+
+    function restartSameTopic() {
+      if (currentTopic) {
+        chooseSessionSize(currentTopic);
+      }
+    }
+
+    function backToTopics() {
+      currentTopic = null;
+      currentQuestions = [];
+      currentQuestionIndex = 0;
+      score = 0;
+      wrongQuestions = [];
+      currentLongPrompt = "";
+
+      showScreen("topicScreen");
+    }
+
+    function showScreen(screenId) {
+      document.getElementById("topicScreen").classList.add("hidden");
+      document.getElementById("sessionScreen").classList.add("hidden");
+      document.getElementById("questionScreen").classList.add("hidden");
+      document.getElementById("longFormScreen").classList.add("hidden");
+      document.getElementById("summaryScreen").classList.add("hidden");
+
+      document.getElementById(screenId).classList.remove("hidden");
+    }
+
+    function copyQuestions(questions) {
+      return questions.map(function(question) {
+        return {
+          type: question.type || "mcq",
+          question: question.question,
+          options: question.options ? question.options.slice() : [],
+          correct: question.correct,
+          explanation: question.explanation || "",
+          keywords: question.keywords ? question.keywords.slice() : [],
+          markScheme: question.markScheme || ""
+        };
+      });
+    }
+
+    function shuffle(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const randomIndex = Math.floor(Math.random() * (i + 1));
+        const temp = array[i];
+        array[i] = array[randomIndex];
+        array[randomIndex] = temp;
+      }
+
+      return array;
+    }
+
+    function pickRandom(array) {
+      return array[Math.floor(Math.random() * array.length)];
+    }
+
+    function normaliseText(text) {
+      return text
+        .toLowerCase()
+        .replace(/[.,!?;:()]/g, "")
+        .trim();
+    }
+
+    initialiseApp();
+  </script>
+</body>
+</html>
