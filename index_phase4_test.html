@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Revision Machine - Phase 3</title>
+  <title>Revision Machine - Phase 4</title>
 
   <style>
     body {
@@ -106,12 +106,44 @@
       opacity: 1;
     }
 
+    textarea {
+      width: 100%;
+      min-height: 110px;
+      font-size: 17px;
+      padding: 14px;
+      border-radius: 10px;
+      border: 2px solid #ccd6e0;
+      box-sizing: border-box;
+      resize: vertical;
+      font-family: Arial, sans-serif;
+    }
+
     .feedback {
       margin-top: 20px;
       padding: 16px;
       border-radius: 10px;
       background: #f8fafc;
       border-left: 6px solid #1f3b57;
+    }
+
+    .keyword-hit {
+      display: inline-block;
+      background: #d9f7df;
+      border: 1px solid #32a852;
+      border-radius: 8px;
+      padding: 4px 8px;
+      margin: 3px;
+      font-size: 14px;
+    }
+
+    .keyword-miss {
+      display: inline-block;
+      background: #ffd9d9;
+      border: 1px solid #c0392b;
+      border-radius: 8px;
+      padding: 4px 8px;
+      margin: 3px;
+      font-size: 14px;
     }
 
     button {
@@ -164,7 +196,7 @@
   <div class="app">
     <header>
       <h1>Revision Machine</h1>
-      <p>Phase 3 prototype — external question bank</p>
+      <p>Phase 4 prototype — MCQ + short-answer keyword marking</p>
     </header>
 
     <main>
@@ -183,7 +215,16 @@
         </div>
 
         <div id="questionText" class="question-box"></div>
-        <div id="options"></div>
+
+        <div id="mcqArea"></div>
+
+        <div id="shortArea" class="hidden">
+          <textarea id="shortAnswer" placeholder="Type your answer here..."></textarea>
+          <br>
+          <button id="checkShortBtn" class="primary-btn" onclick="checkShortAnswer()">
+            Check Answer
+          </button>
+        </div>
 
         <div id="feedback" class="feedback hidden"></div>
 
@@ -243,9 +284,8 @@
       topicsDiv.innerHTML =
         "<div class='error'>" +
         "<strong>Question bank not found.</strong><br><br>" +
-        "Check that <strong>questions.js</strong> is in the same folder as <strong>index.html</strong>.<br><br>" +
-        "Your folder should look like:<br>" +
-        "<pre>revision-machine/\n├── index.html\n└── questions.js</pre>" +
+        "Check that <strong>questions.js</strong> is in the same folder as this file.<br><br>" +
+        "<pre>revision-machine/\n├── index_phase4_test.html\n└── questions.js</pre>" +
         "</div>";
     }
 
@@ -306,12 +346,26 @@
 
       document.getElementById("questionText").textContent = question.question;
 
-      const optionsDiv = document.getElementById("options");
-      optionsDiv.innerHTML = "";
-
+      document.getElementById("mcqArea").innerHTML = "";
+      document.getElementById("shortAnswer").value = "";
       document.getElementById("feedback").classList.add("hidden");
-      document.getElementById("feedback").textContent = "";
+      document.getElementById("feedback").innerHTML = "";
       document.getElementById("nextBtn").classList.add("hidden");
+
+      document.getElementById("mcqArea").classList.add("hidden");
+      document.getElementById("shortArea").classList.add("hidden");
+
+      if (question.type === "short") {
+        showShortQuestion();
+      } else {
+        showMcqQuestion(question);
+      }
+    }
+
+    function showMcqQuestion(question) {
+      const mcqArea = document.getElementById("mcqArea");
+      mcqArea.classList.remove("hidden");
+      mcqArea.innerHTML = "";
 
       question.options.forEach(function(optionText, index) {
         const button = document.createElement("button");
@@ -319,14 +373,19 @@
         button.textContent = optionText;
 
         button.onclick = function() {
-          checkAnswer(index);
+          checkMcqAnswer(index);
         };
 
-        optionsDiv.appendChild(button);
+        mcqArea.appendChild(button);
       });
     }
 
-    function checkAnswer(selectedIndex) {
+    function showShortQuestion() {
+      document.getElementById("shortArea").classList.remove("hidden");
+      document.getElementById("checkShortBtn").disabled = false;
+    }
+
+    function checkMcqAnswer(selectedIndex) {
       if (answered) return;
       answered = true;
 
@@ -348,13 +407,81 @@
 
       if (selectedIndex === question.correct) {
         score++;
-        feedback.textContent = "Correct. " + question.explanation;
+        feedback.innerHTML = "<strong>Correct.</strong> " + question.explanation;
       } else {
         wrongQuestions.push(question);
-        feedback.textContent = "Incorrect. " + question.explanation;
+        feedback.innerHTML = "<strong>Incorrect.</strong> " + question.explanation;
       }
 
-      feedback.classList.remove("hidden");
+      afterAnswer();
+    }
+
+    function checkShortAnswer() {
+      if (answered) return;
+      answered = true;
+
+      const question = currentQuestions[currentQuestionIndex];
+      const answer = normaliseText(document.getElementById("shortAnswer").value);
+      const feedback = document.getElementById("feedback");
+
+      const requiredKeywords = question.keywords || [];
+      const hits = [];
+      const misses = [];
+
+      requiredKeywords.forEach(function(keyword) {
+        const cleanKeyword = normaliseText(keyword);
+
+        if (answer.includes(cleanKeyword)) {
+          hits.push(keyword);
+        } else {
+          misses.push(keyword);
+        }
+      });
+
+      const isCorrect = hits.length > 0 && misses.length === 0;
+
+      if (isCorrect) {
+        score++;
+      } else {
+        wrongQuestions.push(question);
+      }
+
+      let keywordHtml = "";
+
+      if (requiredKeywords.length > 0) {
+        keywordHtml += "<p><strong>Keyword check:</strong></p>";
+
+        hits.forEach(function(keyword) {
+          keywordHtml += "<span class='keyword-hit'>Found: " + keyword + "</span>";
+        });
+
+        misses.forEach(function(keyword) {
+          keywordHtml += "<span class='keyword-miss'>Missing: " + keyword + "</span>";
+        });
+      }
+
+      if (isCorrect) {
+        feedback.innerHTML =
+          "<strong>Likely correct.</strong><br>" +
+          keywordHtml +
+          "<p><strong>Mark scheme:</strong> " + question.markScheme + "</p>" +
+          "<p>" + question.explanation + "</p>";
+      } else {
+        feedback.innerHTML =
+          "<strong>Needs improvement.</strong><br>" +
+          keywordHtml +
+          "<p><strong>Mark scheme:</strong> " + question.markScheme + "</p>" +
+          "<p>" + question.explanation + "</p>";
+      }
+
+      document.getElementById("checkShortBtn").disabled = true;
+      document.getElementById("shortAnswer").disabled = true;
+
+      afterAnswer();
+    }
+
+    function afterAnswer() {
+      document.getElementById("feedback").classList.remove("hidden");
 
       document.getElementById("scoreTextLive").textContent =
         "Current score: " + score + " correct";
@@ -364,6 +491,8 @@
 
     function nextQuestion() {
       currentQuestionIndex++;
+
+      document.getElementById("shortAnswer").disabled = false;
 
       if (currentQuestionIndex >= currentQuestions.length) {
         showSummary();
@@ -434,10 +563,13 @@
     function copyQuestions(questions) {
       return questions.map(function(question) {
         return {
+          type: question.type || "mcq",
           question: question.question,
-          options: question.options.slice(),
+          options: question.options ? question.options.slice() : [],
           correct: question.correct,
-          explanation: question.explanation
+          explanation: question.explanation || "",
+          keywords: question.keywords ? question.keywords.slice() : [],
+          markScheme: question.markScheme || ""
         };
       });
     }
@@ -451,6 +583,13 @@
       }
 
       return array;
+    }
+
+    function normaliseText(text) {
+      return text
+        .toLowerCase()
+        .replace(/[.,!?;:()]/g, "")
+        .trim();
     }
 
     initialiseApp();
