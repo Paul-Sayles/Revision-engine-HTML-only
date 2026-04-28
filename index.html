@@ -2,133 +2,422 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Revision Machine</title>
+  <title>Revision Machine - Phase 2</title>
+
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background: #f4f4f4;
       margin: 0;
-      padding: 20px;
+      font-family: Arial, sans-serif;
+      background: #eef2f7;
+      color: #222;
     }
 
     .app {
-      max-width: 800px;
-      margin: auto;
+      max-width: 900px;
+      margin: 30px auto;
       background: white;
-      padding: 25px;
-      border-radius: 12px;
-      box-shadow: 0 0 10px #ccc;
+      border-radius: 16px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+      overflow: hidden;
     }
 
-    button {
-      padding: 12px 18px;
-      margin: 8px 4px;
-      font-size: 16px;
-      cursor: pointer;
+    header {
+      background: #1f3b57;
+      color: white;
+      padding: 24px;
     }
 
-    .option {
+    header h1 {
+      margin: 0;
+      font-size: 32px;
+    }
+
+    header p {
+      margin: 8px 0 0;
+      opacity: 0.9;
+    }
+
+    main {
+      padding: 28px;
+    }
+
+    h2 {
+      margin-top: 0;
+    }
+
+    .unit {
+      margin-bottom: 28px;
+    }
+
+    .topic-card {
       display: block;
       width: 100%;
       text-align: left;
+      background: #f8fafc;
+      border: 1px solid #d6dde8;
+      border-radius: 12px;
+      padding: 18px;
       margin: 10px 0;
+      cursor: pointer;
+      font-size: 17px;
     }
 
-    .correct {
-      background: #c8f7c5;
-    }
-
-    .wrong {
-      background: #f7c5c5;
+    .topic-card:hover {
+      background: #edf4ff;
+      border-color: #7aa7dd;
     }
 
     .hidden {
       display: none;
     }
 
+    .progress-box {
+      background: #f1f5f9;
+      padding: 12px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+    }
+
+    .question-box {
+      font-size: 22px;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+
+    .option {
+      display: block;
+      width: 100%;
+      text-align: left;
+      background: #ffffff;
+      border: 2px solid #ccd6e0;
+      border-radius: 10px;
+      padding: 15px;
+      margin: 10px 0;
+      font-size: 17px;
+      cursor: pointer;
+    }
+
+    .option:hover {
+      background: #f3f7fb;
+    }
+
+    .option.correct {
+      background: #d9f7df;
+      border-color: #32a852;
+    }
+
+    .option.wrong {
+      background: #ffd9d9;
+      border-color: #c0392b;
+    }
+
+    .option:disabled {
+      cursor: not-allowed;
+      opacity: 1;
+    }
+
     .feedback {
       margin-top: 20px;
-      font-weight: bold;
+      padding: 16px;
+      border-radius: 10px;
+      background: #f8fafc;
+      border-left: 6px solid #1f3b57;
+    }
+
+    .primary-btn,
+    .secondary-btn {
+      padding: 13px 18px;
+      margin: 10px 6px 0 0;
+      border-radius: 10px;
+      border: none;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .primary-btn {
+      background: #1f3b57;
+      color: white;
+    }
+
+    .secondary-btn {
+      background: #dbe3ec;
+      color: #222;
+    }
+
+    .summary-card {
+      background: #f8fafc;
+      border: 1px solid #d6dde8;
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+
+    .small-note {
+      color: #555;
+      font-size: 14px;
     }
   </style>
 </head>
 
 <body>
   <div class="app">
-    <h1>Revision Machine</h1>
+    <header>
+      <h1>Revision Machine</h1>
+      <p>Phase 2 prototype — browser-based revision slide engine</p>
+    </header>
 
-    <div id="topicScreen">
-      <h2>Choose a topic</h2>
-      <div id="topics"></div>
-    </div>
+    <main>
+      <section id="topicScreen">
+        <h2>Choose a topic</h2>
+        <p class="small-note">Select a revision topic to begin. Questions are randomised each time.</p>
+        <div id="topics"></div>
+      </section>
 
-    <div id="questionScreen" class="hidden">
-      <h2 id="topicTitle"></h2>
-      <p id="progress"></p>
-      <h3 id="questionText"></h3>
-      <div id="options"></div>
-      <div id="feedback" class="feedback"></div>
-      <button id="nextBtn" class="hidden" onclick="nextQuestion()">Next Question</button>
-    </div>
+      <section id="questionScreen" class="hidden">
+        <h2 id="topicTitle"></h2>
 
-    <div id="summaryScreen" class="hidden">
-      <h2>Summary</h2>
-      <p id="scoreText"></p>
-      <button onclick="restart()">Back to Topics</button>
-    </div>
+        <div class="progress-box">
+          <div id="progressText"></div>
+          <div id="scoreTextLive"></div>
+        </div>
+
+        <div id="questionText" class="question-box"></div>
+        <div id="options"></div>
+
+        <div id="feedback" class="feedback hidden"></div>
+
+        <button id="nextBtn" class="primary-btn hidden" onclick="nextQuestion()">
+          Next Question
+        </button>
+      </section>
+
+      <section id="summaryScreen" class="hidden">
+        <h2>Session Summary</h2>
+
+        <div class="summary-card">
+          <p id="finalScore"></p>
+          <p id="weakSummary"></p>
+        </div>
+
+        <button id="retryWeakBtn" class="primary-btn hidden" onclick="retryWeakQuestions()">
+          Retry Weak Questions
+        </button>
+
+        <button class="secondary-btn" onclick="restartSameTopic()">
+          Restart Same Topic
+        </button>
+
+        <button class="secondary-btn" onclick="backToTopics()">
+          Back to Topics
+        </button>
+      </section>
+    </main>
   </div>
 
   <script>
     const data = {
       units: [
         {
-          title: "Materials",
+          title: "OCR Engineering J823 - Materials",
           topics: [
             {
               title: "Material Properties",
               questions: [
                 {
-                  question: "Which material resists corrosion?",
-                  options: ["Mild steel", "Stainless steel", "Cast iron"],
+                  question: "Which property describes a material's ability to be stretched into wire?",
+                  options: ["Hardness", "Ductility", "Toughness", "Elasticity"],
                   correct: 1,
-                  explanation: "Stainless steel resists corrosion because it contains chromium, which forms a protective oxide layer."
+                  explanation: "Ductility is the ability of a material to be drawn or stretched into wire."
                 },
                 {
-                  question: "What does ductility mean?",
+                  question: "Which material is most likely to resist corrosion?",
+                  options: ["Mild steel", "Stainless steel", "Cast iron", "Plain carbon steel"],
+                  correct: 1,
+                  explanation: "Stainless steel contains chromium, which helps form a protective oxide layer."
+                },
+                {
+                  question: "What does hardness mean in engineering materials?",
                   options: [
-                    "Ability to be drawn into wire",
-                    "Ability to resist corrosion",
-                    "Ability to resist heat"
+                    "Resistance to scratching or indentation",
+                    "Ability to bend without breaking",
+                    "Ability to conduct electricity",
+                    "Ability to return to original shape"
                   ],
                   correct: 0,
-                  explanation: "Ductility is the ability of a material to be stretched or drawn into wire."
+                  explanation: "Hardness describes resistance to scratching, indentation, or wear."
+                },
+                {
+                  question: "Which property describes absorbing energy before breaking?",
+                  options: ["Brittleness", "Toughness", "Conductivity", "Malleability"],
+                  correct: 1,
+                  explanation: "Toughness is the ability to absorb energy and resist fracture."
+                },
+                {
+                  question: "Which property means a material can be hammered or rolled into shape?",
+                  options: ["Malleability", "Ductility", "Hardness", "Density"],
+                  correct: 0,
+                  explanation: "Malleability is the ability to be shaped by hammering or rolling."
                 }
               ]
             },
             {
-              title: "Types of Metals",
+              title: "Metals and Alloys",
               questions: [
                 {
-                  question: "Which of these is a ferrous metal?",
-                  options: ["Aluminium", "Copper", "Mild steel"],
+                  question: "What is a ferrous metal?",
+                  options: [
+                    "A metal that contains iron",
+                    "A metal that contains copper",
+                    "A metal that cannot rust",
+                    "A metal that is always lightweight"
+                  ],
+                  correct: 0,
+                  explanation: "Ferrous metals contain iron."
+                },
+                {
+                  question: "Which of these is a non-ferrous metal?",
+                  options: ["Mild steel", "Cast iron", "Aluminium", "High carbon steel"],
                   correct: 2,
-                  explanation: "Ferrous metals contain iron. Mild steel is a ferrous metal."
+                  explanation: "Aluminium is non-ferrous because it does not contain iron."
+                },
+                {
+                  question: "Why are alloys used in engineering?",
+                  options: [
+                    "To remove all useful properties",
+                    "To combine or improve material properties",
+                    "To make metals impossible to shape",
+                    "To make all metals magnetic"
+                  ],
+                  correct: 1,
+                  explanation: "Alloys combine elements to improve properties such as strength, hardness, or corrosion resistance."
+                },
+                {
+                  question: "Which alloy is commonly associated with corrosion resistance?",
+                  options: ["Brass", "Bronze", "Stainless steel", "Solder"],
+                  correct: 2,
+                  explanation: "Stainless steel is an alloy designed to resist corrosion."
                 }
               ]
             }
           ]
         },
         {
-          title: "Manufacturing Processes",
+          title: "OCR Engineering J823 - Manufacturing",
           topics: [
             {
               title: "Joining Methods",
               questions: [
                 {
-                  question: "Which process permanently joins two pieces of metal?",
-                  options: ["Welding", "Drilling", "Filing"],
+                  question: "Which process permanently joins metals by melting the edges together?",
+                  options: ["Welding", "Riveting", "Bolting", "Screwing"],
                   correct: 0,
-                  explanation: "Welding permanently joins metal parts by heating them until they fuse."
+                  explanation: "Welding uses heat to fuse materials together permanently."
+                },
+                {
+                  question: "Which joining method is usually temporary and removable?",
+                  options: ["Welding", "Adhesive bonding", "Bolting", "Brazing"],
+                  correct: 2,
+                  explanation: "Bolts can usually be removed, making the joint temporary."
+                },
+                {
+                  question: "Which joining method uses a filler metal with a lower melting point than the parts being joined?",
+                  options: ["Drilling", "Brazing", "Filing", "Casting"],
+                  correct: 1,
+                  explanation: "Brazing joins materials using a filler metal that melts below the melting point of the parent metals."
+                },
+                {
+                  question: "Which method is suitable for joining thin sheet metal permanently?",
+                  options: ["Riveting", "Sanding", "Turning", "Marking out"],
+                  correct: 0,
+                  explanation: "Riveting is often used to permanently join sheet materials."
+                }
+              ]
+            },
+            {
+              title: "Machining and Forming",
+              questions: [
+                {
+                  question: "Which machine process creates a round hole?",
+                  options: ["Drilling", "Milling", "Folding", "Casting"],
+                  correct: 0,
+                  explanation: "Drilling is used to create round holes."
+                },
+                {
+                  question: "Which process removes material using a rotating cutting tool?",
+                  options: ["Milling", "Brazing", "Forging", "Injection moulding"],
+                  correct: 0,
+                  explanation: "Milling removes material using rotating cutters."
+                },
+                {
+                  question: "What is the purpose of filing?",
+                  options: [
+                    "To remove small amounts of material by hand",
+                    "To melt two metals together",
+                    "To heat treat plastic",
+                    "To measure electrical resistance"
+                  ],
+                  correct: 0,
+                  explanation: "Filing is a hand process used to remove small amounts of material and improve shape or finish."
+                },
+                {
+                  question: "Which process shapes metal by hammering or pressing?",
+                  options: ["Forging", "Drilling", "Soldering", "Painting"],
+                  correct: 0,
+                  explanation: "Forging shapes metal using compressive force."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          title: "OCR Engineering J823 - Health and Safety",
+          topics: [
+            {
+              title: "Workshop Safety",
+              questions: [
+                {
+                  question: "Why should safety goggles be worn when drilling?",
+                  options: [
+                    "To improve colour vision",
+                    "To protect eyes from swarf and debris",
+                    "To reduce noise",
+                    "To keep hair tied back"
+                  ],
+                  correct: 1,
+                  explanation: "Drilling can produce swarf and debris that may damage the eyes."
+                },
+                {
+                  question: "What should long hair be done with in a workshop?",
+                  options: [
+                    "Left loose",
+                    "Tied back securely",
+                    "Covered in oil",
+                    "Held by another student"
+                  ],
+                  correct: 1,
+                  explanation: "Long hair must be tied back to stop it becoming caught in machinery."
+                },
+                {
+                  question: "What is a risk assessment used for?",
+                  options: [
+                    "To identify hazards and reduce risk",
+                    "To make tools sharper",
+                    "To increase production speed only",
+                    "To replace teacher supervision"
+                  ],
+                  correct: 0,
+                  explanation: "A risk assessment identifies hazards and control measures to reduce risk."
+                },
+                {
+                  question: "What does PPE stand for?",
+                  options: [
+                    "Personal Protective Equipment",
+                    "Plastic Production Estimate",
+                    "Primary Process Evaluation",
+                    "Practical Performance Exam"
+                  ],
+                  correct: 0,
+                  explanation: "PPE means Personal Protective Equipment."
                 }
               ]
             }
@@ -137,9 +426,11 @@
       ]
     };
 
+    let currentTopic = null;
     let currentQuestions = [];
     let currentQuestionIndex = 0;
     let score = 0;
+    let wrongQuestions = [];
     let answered = false;
 
     function loadTopics() {
@@ -147,27 +438,39 @@
       topicsDiv.innerHTML = "";
 
       data.units.forEach(unit => {
-        const unitHeading = document.createElement("h3");
-        unitHeading.textContent = unit.title;
-        topicsDiv.appendChild(unitHeading);
+        const unitDiv = document.createElement("div");
+        unitDiv.className = "unit";
+
+        const heading = document.createElement("h3");
+        heading.textContent = unit.title;
+        unitDiv.appendChild(heading);
 
         unit.topics.forEach(topic => {
-          const btn = document.createElement("button");
-          btn.textContent = topic.title;
-          btn.onclick = () => startTopic(topic);
-          topicsDiv.appendChild(btn);
+          const button = document.createElement("button");
+          button.className = "topic-card";
+          button.innerHTML =
+            "<strong>" + topic.title + "</strong><br>" +
+            "<span class='small-note'>" + topic.questions.length + " questions</span>";
+
+          button.onclick = function () {
+            startTopic(topic);
+          };
+
+          unitDiv.appendChild(button);
         });
+
+        topicsDiv.appendChild(unitDiv);
       });
     }
 
     function startTopic(topic) {
-      currentQuestions = shuffle([...topic.questions]);
+      currentTopic = topic;
+      currentQuestions = shuffle(copyQuestions(topic.questions));
       currentQuestionIndex = 0;
       score = 0;
+      wrongQuestions = [];
 
-      document.getElementById("topicScreen").classList.add("hidden");
-      document.getElementById("summaryScreen").classList.add("hidden");
-      document.getElementById("questionScreen").classList.remove("hidden");
+      showScreen("questionScreen");
       document.getElementById("topicTitle").textContent = topic.title;
 
       showQuestion();
@@ -176,54 +479,67 @@
     function showQuestion() {
       answered = false;
 
-      const q = currentQuestions[currentQuestionIndex];
+      const question = currentQuestions[currentQuestionIndex];
 
-      document.getElementById("progress").textContent =
-        `Question ${currentQuestionIndex + 1} of ${currentQuestions.length}`;
+      document.getElementById("progressText").textContent =
+        "Question " + (currentQuestionIndex + 1) + " of " + currentQuestions.length;
 
-      document.getElementById("questionText").textContent = q.question;
-      document.getElementById("feedback").textContent = "";
-      document.getElementById("nextBtn").classList.add("hidden");
+      document.getElementById("scoreTextLive").textContent =
+        "Current score: " + score + " correct";
+
+      document.getElementById("questionText").textContent = question.question;
 
       const optionsDiv = document.getElementById("options");
       optionsDiv.innerHTML = "";
 
-      q.options.forEach((option, index) => {
-        const btn = document.createElement("button");
-        btn.textContent = option;
-        btn.className = "option";
-        btn.onclick = () => checkAnswer(index, btn);
-        optionsDiv.appendChild(btn);
+      document.getElementById("feedback").classList.add("hidden");
+      document.getElementById("feedback").textContent = "";
+      document.getElementById("nextBtn").classList.add("hidden");
+
+      question.options.forEach(function (optionText, index) {
+        const button = document.createElement("button");
+        button.className = "option";
+        button.textContent = optionText;
+
+        button.onclick = function () {
+          checkAnswer(index);
+        };
+
+        optionsDiv.appendChild(button);
       });
     }
 
-    function checkAnswer(selectedIndex, selectedButton) {
+    function checkAnswer(selectedIndex) {
       if (answered) return;
       answered = true;
 
-      const q = currentQuestions[currentQuestionIndex];
-      const optionButtons = document.querySelectorAll(".option");
+      const question = currentQuestions[currentQuestionIndex];
+      const buttons = document.querySelectorAll(".option");
+      const feedback = document.getElementById("feedback");
 
-      optionButtons.forEach((btn, index) => {
-        btn.disabled = true;
+      buttons.forEach(function (button, index) {
+        button.disabled = true;
 
-        if (index === q.correct) {
-          btn.classList.add("correct");
+        if (index === question.correct) {
+          button.classList.add("correct");
         }
 
-        if (index === selectedIndex && selectedIndex !== q.correct) {
-          btn.classList.add("wrong");
+        if (index === selectedIndex && selectedIndex !== question.correct) {
+          button.classList.add("wrong");
         }
       });
 
-      if (selectedIndex === q.correct) {
+      if (selectedIndex === question.correct) {
         score++;
-        document.getElementById("feedback").textContent =
-          "Correct. " + q.explanation;
+        feedback.textContent = "Correct. " + question.explanation;
       } else {
-        document.getElementById("feedback").textContent =
-          "Incorrect. " + q.explanation;
+        wrongQuestions.push(question);
+        feedback.textContent = "Incorrect. " + question.explanation;
       }
+
+      feedback.classList.remove("hidden");
+      document.getElementById("scoreTextLive").textContent =
+        "Current score: " + score + " correct";
 
       document.getElementById("nextBtn").classList.remove("hidden");
     }
@@ -239,23 +555,82 @@
     }
 
     function showSummary() {
-      document.getElementById("questionScreen").classList.add("hidden");
-      document.getElementById("summaryScreen").classList.remove("hidden");
+      showScreen("summaryScreen");
 
-      document.getElementById("scoreText").textContent =
-        `You scored ${score} out of ${currentQuestions.length}.`;
+      const percent = Math.round((score / currentQuestions.length) * 100);
+
+      document.getElementById("finalScore").textContent =
+        "You scored " + score + " out of " + currentQuestions.length + " (" + percent + "%).";
+
+      if (wrongQuestions.length > 0) {
+        document.getElementById("weakSummary").textContent =
+          "Weak questions identified: " + wrongQuestions.length + ". You can retry these now.";
+
+        document.getElementById("retryWeakBtn").classList.remove("hidden");
+      } else {
+        document.getElementById("weakSummary").textContent =
+          "Excellent. No weak questions were identified in this session.";
+
+        document.getElementById("retryWeakBtn").classList.add("hidden");
+      }
     }
 
-    function restart() {
+    function retryWeakQuestions() {
+      currentQuestions = shuffle(copyQuestions(wrongQuestions));
+      currentQuestionIndex = 0;
+      score = 0;
+      wrongQuestions = [];
+
+      showScreen("questionScreen");
+      document.getElementById("topicTitle").textContent =
+        currentTopic.title + " - Weak Question Retry";
+
+      showQuestion();
+    }
+
+    function restartSameTopic() {
+      if (currentTopic) {
+        startTopic(currentTopic);
+      }
+    }
+
+    function backToTopics() {
+      currentTopic = null;
+      currentQuestions = [];
+      currentQuestionIndex = 0;
+      score = 0;
+      wrongQuestions = [];
+
+      showScreen("topicScreen");
+    }
+
+    function showScreen(screenId) {
+      document.getElementById("topicScreen").classList.add("hidden");
+      document.getElementById("questionScreen").classList.add("hidden");
       document.getElementById("summaryScreen").classList.add("hidden");
-      document.getElementById("topicScreen").classList.remove("hidden");
+
+      document.getElementById(screenId).classList.remove("hidden");
+    }
+
+    function copyQuestions(questions) {
+      return questions.map(function (question) {
+        return {
+          question: question.question,
+          options: [...question.options],
+          correct: question.correct,
+          explanation: question.explanation
+        };
+      });
     }
 
     function shuffle(array) {
       for (let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]];
+        const randomIndex = Math.floor(Math.random() * (i + 1));
+        const temp = array[i];
+        array[i] = array[randomIndex];
+        array[randomIndex] = temp;
       }
+
       return array;
     }
 
