@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Revision Machine</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .app {
+      max-width: 800px;
+      margin: auto;
+      background: white;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px #ccc;
+    }
+
+    button {
+      padding: 12px 18px;
+      margin: 8px 4px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .option {
+      display: block;
+      width: 100%;
+      text-align: left;
+      margin: 10px 0;
+    }
+
+    .correct {
+      background: #c8f7c5;
+    }
+
+    .wrong {
+      background: #f7c5c5;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .feedback {
+      margin-top: 20px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="app">
+    <h1>Revision Machine</h1>
+
+    <div id="topicScreen">
+      <h2>Choose a topic</h2>
+      <div id="topics"></div>
+    </div>
+
+    <div id="questionScreen" class="hidden">
+      <h2 id="topicTitle"></h2>
+      <p id="progress"></p>
+      <h3 id="questionText"></h3>
+      <div id="options"></div>
+      <div id="feedback" class="feedback"></div>
+      <button id="nextBtn" class="hidden" onclick="nextQuestion()">Next Question</button>
+    </div>
+
+    <div id="summaryScreen" class="hidden">
+      <h2>Summary</h2>
+      <p id="scoreText"></p>
+      <button onclick="restart()">Back to Topics</button>
+    </div>
+  </div>
+
+  <script>
+    const data = {
+      units: [
+        {
+          title: "Materials",
+          topics: [
+            {
+              title: "Material Properties",
+              questions: [
+                {
+                  question: "Which material resists corrosion?",
+                  options: ["Mild steel", "Stainless steel", "Cast iron"],
+                  correct: 1,
+                  explanation: "Stainless steel resists corrosion because it contains chromium, which forms a protective oxide layer."
+                },
+                {
+                  question: "What does ductility mean?",
+                  options: [
+                    "Ability to be drawn into wire",
+                    "Ability to resist corrosion",
+                    "Ability to resist heat"
+                  ],
+                  correct: 0,
+                  explanation: "Ductility is the ability of a material to be stretched or drawn into wire."
+                }
+              ]
+            },
+            {
+              title: "Types of Metals",
+              questions: [
+                {
+                  question: "Which of these is a ferrous metal?",
+                  options: ["Aluminium", "Copper", "Mild steel"],
+                  correct: 2,
+                  explanation: "Ferrous metals contain iron. Mild steel is a ferrous metal."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          title: "Manufacturing Processes",
+          topics: [
+            {
+              title: "Joining Methods",
+              questions: [
+                {
+                  question: "Which process permanently joins two pieces of metal?",
+                  options: ["Welding", "Drilling", "Filing"],
+                  correct: 0,
+                  explanation: "Welding permanently joins metal parts by heating them until they fuse."
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    };
+
+    let currentQuestions = [];
+    let currentQuestionIndex = 0;
+    let score = 0;
+    let answered = false;
+
+    function loadTopics() {
+      const topicsDiv = document.getElementById("topics");
+      topicsDiv.innerHTML = "";
+
+      data.units.forEach(unit => {
+        const unitHeading = document.createElement("h3");
+        unitHeading.textContent = unit.title;
+        topicsDiv.appendChild(unitHeading);
+
+        unit.topics.forEach(topic => {
+          const btn = document.createElement("button");
+          btn.textContent = topic.title;
+          btn.onclick = () => startTopic(topic);
+          topicsDiv.appendChild(btn);
+        });
+      });
+    }
+
+    function startTopic(topic) {
+      currentQuestions = shuffle([...topic.questions]);
+      currentQuestionIndex = 0;
+      score = 0;
+
+      document.getElementById("topicScreen").classList.add("hidden");
+      document.getElementById("summaryScreen").classList.add("hidden");
+      document.getElementById("questionScreen").classList.remove("hidden");
+      document.getElementById("topicTitle").textContent = topic.title;
+
+      showQuestion();
+    }
+
+    function showQuestion() {
+      answered = false;
+
+      const q = currentQuestions[currentQuestionIndex];
+
+      document.getElementById("progress").textContent =
+        `Question ${currentQuestionIndex + 1} of ${currentQuestions.length}`;
+
+      document.getElementById("questionText").textContent = q.question;
+      document.getElementById("feedback").textContent = "";
+      document.getElementById("nextBtn").classList.add("hidden");
+
+      const optionsDiv = document.getElementById("options");
+      optionsDiv.innerHTML = "";
+
+      q.options.forEach((option, index) => {
+        const btn = document.createElement("button");
+        btn.textContent = option;
+        btn.className = "option";
+        btn.onclick = () => checkAnswer(index, btn);
+        optionsDiv.appendChild(btn);
+      });
+    }
+
+    function checkAnswer(selectedIndex, selectedButton) {
+      if (answered) return;
+      answered = true;
+
+      const q = currentQuestions[currentQuestionIndex];
+      const optionButtons = document.querySelectorAll(".option");
+
+      optionButtons.forEach((btn, index) => {
+        btn.disabled = true;
+
+        if (index === q.correct) {
+          btn.classList.add("correct");
+        }
+
+        if (index === selectedIndex && selectedIndex !== q.correct) {
+          btn.classList.add("wrong");
+        }
+      });
+
+      if (selectedIndex === q.correct) {
+        score++;
+        document.getElementById("feedback").textContent =
+          "Correct. " + q.explanation;
+      } else {
+        document.getElementById("feedback").textContent =
+          "Incorrect. " + q.explanation;
+      }
+
+      document.getElementById("nextBtn").classList.remove("hidden");
+    }
+
+    function nextQuestion() {
+      currentQuestionIndex++;
+
+      if (currentQuestionIndex >= currentQuestions.length) {
+        showSummary();
+      } else {
+        showQuestion();
+      }
+    }
+
+    function showSummary() {
+      document.getElementById("questionScreen").classList.add("hidden");
+      document.getElementById("summaryScreen").classList.remove("hidden");
+
+      document.getElementById("scoreText").textContent =
+        `You scored ${score} out of ${currentQuestions.length}.`;
+    }
+
+    function restart() {
+      document.getElementById("summaryScreen").classList.add("hidden");
+      document.getElementById("topicScreen").classList.remove("hidden");
+    }
+
+    function shuffle(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+      return array;
+    }
+
+    loadTopics();
+  </script>
+</body>
+</html>
