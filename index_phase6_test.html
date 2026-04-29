@@ -426,41 +426,45 @@ function checkMCQ(index){
   document.getElementById("nextBtn").classList.remove("hidden");
 }
 
-function checkShortAnswer(){
-  if(answered) return;
-  answered = true;
+function checkShortAnswer(answer, question) {
+  const input = answer.toLowerCase();
 
-  const q = currentQuestions[currentIndex];
-  const rawAnswer = document.getElementById("shortAnswer").value;
-  const ans = normaliseText(rawAnswer);
+  let score = 0;
 
-  const keywords = q.keywords || [];
-  const trapAnswers = q.trapAnswers || [];
-  const mode = q.mode || "all";
+  // keyword matching
+  const matched = question.keywords.filter(k => input.includes(k));
+  score = matched.length;
 
-  let hits = [];
-  let misses = [];
-  let trapHits = [];
+  // trap detection
+  const trapHit = question.traps && question.traps.some(t => input.includes(t));
 
-  trapAnswers.forEach(function(trap){
-    if(ans === normaliseText(trap)){
-      trapHits.push(trap);
-    }
-  });
-
-  if(trapHits.length > 0){
-    wrong.push(q);
-
-    document.getElementById("feedback").innerHTML =
-      "<div class='trap-box'>✖ TRAP ANSWER ✖</div>" +
-      "<p><strong>You wrote:</strong> " + safeText(rawAnswer) + "</p>" +
-      "<p><strong>Why this is not enough:</strong> " + safeText(q.explanation) + "</p>" +
-      "<p><strong>Correct answer:</strong> " + safeText(q.markScheme) + "</p>";
-
-    lockShortAnswer();
-    revealFeedback();
-    return;
+  // result logic
+  if (question.mode === "all" && score === question.keywords.length && !trapHit) {
+    return {
+      result: "correct",
+      message: "✅ Correct! " + question.explanation
+    };
   }
+
+  if (score > 0 && !trapHit) {
+    return {
+      result: "partial",
+      message: "⚠️ Partial answer — you’re on the right track.\n" + question.markScheme
+    };
+  }
+
+  if (trapHit) {
+    return {
+      result: "trap",
+      message: "🚫 Trap answer — " + question.trapResponse
+    };
+  }
+
+  return {
+    result: "wrong",
+    message: "❌ Incorrect.\n" + question.markScheme
+  };
+}
 
   keywords.forEach(function(k){
     if(ans.includes(normaliseText(k))){
