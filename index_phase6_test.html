@@ -228,7 +228,8 @@ let score = 0;
 let wrong = [];
 let answered = false;
 let currentLongPrompt = "";
-
+let performance = {};
+  
 function initialiseApp(){
   if(typeof QUESTION_BANK === "undefined"){
     document.getElementById("topics").innerHTML =
@@ -422,11 +423,13 @@ function checkMCQ(index){
   const correct = index === q.correct;
 
   if(correct){
-    score++;
+  score++;
+  trackPerformance(q, true);
     document.getElementById("feedback").innerHTML =
       "<strong class='good'>Correct</strong><p>" + safeText(q.explanation) + "</p>";
   } else {
-    wrong.push(q);
+   wrong.push(q);
+trackPerformance(q, false);;
     document.getElementById("feedback").innerHTML =
       "<strong class='bad'>Incorrect</strong><p>" + safeText(q.explanation) + "</p>";
   }
@@ -474,10 +477,12 @@ function checkShortAnswer(){
   }
 
   if(correct){
-    score++;
-  } else {
-    wrong.push(q);
-  }
+  score++;
+  trackPerformance(q, true);
+} else {
+  wrong.push(q);
+  trackPerformance(q, false);
+}
 
   let html = correct
     ? "<strong class='good'>Correct</strong><br>"
@@ -795,7 +800,20 @@ function showWorksheet(){
   document.getElementById("worksheetContent").innerHTML = html;
   showScreen("worksheetScreen");
 }
+function trackPerformance(q, correct){
+  const key = q.question;
 
+  if(!performance[key]){
+    performance[key] = { correct: 0, wrong: 0 };
+  }
+
+  if(correct){
+    performance[key].correct++;
+  } else {
+    performance[key].wrong++;
+  }
+}
+  
 initialiseApp();
 </script>
 
