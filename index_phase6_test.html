@@ -2,24 +2,139 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Revision Machine - Phase 6</title>
+<title>Revision Machine - Stable Master</title>
 
 <style>
-body { margin:0; font-family:Arial; background:#eef2f7; }
-.app { max-width:900px; margin:30px auto; background:white; border-radius:16px; box-shadow:0 8px 25px rgba(0,0,0,0.12); overflow:hidden; }
-header { background:#1f3b57; color:white; padding:24px; }
-main { padding:28px; }
-.hidden { display:none; }
-.topic-card, .session-card { width:100%; padding:15px; margin:8px 0; border-radius:10px; border:1px solid #ccc; cursor:pointer; }
-.primary-btn, .secondary-btn { padding:10px 15px; margin:10px 5px 0 0; border:none; border-radius:8px; cursor:pointer; }
-.primary-btn { background:#1f3b57; color:white; }
-.secondary-btn { background:#dbe3ec; }
-.feedback { margin-top:15px; padding:12px; border-left:5px solid #1f3b57; background:#f8fafc; }
-.option { display:block; width:100%; margin:8px 0; padding:12px; border-radius:8px; border:1px solid #ccc; cursor:pointer; }
-.option.correct { background:#d9f7df; }
-.option.wrong { background:#ffd9d9; }
-.keyword-hit { background:#d9f7df; padding:3px 6px; margin:2px; display:inline-block; }
-.keyword-miss { background:#ffd9d9; padding:3px 6px; margin:2px; display:inline-block; }
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #eef2f7;
+  color: #222;
+}
+
+.app {
+  max-width: 900px;
+  margin: 30px auto;
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+}
+
+header {
+  background: #1f3b57;
+  color: white;
+  padding: 24px;
+}
+
+main {
+  padding: 28px;
+}
+
+.hidden {
+  display: none;
+}
+
+.topic-card,
+.session-card,
+.option {
+  display: block;
+  width: 100%;
+  margin: 10px 0;
+  padding: 14px;
+  border-radius: 10px;
+  border: 1px solid #ccd6e0;
+  background: #f8fafc;
+  cursor: pointer;
+  text-align: left;
+  font-size: 16px;
+}
+
+.topic-card:hover,
+.session-card:hover,
+.option:hover {
+  background: #edf4ff;
+}
+
+.primary-btn,
+.secondary-btn {
+  padding: 11px 16px;
+  margin: 10px 6px 0 0;
+  border: 0;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 15px;
+}
+
+.primary-btn {
+  background: #1f3b57;
+  color: white;
+}
+
+.secondary-btn {
+  background: #dbe3ec;
+  color: #222;
+}
+
+.feedback {
+  margin-top: 18px;
+  padding: 16px;
+  background: #f8fafc;
+  border-left: 6px solid #1f3b57;
+  border-radius: 8px;
+}
+
+textarea {
+  width: 100%;
+  min-height: 100px;
+  font-size: 16px;
+  padding: 12px;
+  box-sizing: border-box;
+}
+
+.good {
+  color: green;
+  font-weight: bold;
+}
+
+.bad {
+  color: red;
+  font-weight: bold;
+}
+
+.keyword-hit {
+  display: inline-block;
+  background: #d4edda;
+  padding: 5px 8px;
+  margin: 3px;
+  border-radius: 6px;
+}
+
+.keyword-miss {
+  display: inline-block;
+  background: #f8d7da;
+  padding: 5px 8px;
+  margin: 3px;
+  border-radius: 6px;
+}
+
+.trap-box {
+  background: #ff0000;
+  color: white;
+  padding: 22px;
+  font-size: 28px;
+  font-weight: bold;
+  text-align: center;
+  border-radius: 12px;
+  margin-bottom: 15px;
+}
+
+.error-box {
+  background: #ffe1e1;
+  border-left: 6px solid #c0392b;
+  padding: 16px;
+  border-radius: 8px;
+}
 </style>
 </head>
 
@@ -27,58 +142,67 @@ main { padding:28px; }
 
 <div class="app">
 <header>
-<h1>Revision Machine</h1>
-<p>Phase 6 — validation + marking logic</p>
+  <h1>Revision Machine</h1>
+  <p>Stable Master — session engine, validation, marking logic, trap answers</p>
 </header>
 
 <main>
 
-<!-- TOPIC -->
 <section id="topicScreen">
-<h2>Choose Topic</h2>
-
-<button class="secondary-btn" onclick="runBankCheck()">Check Question Bank</button>
-
-<div id="topics"></div>
+  <h2>Choose Topic</h2>
+  <button class="secondary-btn" onclick="runBankCheck()">Check Question Bank</button>
+  <div id="topics"></div>
 </section>
 
-<!-- CHECK SCREEN -->
 <section id="checkScreen" class="hidden">
-<h2>Question Bank Check</h2>
-<div id="checkResults"></div>
-<button class="secondary-btn" onclick="backToTopics()">Back</button>
+  <h2>Question Bank Check</h2>
+  <div id="checkResults"></div>
+  <button class="secondary-btn" onclick="backToTopics()">Back</button>
 </section>
 
-<!-- SESSION -->
 <section id="sessionScreen" class="hidden">
-<h2 id="sessionTitle"></h2>
-<div id="sessionOptions"></div>
+  <h2 id="sessionTitle"></h2>
+  <p>Choose a session size.</p>
+  <div id="sessionOptions"></div>
+  <button class="secondary-btn" onclick="backToTopics()">Back</button>
 </section>
 
-<!-- QUESTION -->
 <section id="questionScreen" class="hidden">
-<h2 id="topicTitle"></h2>
-<p id="progress"></p>
+  <h2 id="topicTitle"></h2>
+  <p id="progress"></p>
+  <h3 id="questionText"></h3>
 
-<div id="questionText"></div>
+  <div id="mcqArea"></div>
 
-<div id="mcqArea"></div>
+  <div id="shortArea" class="hidden">
+    <textarea id="shortAnswer" placeholder="Type your answer here..."></textarea><br>
+    <button id="checkShortBtn" class="primary-btn" onclick="checkShortAnswer()">Check Answer</button>
+  </div>
 
-<div id="shortArea" class="hidden">
-<textarea id="shortAnswer"></textarea><br>
-<button onclick="checkShortAnswer()">Check</button>
-</div>
+  <div id="feedback" class="feedback hidden"></div>
 
-<div id="feedback" class="feedback hidden"></div>
-
-<button id="nextBtn" class="primary-btn hidden" onclick="nextQuestion()">Next</button>
+  <button id="nextBtn" class="primary-btn hidden" onclick="nextQuestion()">Next</button>
 </section>
 
-<!-- SUMMARY -->
+<section id="longFormScreen" class="hidden">
+  <h2>Long-Form Discussion Prompt</h2>
+  <div class="feedback">
+    <h3 id="longPrompt"></h3>
+    <p><strong>Suggested discussion points:</strong></p>
+    <ul id="longPoints"></ul>
+  </div>
+  <button class="primary-btn" onclick="showSummary()">Continue to Summary</button>
+</section>
+
 <section id="summaryScreen" class="hidden">
-<h2>Summary</h2>
-<p id="finalScore"></p>
-<button onclick="backToTopics()">Back</button>
+  <h2>Summary</h2>
+  <p id="finalScore"></p>
+  <p id="weakSummary"></p>
+  <p id="longSummary"></p>
+
+  <button id="retryBtn" class="primary-btn hidden" onclick="retryWeakQuestions()">Retry Weak Questions</button>
+  <button class="secondary-btn" onclick="restartSameTopic()">Restart Same Topic</button>
+  <button class="secondary-btn" onclick="backToTopics()">Back to Topics</button>
 </section>
 
 </main>
@@ -87,96 +211,216 @@ main { padding:28px; }
 <script src="questions.js"></script>
 
 <script>
-let data = QUESTION_BANK;
-let currentTopic, currentQuestions, currentIndex=0, score=0, wrong=[];
-let answered=false;
+let data = null;
+let currentTopic = null;
+let currentQuestions = [];
+let currentIndex = 0;
+let score = 0;
+let wrong = [];
+let answered = false;
+let currentLongPrompt = "";
+
+function initialiseApp(){
+  if(typeof QUESTION_BANK === "undefined"){
+    document.getElementById("topics").innerHTML =
+      "<div class='error-box'><strong>Question bank not found.</strong><br>Make sure questions.js is in the same folder as this file.</div>";
+    return;
+  }
+
+  data = QUESTION_BANK;
+  loadTopics();
+}
 
 function showScreen(id){
-  ["topicScreen","sessionScreen","questionScreen","summaryScreen","checkScreen"].forEach(s=>{
-    document.getElementById(s).classList.add("hidden");
+  [
+    "topicScreen",
+    "sessionScreen",
+    "questionScreen",
+    "longFormScreen",
+    "summaryScreen",
+    "checkScreen"
+  ].forEach(function(screen){
+    document.getElementById(screen).classList.add("hidden");
   });
+
   document.getElementById(id).classList.remove("hidden");
 }
 
 function loadTopics(){
-  const t = document.getElementById("topics");
-  t.innerHTML="";
-  data.units.forEach(u=>{
-    u.topics.forEach(topic=>{
-      let b=document.createElement("button");
-      b.className="topic-card";
-      b.textContent=topic.title;
-      b.onclick=()=>chooseSession(topic);
-      t.appendChild(b);
+  const box = document.getElementById("topics");
+  box.innerHTML = "";
+
+  if(!data.units || data.units.length === 0){
+    box.innerHTML = "<div class='error-box'>No units found in question bank.</div>";
+    return;
+  }
+
+  data.units.forEach(function(unit){
+    const heading = document.createElement("h3");
+    heading.textContent = unit.title || "Untitled Unit";
+    box.appendChild(heading);
+
+    if(!unit.topics || unit.topics.length === 0){
+      const warning = document.createElement("p");
+      warning.textContent = "No topics found in this unit.";
+      box.appendChild(warning);
+      return;
+    }
+
+    unit.topics.forEach(function(topic){
+      const count = topic.questions ? topic.questions.length : 0;
+
+      const btn = document.createElement("button");
+      btn.className = "topic-card";
+      btn.innerHTML =
+        "<strong>" + (topic.title || "Untitled Topic") + "</strong><br>" +
+        count + " banked questions";
+
+      btn.onclick = function(){
+        if(count === 0){
+          alert("This topic has no questions yet.");
+          return;
+        }
+        chooseSession(topic);
+      };
+
+      box.appendChild(btn);
     });
   });
 }
 
 function chooseSession(topic){
-  currentTopic=topic;
+  currentTopic = topic;
   showScreen("sessionScreen");
-  document.getElementById("sessionTitle").textContent=topic.title;
 
-  let sizes=[5,10,15];
-  let div=document.getElementById("sessionOptions");
-  div.innerHTML="";
+  document.getElementById("sessionTitle").textContent = topic.title;
 
-  sizes.forEach(s=>{
-    let b=document.createElement("button");
-    b.className="session-card";
-    b.textContent=s+" questions";
-    b.onclick=()=>startTopic(s);
-    div.appendChild(b);
+  const box = document.getElementById("sessionOptions");
+  box.innerHTML = "";
+
+  const available = topic.questions ? topic.questions.length : 0;
+
+  if(available === 0){
+    box.innerHTML = "<div class='error-box'>This topic has no questions.</div>";
+    return;
+  }
+
+  [5,10,15,20].forEach(function(size){
+    if(available >= size){
+      const btn = document.createElement("button");
+      btn.className = "session-card";
+      btn.textContent = size + " question session";
+      btn.onclick = function(){ startTopic(size); };
+      box.appendChild(btn);
+    }
   });
+
+  const allBtn = document.createElement("button");
+  allBtn.className = "session-card";
+  allBtn.textContent = "Full available set (" + available + " questions)";
+  allBtn.onclick = function(){ startTopic(available); };
+  box.appendChild(allBtn);
 }
 
 function startTopic(size){
-  currentQuestions=shuffle([...currentTopic.questions]).slice(0,size);
-  currentIndex=0; score=0; wrong=[];
+  if(!currentTopic || !currentTopic.questions || currentTopic.questions.length === 0){
+    alert("Cannot start: no questions available.");
+    return;
+  }
+
+  const safeSize = Math.min(size, currentTopic.questions.length);
+
+  if(safeSize <= 0){
+    alert("Cannot start: session size is zero.");
+    return;
+  }
+
+  currentQuestions = shuffle(copyQuestions(currentTopic.questions)).slice(0, safeSize);
+  currentIndex = 0;
+  score = 0;
+  wrong = [];
+  currentLongPrompt = "";
+  answered = false;
+
   showScreen("questionScreen");
+  document.getElementById("topicTitle").textContent = currentTopic.title;
   showQuestion();
 }
 
 function showQuestion(){
-  answered=false;
-  let q=currentQuestions[currentIndex];
-
-  document.getElementById("progress").textContent=
-  `Q ${currentIndex+1}/${currentQuestions.length}`;
-
-  document.getElementById("questionText").textContent=q.question;
-
-  document.getElementById("mcqArea").innerHTML="";
-  document.getElementById("shortArea").classList.add("hidden");
-
-  if(q.type==="short"){
-    document.getElementById("shortArea").classList.remove("hidden");
-  } else {
-    q.options.forEach((opt,i)=>{
-      let b=document.createElement("button");
-      b.className="option";
-      b.textContent=opt;
-      b.onclick=()=>checkMCQ(i);
-      document.getElementById("mcqArea").appendChild(b);
-    });
+  if(!currentQuestions || currentQuestions.length === 0){
+    showScreen("summaryScreen");
+    document.getElementById("finalScore").textContent = "No questions were loaded.";
+    return;
   }
 
+  answered = false;
+
+  const q = currentQuestions[currentIndex];
+
+  document.getElementById("progress").textContent =
+    "Question " + (currentIndex + 1) + " of " + currentQuestions.length;
+
+  document.getElementById("questionText").textContent = q.question || "[Missing question text]";
+
+  document.getElementById("mcqArea").innerHTML = "";
+  document.getElementById("shortArea").classList.add("hidden");
+  document.getElementById("shortAnswer").value = "";
+  document.getElementById("shortAnswer").disabled = false;
+  document.getElementById("checkShortBtn").disabled = false;
+
   document.getElementById("feedback").classList.add("hidden");
+  document.getElementById("feedback").innerHTML = "";
   document.getElementById("nextBtn").classList.add("hidden");
+
+  if(q.type === "short"){
+    document.getElementById("shortArea").classList.remove("hidden");
+  } else if(q.type === "mcq"){
+    showMCQ(q);
+  } else {
+    document.getElementById("feedback").innerHTML =
+      "<strong class='bad'>Question type error.</strong><p>This question has no valid type.</p>";
+    document.getElementById("feedback").classList.remove("hidden");
+    document.getElementById("nextBtn").classList.remove("hidden");
+    answered = true;
+  }
 }
 
-function checkMCQ(i){
-  if(answered)return;
-  answered=true;
+function showMCQ(q){
+  const box = document.getElementById("mcqArea");
+  box.innerHTML = "";
 
-  let q=currentQuestions[currentIndex];
-  let correct=i===q.correct;
+  if(!q.options || q.options.length === 0){
+    box.innerHTML = "<div class='error-box'>MCQ has no options.</div>";
+    document.getElementById("nextBtn").classList.remove("hidden");
+    return;
+  }
 
-  if(correct){score++;}
-  else{wrong.push(q);}
+  q.options.forEach(function(option, index){
+    const btn = document.createElement("button");
+    btn.className = "option";
+    btn.textContent = option;
+    btn.onclick = function(){ checkMCQ(index); };
+    box.appendChild(btn);
+  });
+}
 
-  document.getElementById("feedback").innerHTML=
-  correct?"Correct":"Incorrect";
+function checkMCQ(index){
+  if(answered) return;
+  answered = true;
+
+  const q = currentQuestions[currentIndex];
+  const correct = index === q.correct;
+
+  if(correct){
+    score++;
+    document.getElementById("feedback").innerHTML =
+      "<strong class='good'>Correct</strong><p>" + safeText(q.explanation) + "</p>";
+  } else {
+    wrong.push(q);
+    document.getElementById("feedback").innerHTML =
+      "<strong class='bad'>Incorrect</strong><p>" + safeText(q.explanation) + "</p>";
+  }
 
   document.getElementById("feedback").classList.remove("hidden");
   document.getElementById("nextBtn").classList.remove("hidden");
@@ -186,20 +430,19 @@ function checkShortAnswer(){
   if(answered) return;
   answered = true;
 
-  let q = currentQuestions[currentIndex];
-  let rawAnswer = document.getElementById("shortAnswer").value;
-  let ans = normaliseText(rawAnswer);
+  const q = currentQuestions[currentIndex];
+  const rawAnswer = document.getElementById("shortAnswer").value;
+  const ans = normaliseText(rawAnswer);
 
-  let keywords = q.keywords || [];
-  let trapAnswers = q.trapAnswers || [];
-  let mode = q.mode || "all";
+  const keywords = q.keywords || [];
+  const trapAnswers = q.trapAnswers || [];
+  const mode = q.mode || "all";
 
   let hits = [];
   let misses = [];
   let trapHits = [];
 
-  // TRAP CHECK
-  trapAnswers.forEach(trap => {
+  trapAnswers.forEach(function(trap){
     if(ans === normaliseText(trap)){
       trapHits.push(trap);
     }
@@ -209,19 +452,17 @@ function checkShortAnswer(){
     wrong.push(q);
 
     document.getElementById("feedback").innerHTML =
-      "<div style='background:#ff0000;color:white;padding:20px;font-size:26px;font-weight:bold;text-align:center;border-radius:10px;'>✖ TRAP ANSWER ✖</div>" +
-      "<p><strong>You wrote:</strong> " + rawAnswer + "</p>" +
-      "<p><strong>Why this is not enough:</strong> " + q.explanation + "</p>" +
-      "<p><strong>Correct answer:</strong> " + q.markScheme + "</p>";
+      "<div class='trap-box'>✖ TRAP ANSWER ✖</div>" +
+      "<p><strong>You wrote:</strong> " + safeText(rawAnswer) + "</p>" +
+      "<p><strong>Why this is not enough:</strong> " + safeText(q.explanation) + "</p>" +
+      "<p><strong>Correct answer:</strong> " + safeText(q.markScheme) + "</p>";
 
-    document.getElementById("feedback").classList.remove("hidden");
-    document.getElementById("nextBtn").classList.remove("hidden");
-
+    lockShortAnswer();
+    revealFeedback();
     return;
   }
 
-  // NORMAL CHECK
-  keywords.forEach(k => {
+  keywords.forEach(function(k){
     if(ans.includes(normaliseText(k))){
       hits.push(k);
     } else {
@@ -234,7 +475,7 @@ function checkShortAnswer(){
   if(mode === "any"){
     correct = hits.length > 0;
   } else {
-    correct = misses.length === 0;
+    correct = keywords.length > 0 && misses.length === 0;
   }
 
   if(correct){
@@ -244,75 +485,292 @@ function checkShortAnswer(){
   }
 
   let html = correct
-    ? "<strong style='color:green;'>Correct</strong><br>"
-    : "<strong style='color:red;'>Needs improvement</strong><br>";
+    ? "<strong class='good'>Correct</strong><br>"
+    : "<strong class='bad'>Needs improvement</strong><br>";
 
-  hits.forEach(k => {
-    html += "<span style='background:#d4edda;padding:4px;margin:2px;border-radius:5px;'>" + k + "</span>";
+  hits.forEach(function(k){
+    html += "<span class='keyword-hit'>Found: " + safeText(k) + "</span>";
   });
 
-  misses.forEach(k => {
-    html += "<span style='background:#f8d7da;padding:4px;margin:2px;border-radius:5px;'>" + k + "</span>";
+  misses.forEach(function(k){
+    html += "<span class='keyword-miss'>Missing: " + safeText(k) + "</span>";
   });
 
-  html += "<p><strong>Mark scheme:</strong> " + q.markScheme + "</p>";
-  html += "<p>" + q.explanation + "</p>";
+  html += "<p><strong>Mark scheme:</strong> " + safeText(q.markScheme) + "</p>";
+  html += "<p>" + safeText(q.explanation) + "</p>";
 
   document.getElementById("feedback").innerHTML = html;
+
+  lockShortAnswer();
+  revealFeedback();
+}
+
+function lockShortAnswer(){
+  document.getElementById("shortAnswer").disabled = true;
+  document.getElementById("checkShortBtn").disabled = true;
+}
+
+function revealFeedback(){
   document.getElementById("feedback").classList.remove("hidden");
   document.getElementById("nextBtn").classList.remove("hidden");
 }
 
 function nextQuestion(){
   currentIndex++;
-  if(currentIndex>=currentQuestions.length){
-    showSummary();
+
+  if(currentIndex >= currentQuestions.length){
+    showLongFormPrompt();
   } else {
     showQuestion();
   }
 }
 
+function showLongFormPrompt(){
+  if(!currentTopic || !currentTopic.longFormBank){
+    showSummary();
+    return;
+  }
+
+  const bank = currentTopic.longFormBank;
+
+  if(!bank.topics || !bank.stems || !bank.focuses){
+    showSummary();
+    return;
+  }
+
+  const topic = pickRandom(bank.topics);
+  const stem = pickRandom(bank.stems);
+  const focus = pickRandom(bank.focuses);
+
+  currentLongPrompt = stem + " " + topic + " in relation to " + focus + ".";
+
+  document.getElementById("longPrompt").textContent = currentLongPrompt;
+
+  const list = document.getElementById("longPoints");
+  list.innerHTML = "";
+
+  const points = bank.discussionPoints || [
+    "Use engineering vocabulary.",
+    "Give a real-world example.",
+    "Make a justified judgement."
+  ];
+
+  points.forEach(function(point){
+    const li = document.createElement("li");
+    li.textContent = point;
+    list.appendChild(li);
+  });
+
+  showScreen("longFormScreen");
+}
+
 function showSummary(){
   showScreen("summaryScreen");
-  document.getElementById("finalScore").textContent=
-  `Score: ${score}/${currentQuestions.length}`;
+
+  document.getElementById("finalScore").textContent =
+    "Score: " + score + " out of " + currentQuestions.length;
+
+  if(wrong.length > 0){
+    document.getElementById("weakSummary").textContent =
+      "Weak questions identified: " + wrong.length;
+    document.getElementById("retryBtn").classList.remove("hidden");
+  } else {
+    document.getElementById("weakSummary").textContent =
+      "No weak questions identified.";
+    document.getElementById("retryBtn").classList.add("hidden");
+  }
+
+  if(currentLongPrompt){
+    document.getElementById("longSummary").textContent =
+      "Long-form prompt used: " + currentLongPrompt;
+  } else {
+    document.getElementById("longSummary").textContent = "";
+  }
+}
+
+function retryWeakQuestions(){
+  if(wrong.length === 0){
+    return;
+  }
+
+  currentQuestions = shuffle(copyQuestions(wrong));
+  currentIndex = 0;
+  score = 0;
+  wrong = [];
+  currentLongPrompt = "";
+
+  showScreen("questionScreen");
+  document.getElementById("topicTitle").textContent = currentTopic.title + " — Weak Retry";
+  showQuestion();
+}
+
+function restartSameTopic(){
+  if(currentTopic){
+    chooseSession(currentTopic);
+  }
 }
 
 function backToTopics(){
+  currentTopic = null;
+  currentQuestions = [];
+  currentIndex = 0;
+  score = 0;
+  wrong = [];
+  currentLongPrompt = "";
   showScreen("topicScreen");
 }
 
-function shuffle(a){
-  for(let i=a.length-1;i>0;i--){
-    let j=Math.floor(Math.random()*(i+1));
-    [a[i],a[j]]=[a[j],a[i]];
-  }
-  return a;
-}
-
 function runBankCheck(){
-  let errors=0, warnings=0, log="";
+  let errors = 0;
+  let warnings = 0;
+  let log = "";
 
-  data.units.forEach(u=>{
-    u.topics.forEach(t=>{
-      t.questions.forEach((q,i)=>{
-        if(!q.type){log+="❌ Missing type<br>"; errors++;}
-        if(q.type==="short" && !q.keywords){log+="❌ Missing keywords<br>"; errors++;}
-        if(q.type==="mcq" && !q.options){log+="❌ Missing options<br>"; errors++;}
-        if(q.type==="short" && !q.mode){log+="⚠️ Missing mode<br>"; warnings++;}
+  try {
+    if(!data || !data.units){
+      throw new Error("QUESTION_BANK.units is missing.");
+    }
+
+    data.units.forEach(function(unit, unitIndex){
+      if(!unit.title){
+        log += "⚠️ Unit " + (unitIndex + 1) + " missing title<br>";
+        warnings++;
+      }
+
+      if(!unit.topics || unit.topics.length === 0){
+        log += "❌ Unit missing topics: " + safeText(unit.title) + "<br>";
+        errors++;
+        return;
+      }
+
+      unit.topics.forEach(function(topic, topicIndex){
+        const topicName = topic.title || "Untitled Topic";
+
+        if(!topic.title){
+          log += "⚠️ Topic " + (topicIndex + 1) + " missing title<br>";
+          warnings++;
+        }
+
+        if(!topic.questions || topic.questions.length === 0){
+          log += "❌ Topic has no questions: " + safeText(topicName) + "<br>";
+          errors++;
+          return;
+        }
+
+        topic.questions.forEach(function(q, i){
+          const ref = "[" + topicName + " Q" + (i + 1) + "] ";
+
+          if(!q.type){
+            log += "❌ Missing type " + ref + "<br>";
+            errors++;
+          }
+
+          if(!q.question){
+            log += "❌ Missing question text " + ref + "<br>";
+            errors++;
+          }
+
+          if(q.type === "mcq"){
+            if(!q.options || q.options.length < 2){
+              log += "❌ MCQ missing options " + ref + "<br>";
+              errors++;
+            }
+
+            if(typeof q.correct !== "number"){
+              log += "❌ MCQ missing correct index " + ref + "<br>";
+              errors++;
+            }
+
+            if(q.options && typeof q.correct === "number" && (q.correct < 0 || q.correct >= q.options.length)){
+              log += "❌ MCQ correct index out of range " + ref + "<br>";
+              errors++;
+            }
+          }
+
+          if(q.type === "short"){
+            if(!q.keywords || q.keywords.length === 0){
+              log += "❌ Short question missing keywords " + ref + "<br>";
+              errors++;
+            }
+
+            if(!q.mode){
+              log += "⚠️ Short question missing mode " + ref + "<br>";
+              warnings++;
+            }
+
+            if(q.mode && q.mode !== "any" && q.mode !== "all"){
+              log += "❌ Invalid short question mode " + ref + "<br>";
+              errors++;
+            }
+          }
+        });
+
+        if(!topic.longFormBank){
+          log += "⚠️ No long-form bank: " + safeText(topicName) + "<br>";
+          warnings++;
+        }
       });
     });
-  });
-
-  if(errors===0 && warnings===0){
-    log="✅ Bank is clean";
+  } catch(error){
+    log += "<div class='error-box'><strong>Critical bank error:</strong><br>" + safeText(error.message) + "</div>";
+    errors++;
   }
 
-  document.getElementById("checkResults").innerHTML=log;
+  if(errors === 0 && warnings === 0){
+    log = "✅ Bank is clean";
+  } else {
+    log = "<p><strong>Errors:</strong> " + errors + "</p>" +
+          "<p><strong>Warnings:</strong> " + warnings + "</p><hr>" + log;
+  }
+
+  document.getElementById("checkResults").innerHTML = log;
   showScreen("checkScreen");
 }
 
-loadTopics();
+function copyQuestions(questions){
+  return questions.map(function(q){
+    return {
+      type: q.type || "",
+      mode: q.mode || "all",
+      question: q.question || "",
+      options: q.options ? q.options.slice() : [],
+      correct: q.correct,
+      explanation: q.explanation || "",
+      keywords: q.keywords ? q.keywords.slice() : [],
+      trapAnswers: q.trapAnswers ? q.trapAnswers.slice() : [],
+      markScheme: q.markScheme || ""
+    };
+  });
+}
+
+function shuffle(array){
+  for(let i = array.length - 1; i > 0; i--){
+    const j = Math.floor(Math.random() * (i + 1));
+    const temp = array[i];
+    array[i] = array[j];
+    array[j] = temp;
+  }
+  return array;
+}
+
+function pickRandom(array){
+  return array[Math.floor(Math.random() * array.length)];
+}
+
+function normaliseText(text){
+  return String(text)
+    .toLowerCase()
+    .replace(/[.,!?;:()]/g, "")
+    .trim();
+}
+
+function safeText(value){
+  return String(value || "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
+}
+
+initialiseApp();
 </script>
 
 </body>
