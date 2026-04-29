@@ -795,6 +795,269 @@ const QUESTION_BANK = {
       explanation: "CNC stands for Computer Numerical Control."
     }
   ]
+},
+{
+  title: "Forming",
+  questions: [
+    {
+      type: "mcq",
+      question: "What is forming?",
+      options: ["Shaping material without removing it", "Cutting material away", "Joining materials together", "Melting material completely"],
+      correct: 0,
+      explanation: "Forming changes shape without removing material."
+    },
+    {
+      type: "mcq",
+      question: "Which is a forming process?",
+      options: ["Drilling", "Casting", "Bending", "Milling"],
+      correct: 2,
+      explanation: "Bending reshapes material without removing it."
+    },
+    {
+      type: "short",
+      question: "State one advantage of forming.",
+      keywords: ["no waste", "fast", "efficient"],
+      mode: "any",
+      traps: ["accurate"],
+      trapResponse: "Trap answer — forming can be accurate, but the key advantage is reduced waste and speed.",
+      markScheme: "Forming is fast and produces little or no waste.",
+      explanation: "Material is reshaped rather than removed."
+    },
+    {
+      type: "mcq",
+      question: "Which forming process uses rollers?",
+      options: ["Rolling", "Casting", "Turning", "Welding"],
+      correct: 0,
+      explanation: "Rolling passes material through rollers to shape it."
+    },
+    {
+      type: "short",
+      question: "What is forging?",
+      keywords: ["hammer", "compress", "shape"],
+      mode: "any",
+      traps: ["cut"],
+      trapResponse: "Trap answer — forging shapes material, it does not cut it.",
+      markScheme: "Forging shapes metal using compressive force such as hammering.",
+      explanation: "Forging improves strength by aligning grain structure."
+    },
+    {
+      type: "mcq",
+      question: "Which process bends sheet metal into shape?",
+      options: ["Press forming", "Casting", "Milling", "Drilling"],
+      correct: 0,
+      explanation: "Press forming bends sheet metal using a press."
+    },
+    {
+      type: "short",
+      question: "Why is forming efficient?",
+      keywords: ["no waste", "material"],
+      mode: "any",
+      traps: ["cheap"],
+      trapResponse: "Trap answer — cost can vary, but efficiency comes from minimal waste.",
+      markScheme: "Forming is efficient because little or no material is wasted.",
+      explanation: "Material is reshaped instead of removed."
+    },
+    {
+      type: "mcq",
+      question: "Which process shapes metal using heat and force?",
+      options: ["Forging", "Soldering", "Drilling", "Cutting"],
+      correct: 0,
+      explanation: "Forging often uses heat and force."
+    },
+    {
+      type: "short",
+      question: "State one use of forming.",
+      keywords: ["car", "panel", "metal", "sheet"],
+      mode: "any",
+      traps: ["wire"],
+      trapResponse: "Trap answer — wire relates to drawing, not general forming.",
+      markScheme: "Forming is used to make car panels and sheet metal products.",
+      explanation: "Forming is common in mass production."
+    },
+    {
+      type: "mcq",
+      question: "What happens to material thickness during forming?",
+      options: ["Usually stays similar", "Always increases", "Always halves", "Disappears"],
+      correct: 0,
+      explanation: "Thickness may change slightly but material is not removed."
+    }
+  ]
+},
+
+{
+  title: "Additive Manufacturing",
+  questions: [
+    {
+      type: "mcq",
+      question: "What is additive manufacturing?",
+      options: ["Building objects layer by layer", "Cutting material away", "Joining parts with glue", "Casting metal"],
+      correct: 0,
+      explanation: "Additive manufacturing builds parts layer by layer."
+    },
+    {
+      type: "mcq",
+      question: "What is another name for additive manufacturing?",
+      options: ["3D printing", "Milling", "Forging", "Drilling"],
+      correct: 0,
+      explanation: "Additive manufacturing is also known as 3D printing."
+    },
+    {
+      type: "short",
+      question: "State one advantage of 3D printing.",
+      keywords: ["complex", "shape", "custom", "waste"],
+      mode: "any",
+      traps: ["fast"],
+      trapResponse: "Trap answer — 3D printing can be slow. The advantage is complexity or low waste.",
+      markScheme: "3D printing can produce complex shapes with low material waste.",
+      explanation: "It allows designs that are hard to make otherwise."
+    },
+    {
+      type: "mcq",
+      question: "Which material is commonly used in 3D printing?",
+      options: ["PLA plastic", "Concrete block", "Glass sheet", "Steel beam"],
+      correct: 0,
+      explanation: "PLA is a common 3D printing material."
+    },
+    {
+      type: "short",
+      question: "Why is additive manufacturing good for prototypes?",
+      keywords: ["quick", "design", "test"],
+      mode: "any",
+      traps: ["strong"],
+      trapResponse: "Trap answer — prototypes are for testing design, not necessarily strength.",
+      markScheme: "It allows quick production of prototypes for testing designs.",
+      explanation: "Designs can be changed easily."
+    },
+    {
+      type: "mcq",
+      question: "What is built first in 3D printing?",
+      options: ["Bottom layer", "Top layer", "Middle section", "Final finish"],
+      correct: 0,
+      explanation: "Objects are built layer by layer from the bottom up."
+    },
+    {
+      type: "short",
+      question: "State one disadvantage of additive manufacturing.",
+      keywords: ["slow", "weak", "cost"],
+      mode: "any",
+      traps: ["accurate"],
+      trapResponse: "Trap answer — accuracy is often good. Disadvantages include speed or strength.",
+      markScheme: "3D printing can be slow and parts may be weaker than traditional methods.",
+      explanation: "Layer bonding can reduce strength."
+    },
+    {
+      type: "mcq",
+      question: "Which file type is commonly used in 3D printing?",
+      options: ["STL", "MP3", "DOC", "JPG"],
+      correct: 0,
+      explanation: "STL files are used for 3D models."
+    },
+    {
+      type: "short",
+      question: "What does CAD stand for?",
+      keywords: ["computer", "aided", "design"],
+      mode: "all",
+      traps: ["drawing"],
+      trapResponse: "Trap answer — CAD is more than drawing. It is Computer Aided Design.",
+      markScheme: "CAD stands for Computer Aided Design.",
+      explanation: "CAD is used to design models for manufacturing."
+    },
+    {
+      type: "mcq",
+      question: "Why is additive manufacturing useful?",
+      options: ["It reduces material waste", "It always increases weight", "It removes all need for machines", "It is always the fastest method"],
+      correct: 0,
+      explanation: "Material is only used where needed, reducing waste."
+    }
+  ]
+},
+
+{
+  title: "Surface Finishing",
+  questions: [
+    {
+      type: "mcq",
+      question: "Why is surface finishing used?",
+      options: ["To improve appearance and protection", "To melt the material", "To cut the material", "To increase weight"],
+      correct: 0,
+      explanation: "Surface finishing improves both appearance and durability."
+    },
+    {
+      type: "mcq",
+      question: "Which is a surface finishing process?",
+      options: ["Painting", "Casting", "Drilling", "Forging"],
+      correct: 0,
+      explanation: "Painting protects and decorates surfaces."
+    },
+    {
+      type: "short",
+      question: "State one purpose of painting.",
+      keywords: ["protect", "corrosion", "appearance"],
+      mode: "any",
+      traps: ["strength"],
+      trapResponse: "Trap answer — paint does not significantly increase strength.",
+      markScheme: "Painting protects against corrosion and improves appearance.",
+      explanation: "It creates a barrier against moisture."
+    },
+    {
+      type: "mcq",
+      question: "Which process coats metal with another metal?",
+      options: ["Electroplating", "Drilling", "Milling", "Casting"],
+      correct: 0,
+      explanation: "Electroplating coats a surface with another metal."
+    },
+    {
+      type: "short",
+      question: "Why is galvanising used?",
+      keywords: ["zinc", "protect", "rust"],
+      mode: "any",
+      traps: ["paint"],
+      trapResponse: "Trap answer — galvanising uses zinc, not paint.",
+      markScheme: "Galvanising coats steel with zinc to prevent rust.",
+      explanation: "Zinc protects the steel from corrosion."
+    },
+    {
+      type: "mcq",
+      question: "Which finish improves grip?",
+      options: ["Knurling", "Polishing", "Painting", "Casting"],
+      correct: 0,
+      explanation: "Knurling creates a textured surface for grip."
+    },
+    {
+      type: "short",
+      question: "What does polishing do?",
+      keywords: ["smooth", "shine"],
+      mode: "any",
+      traps: ["protect"],
+      trapResponse: "Trap answer — polishing mainly improves appearance, not protection.",
+      markScheme: "Polishing smooths and shines a surface.",
+      explanation: "It improves appearance."
+    },
+    {
+      type: "mcq",
+      question: "Which process protects steel from rust?",
+      options: ["Painting or galvanising", "Cutting", "Drilling", "Milling"],
+      correct: 0,
+      explanation: "Surface coatings protect steel from corrosion."
+    },
+    {
+      type: "short",
+      question: "State one reason for applying a finish.",
+      keywords: ["protect", "appearance", "durability"],
+      mode: "any",
+      traps: ["shape"],
+      trapResponse: "Trap answer — finishing does not change the main shape.",
+      markScheme: "Finishes protect materials and improve appearance or durability.",
+      explanation: "Finishing extends product life."
+    },
+    {
+      type: "mcq",
+      question: "Which finish gives a shiny appearance?",
+      options: ["Polishing", "Casting", "Drilling", "Turning"],
+      correct: 0,
+      explanation: "Polishing creates a shiny surface."
+    }
+  ]
 }
       ]
     }
