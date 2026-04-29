@@ -1321,6 +1321,146 @@ const QUESTION_BANK = {
       explanation: "Tolerance ensures correct fit and function."
     }
   ]
+},
+{
+  title: "Quality Control",
+  questions: [
+    {
+      type: "mcq",
+      question: "What is quality control?",
+      options: ["Checking products meet standards", "Designing products", "Cutting materials", "Joining materials"],
+      correct: 0,
+      explanation: "Quality control ensures products meet required standards."
+    },
+    {
+      type: "mcq",
+      question: "Which tool is used to measure accurately?",
+      options: ["Vernier caliper", "Hammer", "Vice", "File"],
+      correct: 0,
+      explanation: "Vernier calipers measure precise dimensions."
+    },
+    {
+      type: "short",
+      question: "Why is quality control important?",
+      keywords: ["safe", "standard", "fit"],
+      mode: "any",
+      traps: ["cheap"],
+      trapResponse: "Trap answer — quality control is about safety and standards, not cost.",
+      markScheme: "It ensures products are safe and meet required standards.",
+      explanation: "Faulty products can be dangerous."
+    },
+    {
+      type: "mcq",
+      question: "What is inspection?",
+      options: ["Checking products", "Making products", "Finishing products", "Packaging"],
+      correct: 0,
+      explanation: "Inspection is checking products for faults."
+    },
+    {
+      type: "short",
+      question: "What is a fault?",
+      keywords: ["defect", "problem"],
+      mode: "any",
+      traps: ["design"],
+      trapResponse: "Trap answer — a fault is a defect, not the design itself.",
+      markScheme: "A fault is a defect or problem in a product.",
+      explanation: "Faults must be identified and corrected."
+    }
+  ]
+},
+
+{
+  title: "Production Methods",
+  questions: [
+    {
+      type: "mcq",
+      question: "What is one-off production?",
+      options: ["Making a single product", "Making many identical products", "Continuous production", "Automated production"],
+      correct: 0,
+      explanation: "One-off production makes a single item."
+    },
+    {
+      type: "mcq",
+      question: "What is mass production?",
+      options: ["Making large quantities", "Making one item", "Hand crafting", "Repairing"],
+      correct: 0,
+      explanation: "Mass production makes large numbers of identical items."
+    },
+    {
+      type: "short",
+      question: "State one advantage of mass production.",
+      keywords: ["cheap", "fast", "efficient"],
+      mode: "any",
+      traps: ["custom"],
+      trapResponse: "Trap answer — mass production is not customised.",
+      markScheme: "Mass production is fast and cost efficient.",
+      explanation: "It reduces cost per item."
+    },
+    {
+      type: "mcq",
+      question: "What is batch production?",
+      options: ["Making groups of products", "Making one product", "Continuous production", "No production"],
+      correct: 0,
+      explanation: "Batch production makes items in groups."
+    },
+    {
+      type: "short",
+      question: "Why use batch production?",
+      keywords: ["flexible", "variety"],
+      mode: "any",
+      traps: ["same"],
+      trapResponse: "Trap answer — batch allows variation, not identical output every time.",
+      markScheme: "Batch production allows flexibility and variety.",
+      explanation: "Different batches can be made."
+    }
+  ]
+},
+
+{
+  title: "Health and Safety",
+  questions: [
+    {
+      type: "mcq",
+      question: "What does PPE stand for?",
+      options: ["Personal Protective Equipment", "Primary Production Equipment", "Personal Process Equipment", "Protective Power Equipment"],
+      correct: 0,
+      explanation: "PPE protects users from hazards."
+    },
+    {
+      type: "mcq",
+      question: "Which is PPE?",
+      options: ["Safety goggles", "Hammer", "Lathe", "Drill"],
+      correct: 0,
+      explanation: "Goggles protect eyes from hazards."
+    },
+    {
+      type: "short",
+      question: "Why is PPE important?",
+      keywords: ["protect", "safety"],
+      mode: "any",
+      traps: ["design"],
+      trapResponse: "Trap answer — PPE is about safety, not design.",
+      markScheme: "PPE protects users from injury.",
+      explanation: "Essential in workshops."
+    },
+    {
+      type: "mcq",
+      question: "What should you do before using a machine?",
+      options: ["Check it is safe", "Turn it on immediately", "Ignore instructions", "Use without training"],
+      correct: 0,
+      explanation: "Safety checks must be done first."
+    },
+    {
+      type: "short",
+      question: "State one workshop hazard.",
+      keywords: ["sharp", "hot", "moving"],
+      mode: "any",
+      traps: ["clean"],
+      trapResponse: "Trap answer — hazards are dangers, not safe conditions.",
+      markScheme: "Hazards include sharp edges, heat, and moving parts.",
+      explanation: "Awareness reduces risk."
+    }
+  ]
 }
       ]
     }
