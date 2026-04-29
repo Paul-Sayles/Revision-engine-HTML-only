@@ -1058,6 +1058,269 @@ const QUESTION_BANK = {
       explanation: "Polishing creates a shiny surface."
     }
   ]
+},
+{
+  title: "CAD",
+  questions: [
+    {
+      type: "mcq",
+      question: "What does CAD stand for?",
+      options: ["Computer Aided Design", "Controlled Auto Drawing", "Computer Assisted Draft", "Centralised Art Design"],
+      correct: 0,
+      explanation: "CAD stands for Computer Aided Design."
+    },
+    {
+      type: "mcq",
+      question: "What is CAD used for?",
+      options: ["Designing products digitally", "Cutting materials", "Joining materials", "Painting surfaces"],
+      correct: 0,
+      explanation: "CAD allows designers to create and modify digital models."
+    },
+    {
+      type: "short",
+      question: "State one advantage of CAD.",
+      keywords: ["edit", "modify", "accurate", "save", "repeat"],
+      mode: "any",
+      traps: ["cheap"],
+      trapResponse: "Trap answer — cost varies. The key advantage is accuracy and easy modification.",
+      markScheme: "CAD allows accurate designs and easy modification or editing.",
+      explanation: "Designs can be changed quickly without redrawing."
+    },
+    {
+      type: "mcq",
+      question: "Which file type is commonly used for CAD models?",
+      options: ["STL", "MP3", "TXT", "JPG"],
+      correct: 0,
+      explanation: "STL is commonly used for 3D models."
+    },
+    {
+      type: "short",
+      question: "Why is CAD useful for prototyping?",
+      keywords: ["test", "design", "quick"],
+      mode: "any",
+      traps: ["strong"],
+      trapResponse: "Trap answer — CAD is for design and testing, not strength.",
+      markScheme: "CAD allows quick testing and development of designs.",
+      explanation: "Designs can be refined before manufacturing."
+    },
+    {
+      type: "mcq",
+      question: "Which device is commonly used with CAD?",
+      options: ["Computer", "Hammer", "Lathe", "Drill"],
+      correct: 0,
+      explanation: "CAD software runs on computers."
+    },
+    {
+      type: "short",
+      question: "State one output from CAD.",
+      keywords: ["drawing", "model", "file"],
+      mode: "any",
+      traps: ["metal"],
+      trapResponse: "Trap answer — CAD produces digital outputs, not physical metal.",
+      markScheme: "CAD produces drawings, models, or digital files.",
+      explanation: "These can be used for manufacturing."
+    },
+    {
+      type: "mcq",
+      question: "What type of model can CAD create?",
+      options: ["2D and 3D models", "Only 2D drawings", "Only physical models", "Only paper sketches"],
+      correct: 0,
+      explanation: "CAD can produce both 2D drawings and 3D models."
+    },
+    {
+      type: "short",
+      question: "What is a 3D model?",
+      keywords: ["height", "width", "depth"],
+      mode: "any",
+      traps: ["flat"],
+      trapResponse: "Trap answer — a 3D model is not flat.",
+      markScheme: "A 3D model has height, width, and depth.",
+      explanation: "It represents a real object digitally."
+    },
+    {
+      type: "mcq",
+      question: "Why is CAD important in manufacturing?",
+      options: ["It links design to production", "It replaces all machines", "It reduces all costs", "It removes design stages"],
+      correct: 0,
+      explanation: "CAD connects design to manufacturing processes like CNC."
+    }
+  ]
+},
+
+{
+  title: "Technical Drawing",
+  questions: [
+    {
+      type: "mcq",
+      question: "What is technical drawing used for?",
+      options: ["Communicating design ideas", "Cutting materials", "Joining metals", "Heating plastics"],
+      correct: 0,
+      explanation: "Technical drawings clearly communicate design details."
+    },
+    {
+      type: "mcq",
+      question: "Which drawing shows an object in 3D?",
+      options: ["Isometric drawing", "Orthographic drawing", "Plan view", "Section view"],
+      correct: 0,
+      explanation: "Isometric drawings show 3D views."
+    },
+    {
+      type: "short",
+      question: "What is orthographic projection?",
+      keywords: ["views", "front", "side", "top"],
+      mode: "any",
+      traps: ["3d"],
+      trapResponse: "Trap answer — orthographic is 2D views, not 3D.",
+      markScheme: "Orthographic projection shows different 2D views such as front, side, and top.",
+      explanation: "Used to fully describe an object."
+    },
+    {
+      type: "mcq",
+      question: "Which view shows the top of an object?",
+      options: ["Plan view", "Front view", "Side view", "Isometric view"],
+      correct: 0,
+      explanation: "Plan view shows the object from above."
+    },
+    {
+      type: "short",
+      question: "Why are dimensions added to drawings?",
+      keywords: ["size", "measure"],
+      mode: "any",
+      traps: ["colour"],
+      trapResponse: "Trap answer — dimensions are about size, not colour.",
+      markScheme: "Dimensions show the size and measurements of an object.",
+      explanation: "They ensure accuracy in manufacture."
+    },
+    {
+      type: "mcq",
+      question: "Which drawing is flat and uses multiple views?",
+      options: ["Orthographic", "Isometric", "Perspective", "Sketch"],
+      correct: 0,
+      explanation: "Orthographic drawings use multiple 2D views."
+    },
+    {
+      type: "short",
+      question: "What is a scale drawing?",
+      keywords: ["ratio", "size"],
+      mode: "any",
+      traps: ["random"],
+      trapResponse: "Trap answer — scale drawings follow a ratio, not random sizing.",
+      markScheme: "A scale drawing represents an object using a ratio to change size.",
+      explanation: "Used when objects are too large or small."
+    },
+    {
+      type: "mcq",
+      question: "What does a section view show?",
+      options: ["Inside of an object", "Outside colour", "Surface finish", "Weight"],
+      correct: 0,
+      explanation: "Section views show internal details."
+    },
+    {
+      type: "short",
+      question: "Why are technical drawings important?",
+      keywords: ["clear", "communication", "accurate"],
+      mode: "any",
+      traps: ["art"],
+      trapResponse: "Trap answer — technical drawing is about precision, not artistic expression.",
+      markScheme: "They provide clear and accurate communication of designs.",
+      explanation: "Essential for manufacturing."
+    },
+    {
+      type: "mcq",
+      question: "Which tool is used for drawing circles?",
+      options: ["Compass", "Ruler", "Protractor", "Set square"],
+      correct: 0,
+      explanation: "A compass is used to draw circles."
+    }
+  ]
+},
+
+{
+  title: "Tolerances",
+  questions: [
+    {
+      type: "mcq",
+      question: "What is tolerance?",
+      options: ["Allowed variation in size", "Exact measurement", "Surface finish", "Material type"],
+      correct: 0,
+      explanation: "Tolerance is the acceptable variation in dimensions."
+    },
+    {
+      type: "mcq",
+      question: "Why are tolerances used?",
+      options: ["To allow for manufacturing variation", "To decorate products", "To reduce weight", "To add colour"],
+      correct: 0,
+      explanation: "Tolerances allow for small differences in production."
+    },
+    {
+      type: "short",
+      question: "What happens if tolerance is too tight?",
+      keywords: ["expensive", "difficult"],
+      mode: "any",
+      traps: ["easy"],
+      trapResponse: "Trap answer — tight tolerances are harder, not easier.",
+      markScheme: "Tight tolerances make manufacturing more difficult and expensive.",
+      explanation: "Precision requires more control."
+    },
+    {
+      type: "mcq",
+      question: "What happens if tolerance is too loose?",
+      options: ["Parts may not fit properly", "Parts become stronger", "Production stops", "Materials melt"],
+      correct: 0,
+      explanation: "Loose tolerances can cause poor fitting parts."
+    },
+    {
+      type: "short",
+      question: "Why is tolerance important?",
+      keywords: ["fit", "function"],
+      mode: "any",
+      traps: ["colour"],
+      trapResponse: "Trap answer — tolerance affects fit, not colour.",
+      markScheme: "Tolerance ensures parts fit and function correctly.",
+      explanation: "Essential in engineering assemblies."
+    },
+    {
+      type: "mcq",
+      question: "What does ± mean?",
+      options: ["Plus or minus variation", "Exact value", "Multiply", "Divide"],
+      correct: 0,
+      explanation: "± shows allowable variation above or below a value."
+    },
+    {
+      type: "short",
+      question: "What is a tight tolerance?",
+      keywords: ["small", "variation"],
+      mode: "any",
+      traps: ["large"],
+      trapResponse: "Trap answer — tight means small variation.",
+      markScheme: "A tight tolerance allows very little variation.",
+      explanation: "Used where precision is critical."
+    },
+    {
+      type: "mcq",
+      question: "Which product needs tight tolerance?",
+      options: ["Engine parts", "Wooden fence", "Plastic toy", "Packaging box"],
+      correct: 0,
+      explanation: "Engine parts require high precision."
+    },
+    {
+      type: "short",
+      question: "State one example where tolerance matters.",
+      keywords: ["engine", "machine", "gear"],
+      mode: "any",
+      traps: ["poster"],
+      trapResponse: "Trap answer — posters do not require precision fitting.",
+      markScheme: "Tolerance matters in machines such as engines and gears.",
+      explanation: "Precision ensures proper operation."
+    },
+    {
+      type: "mcq",
+      question: "What is the main purpose of tolerance?",
+      options: ["Ensure fit and function", "Improve colour", "Reduce cost always", "Change material"],
+      correct: 0,
+      explanation: "Tolerance ensures correct fit and function."
+    }
+  ]
 }
       ]
     }
