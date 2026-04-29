@@ -3,7 +3,6 @@ const QUESTION_BANK = {
     {
       title: "OCR Engineering J823 - Materials",
       topics: [
-
         {
           title: "Polymers",
           questions: [
@@ -12,125 +11,443 @@ const QUESTION_BANK = {
               question: "What type of structure do most polymers have?",
               options: ["Long chain molecules", "Crystal lattice", "Metallic grid", "Ionic structure"],
               correct: 0,
-              explanation: "Polymers are made of long chains of repeating molecules."
+              explanation: "Polymers are made from long chains of repeating molecules."
             },
             {
               type: "mcq",
               question: "Which of these is a thermoplastic?",
-              options: ["Epoxy resin", "Polyethylene (PE)", "Bakelite", "Urea formaldehyde"],
-              correct: 1,
-              explanation: "Polyethylene is a thermoplastic that can be reheated and reshaped."
+              options: ["Epoxy resin", "Urea formaldehyde", "Acrylic", "Melamine formaldehyde"],
+              correct: 2,
+              explanation: "Acrylic is a thermoplastic because it can be reheated and reshaped."
             },
-            {
-              type: "mcq",
-              question: "What happens to thermoplastics when heated?",
-              options: ["They burn", "They melt and can be reshaped", "They stay rigid", "They shatter"],
-              correct: 1,
-              explanation: "Thermoplastics soften when heated and can be reshaped multiple times."
-            },
-            {
-              type: "mcq",
-              question: "Which type of polymer cannot be reshaped once set?",
-              options: ["Thermoplastic", "Thermoset", "Elastomer", "Composite"],
-              correct: 1,
-              explanation: "Thermosetting polymers cannot be remelted after curing."
-            },
-            {
-              type: "mcq",
-              question: "Which property is typical of polymers?",
-              options: ["High density", "Good electrical insulation", "High melting point", "Magnetic"],
-              correct: 1,
-              explanation: "Most polymers are good electrical insulators."
-            },
-            {
-              type: "mcq",
-              question: "Which polymer property makes them useful for packaging?",
-              options: ["Brittleness", "Lightweight", "Magnetic", "Conductive"],
-              correct: 1,
-              explanation: "Polymers are lightweight, making them ideal for packaging."
-            },
-
             {
               type: "short",
+              question: "State one property of a thermoplastic.",
+              keywords: ["reheated", "reshaped", "remoulded", "softens"],
               mode: "any",
-              question: "Give one example of a thermoplastic.",
-              keywords: ["polyethylene", "pvc", "polystyrene", "polypropylene"],
-              markScheme: "Examples include polyethylene (PE), PVC, polystyrene and polypropylene.",
-              explanation: "Thermoplastics can be reheated and reshaped."
+              traps: ["strong", "hard"],
+              trapResponse: "Trap answer — strength or hardness may be true for some plastics, but the key thermoplastic property is that it softens when heated and can be reshaped.",
+              markScheme: "A thermoplastic softens when heated and can be reshaped.",
+              explanation: "Thermoplastics can be heated, formed, cooled, and reheated again."
             },
             {
               type: "short",
+              question: "State one property of a thermosetting plastic.",
+              keywords: ["cannot", "reshape", "permanent", "hardens", "heat resistant"],
               mode: "any",
-              question: "Give one example of a thermosetting polymer.",
-              keywords: ["epoxy", "bakelite", "urea"],
-              markScheme: "Examples include epoxy resin, Bakelite and urea formaldehyde.",
-              explanation: "Thermosets cannot be reshaped once set."
+              traps: ["reheated", "remoulded"],
+              trapResponse: "Trap answer — thermosetting plastics cannot be repeatedly reheated and reshaped.",
+              markScheme: "A thermosetting plastic sets permanently and cannot be reshaped by heating.",
+              explanation: "Thermosetting plastics form strong permanent bonds when cured."
+            },
+            {
+              type: "mcq",
+              question: "Which polymer is commonly used for safety glasses and machine guards?",
+              options: ["Acrylic", "PVC", "Nylon", "Polypropylene"],
+              correct: 0,
+              explanation: "Acrylic is transparent and impact resistant, making it suitable for guards and displays."
+            },
+            {
+              type: "mcq",
+              question: "Which polymer is often used for pipes and cable insulation?",
+              options: ["PVC", "Nylon", "Acrylic", "Epoxy resin"],
+              correct: 0,
+              explanation: "PVC is commonly used for pipes, guttering and electrical insulation."
             },
             {
               type: "short",
-              mode: "all",
-              question: "Explain why thermoplastics can be reshaped.",
-              keywords: ["heat", "soften"],
-              markScheme: "Thermoplastics soften when heated, allowing them to be reshaped.",
-              explanation: "The structure allows movement when heated."
+              question: "Why are polymers often used instead of metals?",
+              keywords: ["lightweight", "corrosion", "cheap", "insulator"],
+              mode: "any",
+              traps: ["light"],
+              trapResponse: "Trap answer — 'light' is vague. The better engineering term is 'lightweight'.",
+              markScheme: "Polymers may be lightweight, corrosion resistant, cheap, or good electrical insulators.",
+              explanation: "Polymers are useful because they can offer properties metals may not."
             },
-           {
-  type: "short",
-  mode: "any",
-  question: "Explain one advantage of polymers in products.",
-  keywords: ["lightweight", "low weight"],
-  trapAnswers: ["light"],
-  markScheme: "Polymers are often lightweight, making them easy to handle and transport.",
-  explanation: "The correct idea is lightweight or low weight. 'Light' on its own is too vague."
-}
-          ],
-          longFormBank: {
-            topics: ["thermoplastics", "thermosetting polymers", "polyethylene", "PVC", "epoxy resin"],
-            stems: ["Evaluate the suitability of", "Explain why", "Compare the use of", "Justify the choice of", "Describe the advantages and limitations of"],
-            focuses: ["recyclability", "strength and durability", "cost and availability", "environmental impact", "use in packaging"],
-            discussionPoints: [
-              "Identify whether the polymer is thermoplastic or thermoset.",
-              "Link structure to properties.",
-              "Consider environmental impact.",
-              "Give a real-world example.",
-              "Make a justified conclusion."
-            ]
-          }
+            {
+              type: "mcq",
+              question: "Which material is a thermosetting plastic?",
+              options: ["Acrylic", "Polypropylene", "Epoxy resin", "PVC"],
+              correct: 2,
+              explanation: "Epoxy resin is a thermosetting plastic."
+            },
+            {
+              type: "short",
+              question: "What does biodegradable mean?",
+              keywords: ["break", "down", "natural", "microorganisms"],
+              mode: "any",
+              traps: ["recyclable"],
+              trapResponse: "Trap answer — recyclable and biodegradable are not the same thing.",
+              markScheme: "Biodegradable materials can be broken down naturally by microorganisms.",
+              explanation: "Biodegradable polymers reduce long-term environmental waste."
+            },
+            {
+              type: "mcq",
+              question: "Why can polymers be difficult to dispose of?",
+              options: ["They rust quickly", "Many do not biodegrade easily", "They conduct electricity", "They melt at room temperature"],
+              correct: 1,
+              explanation: "Many polymers take a long time to biodegrade."
+            }
+          ]
         },
 
         {
           title: "Material Properties",
-          questions: [/* unchanged */],
-          longFormBank: {/* unchanged */}
+          questions: [
+            {
+              type: "mcq",
+              question: "Which property describes resistance to scratching or indentation?",
+              options: ["Ductility", "Hardness", "Toughness", "Elasticity"],
+              correct: 1,
+              explanation: "Hardness is resistance to scratching, indentation or wear."
+            },
+            {
+              type: "mcq",
+              question: "Which property describes the ability to absorb energy before breaking?",
+              options: ["Toughness", "Brittleness", "Conductivity", "Density"],
+              correct: 0,
+              explanation: "Toughness is the ability to absorb energy and resist fracture."
+            },
+            {
+              type: "short",
+              question: "What does ductility mean?",
+              keywords: ["drawn", "wire"],
+              mode: "all",
+              traps: ["bend", "stretch"],
+              trapResponse: "Trap answer — ductility is not just bending or stretching. It means the material can be drawn into wire.",
+              markScheme: "Ductility is the ability of a material to be drawn into wire.",
+              explanation: "Copper is ductile, which is why it is useful for electrical wiring."
+            },
+            {
+              type: "short",
+              question: "What does malleability mean?",
+              keywords: ["hammered", "sheet"],
+              mode: "all",
+              traps: ["wire"],
+              trapResponse: "Trap answer — wire relates to ductility. Malleability means being formed into sheets.",
+              markScheme: "Malleability is the ability of a material to be hammered or rolled into sheet form.",
+              explanation: "Malleable metals can be shaped without cracking."
+            },
+            {
+              type: "mcq",
+              question: "Which property describes a material that breaks without much plastic deformation?",
+              options: ["Ductile", "Malleable", "Brittle", "Elastic"],
+              correct: 2,
+              explanation: "Brittle materials break suddenly with little deformation."
+            },
+            {
+              type: "mcq",
+              question: "Which property describes a material returning to its original shape after force is removed?",
+              options: ["Elasticity", "Toughness", "Hardness", "Conductivity"],
+              correct: 0,
+              explanation: "Elasticity is the ability to return to the original shape after deformation."
+            },
+            {
+              type: "short",
+              question: "State one reason material properties are important in engineering.",
+              keywords: ["suitable", "safe", "function", "load", "environment"],
+              mode: "any",
+              traps: ["looks"],
+              trapResponse: "Trap answer — appearance can matter, but engineering material choice is mainly about function, safety and suitability.",
+              markScheme: "Material properties help engineers choose a suitable and safe material for a product or environment.",
+              explanation: "A material must match the job it is expected to do."
+            },
+            {
+              type: "mcq",
+              question: "Which property is most important for electrical wiring?",
+              options: ["Electrical conductivity", "Brittleness", "Porosity", "Transparency"],
+              correct: 0,
+              explanation: "Electrical wiring needs a material with good electrical conductivity."
+            },
+            {
+              type: "short",
+              question: "What does corrosion resistance mean?",
+              keywords: ["resist", "rust", "oxidation", "chemical"],
+              mode: "any",
+              traps: ["waterproof"],
+              trapResponse: "Trap answer — waterproof is not the same as corrosion resistant.",
+              markScheme: "Corrosion resistance is the ability to resist rusting, oxidation or chemical attack.",
+              explanation: "Stainless steel is corrosion resistant because of its chromium oxide layer."
+            },
+            {
+              type: "mcq",
+              question: "Which property describes how heavy a material is for its size?",
+              options: ["Density", "Elasticity", "Hardness", "Ductility"],
+              correct: 0,
+              explanation: "Density describes mass per unit volume."
+            }
+          ]
         },
 
         {
           title: "Metals and Alloys",
-          questions: [/* unchanged */],
-          longFormBank: {/* unchanged */}
+          questions: [
+            {
+              type: "mcq",
+              question: "What is an alloy?",
+              options: ["A pure metal", "A mixture of metals or a metal with another element", "A type of polymer", "A ceramic coating"],
+              correct: 1,
+              explanation: "An alloy is made by combining a metal with other elements to improve properties."
+            },
+            {
+              type: "mcq",
+              question: "Which alloy contains iron and carbon?",
+              options: ["Brass", "Bronze", "Steel", "Solder"],
+              correct: 2,
+              explanation: "Steel is an alloy of iron and carbon."
+            },
+            {
+              type: "short",
+              question: "Why are alloys used instead of pure metals?",
+              keywords: ["improve", "properties", "stronger", "harder", "corrosion"],
+              mode: "any",
+              traps: ["cheaper"],
+              trapResponse: "Trap answer — cost can matter, but the main engineering reason is improved properties.",
+              markScheme: "Alloys are used because they can have improved properties such as strength, hardness or corrosion resistance.",
+              explanation: "Alloying changes the structure and properties of a metal."
+            },
+            {
+              type: "mcq",
+              question: "Which alloy is made from copper and zinc?",
+              options: ["Bronze", "Brass", "Stainless steel", "High carbon steel"],
+              correct: 1,
+              explanation: "Brass is an alloy of copper and zinc."
+            },
+            {
+              type: "mcq",
+              question: "Which alloy is made from copper and tin?",
+              options: ["Bronze", "Brass", "Mild steel", "Solder"],
+              correct: 0,
+              explanation: "Bronze is an alloy of copper and tin."
+            },
+            {
+              type: "short",
+              question: "Why is stainless steel resistant to corrosion?",
+              keywords: ["chromium", "oxide", "protective"],
+              mode: "any",
+              traps: ["carbon"],
+              trapResponse: "Trap answer — carbon affects hardness and strength, but chromium gives stainless steel corrosion resistance.",
+              markScheme: "Stainless steel contains chromium, which forms a protective oxide layer.",
+              explanation: "The chromium oxide layer helps prevent rusting."
+            },
+            {
+              type: "mcq",
+              question: "Which metal is commonly used for electrical wiring?",
+              options: ["Copper", "Lead", "Cast iron", "Tin"],
+              correct: 0,
+              explanation: "Copper is used for wiring because it has excellent electrical conductivity."
+            },
+            {
+              type: "short",
+              question: "State one property of aluminium that makes it useful in engineering.",
+              keywords: ["lightweight", "corrosion", "malleable", "conductive"],
+              mode: "any",
+              traps: ["light"],
+              trapResponse: "Trap answer — use 'lightweight' rather than 'light' for engineering answers.",
+              markScheme: "Aluminium is lightweight, corrosion resistant, malleable and a good conductor.",
+              explanation: "Aluminium is useful where low weight is important."
+            },
+            {
+              type: "mcq",
+              question: "Which metal is magnetic?",
+              options: ["Copper", "Aluminium", "Iron", "Zinc"],
+              correct: 2,
+              explanation: "Iron is a ferrous metal and is magnetic."
+            },
+            {
+              type: "short",
+              question: "What is meant by a ferrous metal?",
+              keywords: ["contains", "iron"],
+              mode: "all",
+              traps: ["magnetic"],
+              trapResponse: "Trap answer — many ferrous metals are magnetic, but the definition is that they contain iron.",
+              markScheme: "A ferrous metal is a metal that contains iron.",
+              explanation: "Examples include mild steel, cast iron and stainless steel."
+            }
+          ]
         }
-
       ]
     },
 
     {
       title: "OCR Engineering J823 - Manufacturing",
       topics: [
-
         {
           title: "Casting",
-          questions: [/* unchanged */],
-          longFormBank: {/* unchanged */}
+          questions: [
+            {
+              type: "mcq",
+              question: "What is casting?",
+              options: ["Cutting metal with a drill", "Pouring molten material into a mould", "Joining two metals with heat", "Bending sheet metal"],
+              correct: 1,
+              explanation: "Casting involves pouring molten material into a mould and allowing it to solidify."
+            },
+            {
+              type: "short",
+              question: "Name one advantage of casting.",
+              keywords: ["complex", "shape", "repeat", "large", "batch"],
+              mode: "any",
+              traps: ["accurate"],
+              trapResponse: "Trap answer — casting can be accurate, but accuracy depends on the process. A safer answer is complex shapes or repeat production.",
+              markScheme: "Casting can produce complex shapes and repeated parts.",
+              explanation: "Casting is useful for shapes that are difficult to machine."
+            },
+            {
+              type: "mcq",
+              question: "What material state is used in casting?",
+              options: ["Powder", "Molten liquid", "Solid bar", "Foam"],
+              correct: 1,
+              explanation: "The material is heated until molten before being poured into the mould."
+            },
+            {
+              type: "short",
+              question: "What is a mould used for in casting?",
+              keywords: ["shape", "molten", "material"],
+              mode: "any",
+              traps: ["cut"],
+              trapResponse: "Trap answer — a mould does not cut the material. It gives shape to the molten material.",
+              markScheme: "A mould shapes the molten material as it cools and solidifies.",
+              explanation: "The cavity inside the mould forms the final part."
+            },
+            {
+              type: "mcq",
+              question: "Which casting process uses a pattern pressed into sand?",
+              options: ["Injection moulding", "Sand casting", "Brazing", "Turning"],
+              correct: 1,
+              explanation: "Sand casting uses a sand mould formed around a pattern."
+            },
+            {
+              type: "mcq",
+              question: "What happens after molten metal is poured into a mould?",
+              options: ["It evaporates", "It solidifies", "It becomes plastic", "It is soldered"],
+              correct: 1,
+              explanation: "The molten metal cools and solidifies into the mould shape."
+            },
+            {
+              type: "short",
+              question: "State one possible defect in casting.",
+              keywords: ["porosity", "shrinkage", "crack", "void"],
+              mode: "any",
+              traps: ["rust"],
+              trapResponse: "Trap answer — rust is corrosion, not a casting defect.",
+              markScheme: "Possible casting defects include porosity, shrinkage, cracks or voids.",
+              explanation: "Defects can occur if the mould, cooling or pouring process is poor."
+            },
+            {
+              type: "mcq",
+              question: "Why is a pattern used in sand casting?",
+              options: ["To polish the metal", "To create the mould cavity", "To cool the casting", "To join two parts"],
+              correct: 1,
+              explanation: "The pattern creates the shape of the mould cavity."
+            },
+            {
+              type: "short",
+              question: "Why must molten metal be handled carefully?",
+              keywords: ["hot", "burns", "dangerous", "safety"],
+              mode: "any",
+              traps: ["sharp"],
+              trapResponse: "Trap answer — sharp edges may be a hazard later, but molten metal is mainly dangerous because of heat and burns.",
+              markScheme: "Molten metal is extremely hot and can cause serious burns, so safety controls are needed.",
+              explanation: "Casting requires PPE and safe working procedures."
+            },
+            {
+              type: "mcq",
+              question: "Which product could be made by casting?",
+              options: ["Engine block", "Paper label", "Electrical cable", "Flat drawing"],
+              correct: 0,
+              explanation: "Engine blocks are often made by casting because of their complex shape."
+            }
+          ]
         },
 
         {
           title: "Joining Methods",
-          questions: [/* unchanged */],
-          longFormBank: {/* unchanged */}
+          questions: [
+            {
+              type: "mcq",
+              question: "Which process permanently joins metals by melting them together?",
+              options: ["Welding", "Screwing", "Riveting", "Folding"],
+              correct: 0,
+              explanation: "Welding uses heat to fuse metals together."
+            },
+            {
+              type: "mcq",
+              question: "Which joining method uses a filler metal with a lower melting point than the parts being joined?",
+              options: ["Soldering", "Drilling", "Turning", "Casting"],
+              correct: 0,
+              explanation: "Soldering uses a lower melting point filler metal."
+            },
+            {
+              type: "short",
+              question: "State one advantage of welding.",
+              keywords: ["strong", "permanent", "sealed"],
+              mode: "any",
+              traps: ["temporary"],
+              trapResponse: "Trap answer — welding is normally a permanent joining method, not temporary.",
+              markScheme: "Welding can create a strong, permanent joint.",
+              explanation: "Welded joints are common in structural metalwork."
+            },
+            {
+              type: "short",
+              question: "What is an adhesive used for?",
+              keywords: ["bond", "join", "materials"],
+              mode: "any",
+              traps: ["melt"],
+              trapResponse: "Trap answer — adhesives do not usually melt the materials. They bond surfaces together.",
+              markScheme: "An adhesive is used to bond or join materials together.",
+              explanation: "Adhesives can join similar or different materials."
+            },
+            {
+              type: "mcq",
+              question: "Which joining method can be undone easily?",
+              options: ["Welding", "Brazing", "Screws", "Adhesive bonding"],
+              correct: 2,
+              explanation: "Screws are a temporary or removable fixing method."
+            },
+            {
+              type: "mcq",
+              question: "Which joining method uses a mechanical fastener?",
+              options: ["Riveting", "Welding", "Soldering", "Brazing"],
+              correct: 0,
+              explanation: "Riveting uses a mechanical fastener to join materials."
+            },
+            {
+              type: "short",
+              question: "What is the difference between a temporary and permanent joint?",
+              keywords: ["temporary", "removed", "permanent", "damage"],
+              mode: "any",
+              traps: ["strong"],
+              trapResponse: "Trap answer — strength alone does not define temporary or permanent. The key issue is whether it can be removed without damage.",
+              markScheme: "A temporary joint can be removed without damage, while a permanent joint cannot usually be separated without damage.",
+              explanation: "Screws are temporary; welding is permanent."
+            },
+            {
+              type: "mcq",
+              question: "Which process is commonly used for electrical components?",
+              options: ["Soldering", "Forging", "Sand casting", "Milling"],
+              correct: 0,
+              explanation: "Soldering is commonly used to join electrical components."
+            },
+            {
+              type: "short",
+              question: "State one safety risk when welding.",
+              keywords: ["heat", "burns", "arc", "eye", "fumes"],
+              mode: "any",
+              traps: ["splinter"],
+              trapResponse: "Trap answer — splinters are not the main welding risk. Welding hazards include heat, burns, arc eye and fumes.",
+              markScheme: "Welding risks include burns, arc eye, heat and fumes.",
+              explanation: "Welding needs PPE such as gloves, mask and eye protection."
+            },
+            {
+              type: "mcq",
+              question: "Which joining method uses heat but does not melt the parent metals?",
+              options: ["Brazing", "MIG welding", "Spot welding", "Arc welding"],
+              correct: 0,
+              explanation: "Brazing uses a filler metal and does not melt the parent metals."
+            }
+          ]
         }
-
       ]
     }
-
   ]
 };
