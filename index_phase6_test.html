@@ -345,7 +345,7 @@ function startTopic(size){
     return;
   }
 
-  currentQuestions = shuffle(copyQuestions(currentTopic.questions)).slice(0, safeSize);
+  currentQuestions = buildAdaptiveSet(currentTopic.questions, safeSize);
   currentIndex = 0;
   score = 0;
   wrong = [];
@@ -800,6 +800,23 @@ function showWorksheet(){
   document.getElementById("worksheetContent").innerHTML = html;
   showScreen("worksheetScreen");
 }
+ function buildAdaptiveSet(questions, size){
+  const weighted = questions.map(function(q){
+    const perf = performance[q.question] || { correct: 0, wrong: 0 };
+    const weight = 1 + perf.wrong - perf.correct;
+    return { q, weight: Math.max(1, weight) };
+  });
+
+  const pool = [];
+
+  weighted.forEach(function(item){
+    for(let i = 0; i < item.weight; i++){
+      pool.push(item.q);
+    }
+  });
+
+  return shuffle(copyQuestions(pool)).slice(0, size);
+} 
 function trackPerformance(q, correct){
   const key = q.question;
 
