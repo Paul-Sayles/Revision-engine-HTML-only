@@ -74,14 +74,15 @@ const QUESTION_BANK = {
               markScheme: "Thermoplastics soften when heated, allowing them to be reshaped.",
               explanation: "The structure allows movement when heated."
             },
-            {
-              type: "short",
-              mode: "all",
-              question: "Explain one advantage of polymers in products.",
-              keywords: ["light", "weight"],
-              markScheme: "Polymers are lightweight, making them easy to handle and transport.",
-              explanation: "Low density is a key advantage."
-            }
+           {
+  type: "short",
+  mode: "any",
+  question: "Explain one advantage of polymers in products.",
+  keywords: ["lightweight", "low weight"],
+  trapAnswers: ["light"],
+  markScheme: "Polymers are often lightweight, making them easy to handle and transport.",
+  explanation: "The correct idea is lightweight or low weight. 'Light' on its own is too vague."
+}
           ],
           longFormBank: {
             topics: ["thermoplastics", "thermosetting polymers", "polyethylene", "PVC", "epoxy resin"],
