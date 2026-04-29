@@ -183,28 +183,82 @@ function checkMCQ(i){
 }
 
 function checkShortAnswer(){
-  if(answered)return;
-  answered=true;
+  if(answered) return;
+  answered = true;
 
-  let q=currentQuestions[currentIndex];
-  let ans=document.getElementById("shortAnswer").value.toLowerCase();
+  let q = currentQuestions[currentIndex];
+  let rawAnswer = document.getElementById("shortAnswer").value;
+  let ans = normaliseText(rawAnswer);
 
-  let hits=[], misses=[];
-  q.keywords.forEach(k=>{
-    ans.includes(k.toLowerCase())?hits.push(k):misses.push(k);
+  let keywords = q.keywords || [];
+  let trapAnswers = q.trapAnswers || [];
+  let mode = q.mode || "all";
+
+  let hits = [];
+  let misses = [];
+  let trapHits = [];
+
+  // TRAP CHECK
+  trapAnswers.forEach(trap => {
+    if(ans === normaliseText(trap)){
+      trapHits.push(trap);
+    }
   });
 
-  let correct = q.mode==="any" ? hits.length>0 : misses.length===0;
+  if(trapHits.length > 0){
+    wrong.push(q);
 
-  if(correct){score++;} else{wrong.push(q);}
+    document.getElementById("feedback").innerHTML =
+      "<div style='background:#ff0000;color:white;padding:20px;font-size:26px;font-weight:bold;text-align:center;border-radius:10px;'>✖ TRAP ANSWER ✖</div>" +
+      "<p><strong>You wrote:</strong> " + rawAnswer + "</p>" +
+      "<p><strong>Why this is not enough:</strong> " + q.explanation + "</p>" +
+      "<p><strong>Correct answer:</strong> " + q.markScheme + "</p>";
 
-  let html = correct?"Correct":"Needs improvement";
-  html+="<br>";
+    document.getElementById("feedback").classList.remove("hidden");
+    document.getElementById("nextBtn").classList.remove("hidden");
 
-  hits.forEach(k=>html+=`<span class='keyword-hit'>${k}</span>`);
-  misses.forEach(k=>html+=`<span class='keyword-miss'>${k}</span>`);
+    return;
+  }
 
-  document.getElementById("feedback").innerHTML=html;
+  // NORMAL CHECK
+  keywords.forEach(k => {
+    if(ans.includes(normaliseText(k))){
+      hits.push(k);
+    } else {
+      misses.push(k);
+    }
+  });
+
+  let correct = false;
+
+  if(mode === "any"){
+    correct = hits.length > 0;
+  } else {
+    correct = misses.length === 0;
+  }
+
+  if(correct){
+    score++;
+  } else {
+    wrong.push(q);
+  }
+
+  let html = correct
+    ? "<strong style='color:green;'>Correct</strong><br>"
+    : "<strong style='color:red;'>Needs improvement</strong><br>";
+
+  hits.forEach(k => {
+    html += "<span style='background:#d4edda;padding:4px;margin:2px;border-radius:5px;'>" + k + "</span>";
+  });
+
+  misses.forEach(k => {
+    html += "<span style='background:#f8d7da;padding:4px;margin:2px;border-radius:5px;'>" + k + "</span>";
+  });
+
+  html += "<p><strong>Mark scheme:</strong> " + q.markScheme + "</p>";
+  html += "<p>" + q.explanation + "</p>";
+
+  document.getElementById("feedback").innerHTML = html;
   document.getElementById("feedback").classList.remove("hidden");
   document.getElementById("nextBtn").classList.remove("hidden");
 }
