@@ -352,6 +352,181 @@ const QUESTION_BANK = {
       explanation: "Balsa is extremely lightweight."
     }
   ]
+},
+{
+  title: "Composites",
+  questions: [
+    {
+      type: "mcq",
+      question: "What is a composite material?",
+      options: ["A material made from two or more materials", "A pure metal", "A natural timber", "A type of fuel"],
+      correct: 0,
+      explanation: "A composite combines two or more materials to improve properties."
+    },
+    {
+      type: "mcq",
+      question: "Which is a composite material?",
+      options: ["Mild steel", "GRP", "Copper", "Acrylic"],
+      correct: 1,
+      explanation: "GRP, glass reinforced plastic, is a composite."
+    },
+    {
+      type: "short",
+      question: "Why are composites used in engineering?",
+      keywords: ["strength", "lightweight", "properties"],
+      mode: "any",
+      traps: ["cheap"],
+      trapResponse: "Trap answer — composites are not always cheap. They are often chosen for improved properties.",
+      markScheme: "Composites are used because they can be strong, lightweight, or have improved properties.",
+      explanation: "The combined materials can perform better than one material alone."
+    },
+    {
+      type: "mcq",
+      question: "What does GRP stand for?",
+      options: ["Glass Reinforced Plastic", "General Resin Plate", "Graphite Rolled Polymer", "Glazed Rubber Panel"],
+      correct: 0,
+      explanation: "GRP stands for Glass Reinforced Plastic."
+    },
+    {
+      type: "short",
+      question: "State one use of carbon fibre.",
+      keywords: ["bike", "car", "aerospace", "sports", "aircraft"],
+      mode: "any",
+      traps: ["window"],
+      trapResponse: "Trap answer — carbon fibre is normally used for strong lightweight structures, not windows.",
+      markScheme: "Carbon fibre may be used in bicycles, cars, aircraft, sports equipment, or aerospace parts.",
+      explanation: "Carbon fibre is strong and lightweight."
+    },
+    {
+      type: "mcq",
+      question: "Which property is carbon fibre known for?",
+      options: ["Strong and lightweight", "Soft and flexible", "Transparent and brittle", "Cheap and biodegradable"],
+      correct: 0,
+      explanation: "Carbon fibre is valued for being strong and lightweight."
+    },
+    {
+      type: "short",
+      question: "What is reinforced concrete made from?",
+      keywords: ["concrete", "steel"],
+      mode: "all",
+      traps: ["wood"],
+      trapResponse: "Trap answer — reinforced concrete uses steel reinforcement, not wood.",
+      markScheme: "Reinforced concrete is made from concrete with steel reinforcement.",
+      explanation: "Concrete resists compression, while steel improves tensile strength."
+    },
+    {
+      type: "mcq",
+      question: "Why is steel added to concrete?",
+      options: ["To improve tensile strength", "To make it transparent", "To reduce all weight", "To make it biodegradable"],
+      correct: 0,
+      explanation: "Steel reinforcement improves tensile strength."
+    },
+    {
+      type: "short",
+      question: "State one disadvantage of composites.",
+      keywords: ["expensive", "difficult", "recycle", "repair"],
+      mode: "any",
+      traps: ["rust"],
+      trapResponse: "Trap answer — many composites do not rust because they are not ferrous metals.",
+      markScheme: "Composites can be expensive, difficult to repair, or difficult to recycle.",
+      explanation: "Composite materials can be harder to process at end of life."
+    },
+    {
+      type: "mcq",
+      question: "Which material is often used as reinforcement in GRP?",
+      options: ["Glass fibres", "Lead blocks", "Paper pulp", "Copper wire"],
+      correct: 0,
+      explanation: "GRP uses glass fibres to reinforce plastic resin."
+    }
+  ]
+},
+
+{
+  title: "Smart Materials",
+  questions: [
+    {
+      type: "mcq",
+      question: "What is a smart material?",
+      options: ["A material that responds to a stimulus", "A material that is always electronic", "A material made only from metal", "A material that cannot change"],
+      correct: 0,
+      explanation: "Smart materials respond to changes such as heat, light, pressure, or electricity."
+    },
+    {
+      type: "mcq",
+      question: "Which material changes shape when heated?",
+      options: ["Shape memory alloy", "MDF", "Mild steel", "PVC"],
+      correct: 0,
+      explanation: "Shape memory alloys can return to a set shape when heated."
+    },
+    {
+      type: "short",
+      question: "State one use of shape memory alloy.",
+      keywords: ["glasses", "frames", "braces", "medical", "actuator"],
+      mode: "any",
+      traps: ["window"],
+      trapResponse: "Trap answer — shape memory alloy is used where controlled shape recovery is useful, not ordinary windows.",
+      markScheme: "Shape memory alloy can be used in glasses frames, braces, medical devices, or actuators.",
+      explanation: "It can return to its original shape after deformation."
+    },
+    {
+      type: "mcq",
+      question: "Which smart material changes colour with temperature?",
+      options: ["Thermochromic pigment", "Photochromic pigment", "Carbon fibre", "Plywood"],
+      correct: 0,
+      explanation: "Thermochromic materials change colour when temperature changes."
+    },
+    {
+      type: "short",
+      question: "What does photochromic mean?",
+      keywords: ["light", "colour"],
+      mode: "all",
+      traps: ["temperature"],
+      trapResponse: "Trap answer — temperature change is thermochromic. Photochromic means responding to light.",
+      markScheme: "Photochromic materials change colour in response to light.",
+      explanation: "Photochromic lenses darken in bright sunlight."
+    },
+    {
+      type: "mcq",
+      question: "Which product commonly uses photochromic material?",
+      options: ["Sun-reactive glasses lenses", "Concrete beams", "Steel bolts", "MDF shelves"],
+      correct: 0,
+      explanation: "Photochromic lenses darken when exposed to sunlight."
+    },
+    {
+      type: "short",
+      question: "What does thermochromic mean?",
+      keywords: ["temperature", "colour"],
+      mode: "all",
+      traps: ["light"],
+      trapResponse: "Trap answer — light change is photochromic. Thermochromic means responding to temperature.",
+      markScheme: "Thermochromic materials change colour in response to temperature.",
+      explanation: "They can be used in temperature indicators."
+    },
+    {
+      type: "mcq",
+      question: "Which smart material produces voltage when pressure is applied?",
+      options: ["Piezoelectric material", "Thermochromic pigment", "Plywood", "Brass"],
+      correct: 0,
+      explanation: "Piezoelectric materials generate an electrical charge when pressure is applied."
+    },
+    {
+      type: "short",
+      question: "State one use of piezoelectric materials.",
+      keywords: ["speaker", "sensor", "lighter", "buzzer", "microphone"],
+      mode: "any",
+      traps: ["paint"],
+      trapResponse: "Trap answer — piezoelectric materials are used for pressure/electrical response, not ordinary paint.",
+      markScheme: "Piezoelectric materials can be used in sensors, buzzers, microphones, speakers, or lighters.",
+      explanation: "They convert mechanical pressure into electrical signals, or electrical signals into movement."
+    },
+    {
+      type: "mcq",
+      question: "Why are smart materials useful?",
+      options: ["They can respond automatically to conditions", "They are always the cheapest material", "They never wear out", "They are all natural"],
+      correct: 0,
+      explanation: "Smart materials are useful because they respond to changes in their environment."
+    }
+  ]
 }
       ]
     },
