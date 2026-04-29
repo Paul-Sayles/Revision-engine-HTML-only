@@ -265,7 +265,94 @@ const QUESTION_BANK = {
               explanation: "Examples include mild steel, cast iron and stainless steel."
             }
           ]
-        }
+        },
+{
+  title: "Timbers",
+  questions: [
+    {
+      type: "mcq",
+      question: "What is hardwood?",
+      options: ["Wood from deciduous trees", "Wood from conifer trees", "Artificial wood", "Recycled wood"],
+      correct: 0,
+      explanation: "Hardwoods come from deciduous trees like oak and beech."
+    },
+    {
+      type: "mcq",
+      question: "What is softwood?",
+      options: ["Weak wood", "Wood from conifer trees", "Man-made wood", "Treated wood"],
+      correct: 1,
+      explanation: "Softwoods come from conifer trees like pine."
+    },
+    {
+      type: "short",
+      question: "State one advantage of softwood.",
+      keywords: ["cheap", "lightweight", "easy"],
+      mode: "any",
+      traps: ["strong"],
+      trapResponse: "Trap answer — softwoods are not chosen for strength, but for cost and ease of use.",
+      markScheme: "Softwoods are often cheaper, lightweight, and easy to work with.",
+      explanation: "They are widely used in construction and furniture."
+    },
+    {
+      type: "mcq",
+      question: "Which is a manufactured board?",
+      options: ["Oak", "Pine", "Plywood", "Teak"],
+      correct: 2,
+      explanation: "Plywood is a manufactured board made from layers of veneer."
+    },
+    {
+      type: "short",
+      question: "Why is plywood strong?",
+      keywords: ["layers", "grain", "alternate"],
+      mode: "any",
+      traps: ["thick"],
+      trapResponse: "Trap answer — strength comes from layered grain direction, not just thickness.",
+      markScheme: "Plywood is strong because layers are glued with alternating grain directions.",
+      explanation: "This reduces splitting and increases strength."
+    },
+    {
+      type: "mcq",
+      question: "Which wood is commonly used for outdoor furniture?",
+      options: ["MDF", "Pine", "Teak", "Chipboard"],
+      correct: 2,
+      explanation: "Teak is naturally resistant to weather."
+    },
+    {
+      type: "short",
+      question: "What is seasoning?",
+      keywords: ["dry", "moisture"],
+      mode: "any",
+      traps: ["cutting"],
+      trapResponse: "Trap answer — seasoning is drying, not cutting.",
+      markScheme: "Seasoning is the process of drying wood to reduce moisture content.",
+      explanation: "This prevents warping and splitting."
+    },
+    {
+      type: "mcq",
+      question: "Which material is made from wood fibres and resin?",
+      options: ["MDF", "Plywood", "Oak", "Balsa"],
+      correct: 0,
+      explanation: "MDF is made from wood fibres bonded with resin."
+    },
+    {
+      type: "short",
+      question: "State one disadvantage of MDF.",
+      keywords: ["dust", "heavy", "water"],
+      mode: "any",
+      traps: ["expensive"],
+      trapResponse: "Trap answer — MDF is usually cheap, not expensive.",
+      markScheme: "MDF produces dust, is heavy, and is not water resistant.",
+      explanation: "It must be handled carefully during cutting."
+    },
+    {
+      type: "mcq",
+      question: "Which timber is very lightweight?",
+      options: ["Oak", "Teak", "Balsa", "Beech"],
+      correct: 2,
+      explanation: "Balsa is extremely lightweight."
+    }
+  ]
+}
       ]
     },
 
