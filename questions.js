@@ -282,6 +282,143 @@ const QUESTION_BANK = {
       title: "OCR Engineering J823 - Manufacturing",
       topics: [
         {
+  title: "Casting",
+  questions: [
+
+    // ===== MCQ =====
+
+    {
+      type: "mcq",
+      question: "What is casting?",
+      options: [
+        "Pouring molten material into a mould",
+        "Removing material with a cutting tool",
+        "Joining two metals with bolts",
+        "Bending sheet metal by hand"
+      ],
+      correct: 0,
+      explanation: "Casting involves pouring molten material into a mould and allowing it to solidify."
+    },
+    {
+      type: "mcq",
+      question: "Which material state is usually used in metal casting?",
+      options: ["Solid", "Liquid", "Powder only", "Gas"],
+      correct: 1,
+      explanation: "The metal is melted into a liquid before being poured into the mould."
+    },
+    {
+      type: "mcq",
+      question: "What is the purpose of a mould in casting?",
+      options: [
+        "To shape the molten material",
+        "To polish the surface",
+        "To measure electrical current",
+        "To cut away waste material"
+      ],
+      correct: 0,
+      explanation: "The mould gives the cast material its final shape."
+    },
+    {
+      type: "mcq",
+      question: "Which of these is an advantage of casting?",
+      options: [
+        "It can produce complex shapes",
+        "It always needs no finishing",
+        "It is only suitable for flat sheets",
+        "It makes materials magnetic"
+      ],
+      correct: 0,
+      explanation: "Casting can produce complex shapes that may be difficult to machine."
+    },
+    {
+      type: "mcq",
+      question: "Which defect can occur if air becomes trapped during casting?",
+      options: ["Porosity", "Ductility", "Elasticity", "Conductivity"],
+      correct: 0,
+      explanation: "Porosity is caused by trapped gas or air pockets inside the casting."
+    },
+    {
+      type: "mcq",
+      question: "Why might a cast part need finishing after removal from the mould?",
+      options: [
+        "To remove rough edges or improve surface finish",
+        "To make it melt again",
+        "To turn it into plastic",
+        "To remove all strength"
+      ],
+      correct: 0,
+      explanation: "Cast parts may have rough edges, flash, or surface marks that need finishing."
+    },
+
+    // ===== SHORT =====
+
+    {
+      type: "short",
+      mode: "all",
+      question: "Explain the basic process of casting.",
+      keywords: ["molten", "mould"],
+      markScheme: "Molten material is poured into a mould and allowed to solidify.",
+      explanation: "The key ideas are liquid material and a shaped mould."
+    },
+    {
+      type: "short",
+      mode: "any",
+      question: "Give one advantage of casting.",
+      keywords: ["complex", "shape", "repeat", "large"],
+      markScheme: "Casting can produce complex shapes and can be used for repeated production.",
+      explanation: "Casting is useful when shapes would be difficult or expensive to machine."
+    },
+    {
+      type: "short",
+      mode: "any",
+      question: "Give one possible casting defect.",
+      keywords: ["porosity", "shrinkage", "crack", "flash"],
+      markScheme: "Possible defects include porosity, shrinkage, cracking or flash.",
+      explanation: "Casting defects can affect strength, accuracy or surface finish."
+    },
+    {
+      type: "short",
+      mode: "all",
+      question: "Explain why safety is important during casting.",
+      keywords: ["hot", "molten"],
+      markScheme: "Casting uses hot molten material, which can cause serious burns or injury.",
+      explanation: "Heat, molten metal and fumes make casting a high-risk process."
+    }
+
+  ],
+
+  longFormBank: {
+    topics: [
+      "sand casting",
+      "die casting",
+      "casting aluminium",
+      "casting complex shapes",
+      "casting defects"
+    ],
+    stems: [
+      "Evaluate the suitability of",
+      "Explain why",
+      "Compare the use of",
+      "Justify the choice of",
+      "Describe the advantages and limitations of"
+    ],
+    focuses: [
+      "complex shape production",
+      "surface finish",
+      "cost and repeat production",
+      "health and safety",
+      "defects and quality control"
+    ],
+    discussionPoints: [
+      "Describe the basic casting process.",
+      "Link the process to the shape or product being made.",
+      "Consider safety risks from molten material.",
+      "Identify possible defects or finishing requirements.",
+      "End with a justified judgement."
+    ]
+  }
+}
+        {
           title: "Joining Methods",
           questions: [
             {
