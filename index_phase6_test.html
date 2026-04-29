@@ -427,45 +427,48 @@ function checkMCQ(index){
 }
 
 function checkShortAnswer(answer, question) {
-  const input = answer.toLowerCase();
+  const input = answer.toLowerCase().trim();
 
-  let score = 0;
+  const keywords = question.keywords || [];
+  const traps = question.traps || [];
 
-  // keyword matching
-  const matched = question.keywords.filter(k => input.includes(k));
-  score = matched.length;
-
-  // trap detection
-  const trapHit = question.traps && question.traps.some(t => input.includes(t));
-
-  // result logic
-  if (question.mode === "all" && score === question.keywords.length && !trapHit) {
-    return {
-      result: "correct",
-      message: "✅ Correct! " + question.explanation
-    };
-  }
-
-  if (score > 0 && !trapHit) {
-    return {
-      result: "partial",
-      message: "⚠️ Partial answer — you’re on the right track.\n" + question.markScheme
-    };
-  }
+  const matched = keywords.filter(k => input.includes(k.toLowerCase()));
+  const trapHit = traps.some(t => input.includes(t.toLowerCase()));
 
   if (trapHit) {
     return {
       result: "trap",
-      message: "🚫 Trap answer — " + question.trapResponse
+      message: "🚫 Trap answer — " + (question.trapResponse || question.markScheme || "")
+    };
+  }
+
+  let isCorrect = false;
+
+  if (question.mode === "all") {
+    isCorrect = matched.length === keywords.length;
+  } else {
+    isCorrect = matched.length > 0;
+  }
+
+  if (isCorrect) {
+    return {
+      result: "correct",
+      message: "✅ Correct! " + (question.explanation || question.markScheme || "")
+    };
+  }
+
+  if (matched.length > 0) {
+    return {
+      result: "partial",
+      message: "⚠️ Partial answer — you’re on the right track.\n" + (question.markScheme || "")
     };
   }
 
   return {
     result: "wrong",
-    message: "❌ Incorrect.\n" + question.markScheme
+    message: "❌ Incorrect.\n" + (question.markScheme || "")
   };
 }
-
   keywords.forEach(function(k){
     if(ans.includes(normaliseText(k))){
       hits.push(k);
