@@ -155,15 +155,17 @@ textarea {
   <div id="topics"></div>
 </section>
 
-<section id="checkScreen" class="hidden">
-  <section id="worksheetScreen" class="hidden">
+<section id="checkScreen",
+    "worksheetScreen" class="hidden">
+  <h2>Question Bank Check</h2>
+  <div id="checkResults"></div>
+  <button class="secondary-btn" onclick="backToTopics()">Back</button>
+</section>
+
+<section id="worksheetScreen" class="hidden">
   <h2>Printable Worksheet</h2>
   <div id="worksheetContent"></div>
   <button class="primary-btn" onclick="window.print()">Print</button>
-  <button class="secondary-btn" onclick="backToTopics()">Back</button>
-</section>
-  <h2>Question Bank Check</h2>
-  <div id="checkResults"></div>
   <button class="secondary-btn" onclick="backToTopics()">Back</button>
 </section>
 
@@ -240,7 +242,6 @@ function initialiseApp(){
 
 function showScreen(id){
   [
-    "worksheetScreen",
     "topicScreen",
     "sessionScreen",
     "questionScreen",
@@ -697,11 +698,6 @@ function runBankCheck(){
             }
           }
         });
-
-        if(!topic.longFormBank){
-          log += "⚠️ No long-form bank: " + safeText(topicName) + "<br>";
-          warnings++;
-        }
       });
     });
   } catch(error){
@@ -764,26 +760,33 @@ function safeText(value){
     .replace(/</g, "&lt;")
     .replace(/>/g, "&gt;");
 }
+
+
 function showWorksheet(){
+  if(!data || !data.units){
+    alert("Question bank not loaded.");
+    return;
+  }
+
   let html = "<h3>Revision Worksheet</h3>";
+  html += "<p>Name: __________________________ Date: _______________</p>";
 
   data.units.forEach(function(unit){
-    html += "<h4>" + safeText(unit.title) + "</h4>";
+    html += "<h3>" + safeText(unit.title || "Untitled Unit") + "</h3>";
 
-    unit.topics.forEach(function(topic){
-      html += "<h5>" + safeText(topic.title) + "</h5>";
+    (unit.topics || []).forEach(function(topic){
+      html += "<h4>" + safeText(topic.title || "Untitled Topic") + "</h4>";
 
       const questions = topic.questions || [];
-
       questions.slice(0, 5).forEach(function(q, index){
-        html += "<p><strong>" + (index + 1) + ". " + safeText(q.question) + "</strong></p>";
+        html += "<p><strong>" + (index + 1) + ". " + safeText(q.question || "") + "</strong></p>";
 
         if(q.type === "mcq" && q.options){
           q.options.forEach(function(opt, i){
             html += "<p style='margin-left:20px'>" + String.fromCharCode(65 + i) + ". " + safeText(opt) + "</p>";
           });
         } else {
-          html += "<p>Answer: ________________________________</p>";
+          html += "<p>Answer: ________________________________________________</p>";
         }
       });
     });
@@ -792,6 +795,7 @@ function showWorksheet(){
   document.getElementById("worksheetContent").innerHTML = html;
   showScreen("worksheetScreen");
 }
+
 initialiseApp();
 </script>
 
