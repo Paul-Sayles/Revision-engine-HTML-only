@@ -446,7 +446,94 @@ const QUESTION_BANK = {
               explanation: "Brazing uses a filler metal and does not melt the parent metals."
             }
           ]
-        }
+        },
+{
+  title: "Machining",
+  questions: [
+    {
+      type: "mcq",
+      question: "What is machining?",
+      options: ["Removing material to shape a part", "Pouring metal into a mould", "Joining parts with adhesive", "Heating plastic until soft"],
+      correct: 0,
+      explanation: "Machining removes material from a workpiece to create the required shape."
+    },
+    {
+      type: "mcq",
+      question: "Which machine is commonly used to produce cylindrical parts?",
+      options: ["Lathe", "Pillar drill", "Laser cutter", "Injection moulder"],
+      correct: 0,
+      explanation: "A lathe rotates the workpiece and is used for cylindrical parts."
+    },
+    {
+      type: "short",
+      question: "What is drilling used for?",
+      keywords: ["hole", "holes"],
+      mode: "any",
+      traps: ["cutting shape"],
+      trapResponse: "Trap answer — drilling is specifically used to make holes, not general shaping.",
+      markScheme: "Drilling is used to make holes in a material.",
+      explanation: "A drill bit rotates and removes material to form a hole."
+    },
+    {
+      type: "mcq",
+      question: "Which tool is used in drilling?",
+      options: ["Drill bit", "Mould", "Electrode", "Rivet"],
+      correct: 0,
+      explanation: "A drill bit cuts the hole as it rotates."
+    },
+    {
+      type: "short",
+      question: "State one safety rule when using a pillar drill.",
+      keywords: ["goggles", "clamp", "tie", "hair", "guard"],
+      mode: "any",
+      traps: ["gloves"],
+      trapResponse: "Trap answer — gloves can be dangerous near rotating machinery because they may get caught.",
+      markScheme: "Wear goggles, clamp the work, use guards, and tie back long hair.",
+      explanation: "Rotating tools can catch loose material or throw swarf."
+    },
+    {
+      type: "mcq",
+      question: "What is swarf?",
+      options: ["Waste material cut from the workpiece", "A type of glue", "A casting mould", "A protective coating"],
+      correct: 0,
+      explanation: "Swarf is the waste material produced during cutting or machining."
+    },
+    {
+      type: "short",
+      question: "Why should work be clamped during drilling?",
+      keywords: ["secure", "move", "spin", "safe"],
+      mode: "any",
+      traps: ["hold by hand"],
+      trapResponse: "Trap answer — holding work by hand is unsafe because it can spin or move.",
+      markScheme: "The work should be clamped so it cannot move or spin during drilling.",
+      explanation: "Clamping improves accuracy and safety."
+    },
+    {
+      type: "mcq",
+      question: "Which machining process removes material using a rotating cutter?",
+      options: ["Milling", "Casting", "Brazing", "Forging"],
+      correct: 0,
+      explanation: "Milling uses a rotating cutter to remove material."
+    },
+    {
+      type: "short",
+      question: "State one advantage of CNC machining.",
+      keywords: ["accurate", "repeatable", "complex", "automatic"],
+      mode: "any",
+      traps: ["handmade"],
+      trapResponse: "Trap answer — CNC is computer-controlled, not handmade.",
+      markScheme: "CNC machining is accurate, repeatable and can produce complex shapes.",
+      explanation: "CNC machines follow programmed instructions."
+    },
+    {
+      type: "mcq",
+      question: "What does CNC stand for?",
+      options: ["Computer Numerical Control", "Cutting New Components", "Controlled Nylon Casting", "Central Network Cutter"],
+      correct: 0,
+      explanation: "CNC stands for Computer Numerical Control."
+    }
+  ]
+}
       ]
     }
   ]
