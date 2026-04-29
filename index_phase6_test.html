@@ -273,7 +273,7 @@ function loadTopics(){
       const btn = document.createElement("button");
       btn.className = "topic-card";
       btn.innerHTML =
-        "<strong>" + (topic.title || "Untitled Topic") + "</strong><br>" +
+        "<strong>" + safeText(topic.title || "Untitled Topic") + "</strong><br>" +
         count + " banked questions";
 
       btn.onclick = function(){
@@ -426,63 +426,42 @@ function checkMCQ(index){
   document.getElementById("nextBtn").classList.remove("hidden");
 }
 
-function checkShortAnswer(answer, question) {
-  const input = answer.toLowerCase().trim();
+function checkShortAnswer(){
+  if(answered) return;
+  answered = true;
 
-  const keywords = question.keywords || [];
-  const traps = question.traps || [];
+  const q = currentQuestions[currentIndex];
+  const answer = document.getElementById("shortAnswer").value;
+  const input = normaliseText(answer);
 
-  const matched = keywords.filter(k => input.includes(k.toLowerCase()));
-  const trapHit = traps.some(t => input.includes(t.toLowerCase()));
+  const keywords = q.keywords || [];
+  const traps = q.traps || [];
 
-  if (trapHit) {
-    return {
-      result: "trap",
-      message: "🚫 Trap answer — " + (question.trapResponse || question.markScheme || "")
-    };
-  }
-
-  let isCorrect = false;
-
-  if (question.mode === "all") {
-    isCorrect = matched.length === keywords.length;
-  } else {
-    isCorrect = matched.length > 0;
-  }
-
-  if (isCorrect) {
-    return {
-      result: "correct",
-      message: "✅ Correct! " + (question.explanation || question.markScheme || "")
-    };
-  }
-
-  if (matched.length > 0) {
-    return {
-      result: "partial",
-      message: "⚠️ Partial answer — you’re on the right track.\n" + (question.markScheme || "")
-    };
-  }
-
-  return {
-    result: "wrong",
-    message: "❌ Incorrect.\n" + (question.markScheme || "")
-  };
-}
-  keywords.forEach(function(k){
-    if(ans.includes(normaliseText(k))){
-      hits.push(k);
-    } else {
-      misses.push(k);
-    }
+  const matched = keywords.filter(function(k){
+    return input.includes(normaliseText(k));
   });
+
+  const trapHit = traps.some(function(t){
+    return input.includes(normaliseText(t));
+  });
+
+  if(trapHit){
+    wrong.push(q);
+    document.getElementById("feedback").innerHTML =
+      "<div class='trap-box'>✘ TRAP ANSWER</div>" +
+      "<p>" + safeText(q.trapResponse || q.markScheme || "") + "</p>";
+
+    lockShortAnswer();
+    revealFeedback();
+    return;
+  }
 
   let correct = false;
 
-  if(mode === "any"){
-    correct = hits.length > 0;
+  if(q.mode === "all"){
+    correct = matched.length === keywords.length;
   } else {
-    correct = keywords.length > 0 && misses.length === 0;
+    correct = matched.length > 0;
   }
 
   if(correct){
@@ -495,12 +474,12 @@ function checkShortAnswer(answer, question) {
     ? "<strong class='good'>Correct</strong><br>"
     : "<strong class='bad'>Needs improvement</strong><br>";
 
-  hits.forEach(function(k){
-    html += "<span class='keyword-hit'>Found: " + safeText(k) + "</span>";
-  });
-
-  misses.forEach(function(k){
-    html += "<span class='keyword-miss'>Missing: " + safeText(k) + "</span>";
+  keywords.forEach(function(k){
+    if(matched.includes(k)){
+      html += "<span class='keyword-hit'>Found: " + safeText(k) + "</span>";
+    } else {
+      html += "<span class='keyword-miss'>Missing: " + safeText(k) + "</span>";
+    }
   });
 
   html += "<p><strong>Mark scheme:</strong> " + safeText(q.markScheme) + "</p>";
@@ -743,7 +722,8 @@ function copyQuestions(questions){
       correct: q.correct,
       explanation: q.explanation || "",
       keywords: q.keywords ? q.keywords.slice() : [],
-      trapAnswers: q.trapAnswers ? q.trapAnswers.slice() : [],
+      traps: q.traps ? q.traps.slice() : [],
+      trapResponse: q.trapResponse || "",
       markScheme: q.markScheme || ""
     };
   });
