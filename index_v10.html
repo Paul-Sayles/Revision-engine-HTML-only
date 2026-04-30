@@ -1542,8 +1542,21 @@ document.addEventListener("change", function(event){
 });
 function showLongFormChecklist(){
   const answer = document.getElementById("longAnswer").value.trim();
+  const text = normaliseText(answer);
 
+  const checks = [
+    { label: "Uses polymer vocabulary", words: ["polymer", "thermoplastic", "thermoset", "plastic"] },
+    { label: "Mentions useful properties", words: ["durable", "flexible", "corrosion", "lightweight", "resistant"] },
+    { label: "Mentions manufacturing", words: ["injection moulding", "extrusion", "moulding", "forming"] },
+    { label: "Includes real-world example", words: ["abs", "electronics", "casing", "product", "example"] },
+    { label: "Mentions environment", words: ["recycle", "recycling", "sustainable", "waste", "pollution"] },
+    { label: "Includes conclusion", words: ["overall", "therefore", "in conclusion", "to conclude"] }
+  ];
+
+  let hits = 0;
   let html = "";
+
+  html += "<h3>Auto-mark result</h3>";
 
   if(answer.length < 80){
     html += "<p><strong class='bad'>Answer too short.</strong> Aim for developed paragraphs.</p>";
@@ -1551,12 +1564,41 @@ function showLongFormChecklist(){
     html += "<p><strong class='good'>Good length starting point.</strong></p>";
   }
 
+  html += "<ul>";
+
+  checks.forEach(function(check){
+    const found = check.words.some(function(word){
+      return text.includes(normaliseText(word));
+    });
+
+    if(found){
+      hits++;
+      html += "<li><strong class='good'>✓</strong> " + check.label + "</li>";
+    } else {
+      html += "<li><strong class='bad'>✗</strong> " + check.label + "</li>";
+    }
+  });
+
+  html += "</ul>";
+
+  let band = "";
+
+  if(answer.length < 80 || hits <= 2){
+    band = "Estimated band: 1–2 marks. Add more explanation, examples and technical vocabulary.";
+  } else if(hits <= 4){
+    band = "Estimated band: 3–4 marks. Good start, but develop your points and add a clearer conclusion.";
+  } else {
+    band = "Estimated band: 5–6 marks. Strong response. Check that your conclusion is justified.";
+  }
+
+  html += "<p><strong>" + band + "</strong></p>";
+
   html += "<h3>6-mark checklist</h3>";
   html += "<ul>";
   html += "<li>Use technical vocabulary</li>";
   html += "<li>Include a real-world example</li>";
   html += "<li>Explain advantages and disadvantages</li>";
-  html += "<li>Develop points (not just list)</li>";
+  html += "<li>Develop points rather than listing them</li>";
   html += "<li>Link to the question</li>";
   html += "<li>Finish with a justified conclusion</li>";
   html += "</ul>";
