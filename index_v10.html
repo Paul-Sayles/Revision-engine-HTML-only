@@ -440,7 +440,14 @@ textarea {
   </div>
 
   <div id="longChecklist" class="feedback hidden"></div>
-
+<div class="control-box">
+  <h3>Self-assess your answer</h3>
+  <label><input type="radio" name="longScore" value="1"> 1–2 marks: basic points, little explanation</label><br>
+  <label><input type="radio" name="longScore" value="3"> 3–4 marks: some explanation and example</label><br>
+  <label><input type="radio" name="longScore" value="5"> 5–6 marks: developed answer with justified conclusion</label><br>
+  <button class="secondary-btn" onclick="recordLongScore()">Record self-assessment</button>
+  <p id="longScoreFeedback"></p>
+</div>
   <button class="primary-btn" onclick="showSummary()">Continue to Summary</button>
 </section>
 
@@ -1566,6 +1573,26 @@ function showLongFormChecklist(){
       "Long-form prompt used: " + currentLongPrompt;
   } else {
     document.getElementById("longSummary").textContent = "";
+  }
+}
+  function recordLongScore(){
+  const selected = document.querySelector("input[name='longScore']:checked");
+
+  if(!selected){
+    document.getElementById("longScoreFeedback").innerHTML =
+      "<strong class='bad'>Choose a mark band first.</strong>";
+    return;
+  }
+
+  if(selected.value === "1"){
+    document.getElementById("longScoreFeedback").innerHTML =
+      "<strong>Target:</strong> Add explanation, technical vocabulary and a real example.";
+  } else if(selected.value === "3"){
+    document.getElementById("longScoreFeedback").innerHTML =
+      "<strong>Target:</strong> Develop both sides and finish with a justified conclusion.";
+  } else {
+    document.getElementById("longScoreFeedback").innerHTML =
+      "<strong class='good'>Strong response.</strong> Check your conclusion clearly answers the question.";
   }
 }
 initialiseApp();
