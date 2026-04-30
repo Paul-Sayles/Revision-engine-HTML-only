@@ -534,6 +534,82 @@ const QUESTION_BANK = {
     {
       title: "OCR Engineering J823 - Manufacturing",
       topics: [
+         {
+    title: "General Manufacturing Processes",
+    questions: [
+   {
+  type: "mcq",
+  question: "Which of the following is a wasting process?",
+  options: ["Casting", "Drilling", "Forging", "3D printing"],
+  correct: 1,
+  explanation: "Drilling removes material, making it a wasting process."
+},
+{
+  type: "mcq",
+  question: "Which process involves shaping heated metal using force?",
+  options: ["Forging", "Injection moulding", "Laser cutting", "Turning"],
+  correct: 0,
+  explanation: "Forging shapes heated metal using compressive force."
+},
+{
+  type: "mcq",
+  question: "Which process is additive?",
+  options: ["Milling", "Casting", "3D printing", "Turning"],
+  correct: 2,
+  explanation: "3D printing builds material layer by layer."
+},
+{
+  type: "mcq",
+  question: "Which tool is used in turning operations?",
+  options: ["Lathe", "Pillar drill", "Laser cutter", "Vacuum former"],
+  correct: 0,
+  explanation: "A lathe is used for turning operations."
+},
+{
+  type: "mcq",
+  question: "What type of process is injection moulding?",
+  options: ["Wasting", "Forming", "Additive", "Joining"],
+  correct: 1,
+  explanation: "Injection moulding shapes molten material into a mould."
+},
+{
+  type: "mcq",
+  question: "Which process is best for producing complex plastic shapes in high volume?",
+  options: ["Vacuum forming", "Injection moulding", "Turning", "Casting"],
+  correct: 1,
+  explanation: "Injection moulding is ideal for high-volume complex plastic parts."
+},
+{
+  type: "mcq",
+  question: "Which process joins metals permanently using heat?",
+  options: ["Bolting", "Welding", "Clipping", "Riveting"],
+  correct: 1,
+  explanation: "Welding joins metals using heat."
+},
+{
+  type: "mcq",
+  question: "Which of the following is a finishing process?",
+  options: ["Milling", "Drilling", "Painting", "Turning"],
+  correct: 2,
+  explanation: "Painting is used to improve surface finish."
+},
+{
+  type: "mcq",
+  question: "What is the main purpose of a jig?",
+  options: ["Improve accuracy", "Heat material", "Melt plastic", "Join metals"],
+  correct: 0,
+  explanation: "Jigs are used to guide tools and improve accuracy."
+},
+{
+  type: "mcq",
+  question: "Which process uses a rotating cutting tool to remove material?",
+  options: ["Casting", "Milling", "Forging", "Extrusion"],
+  correct: 1,
+  explanation: "Milling removes material using a rotating cutter."
+},
+    ]
+  },
+
         {
           title: "Casting",
           questions: [
