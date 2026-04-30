@@ -1606,29 +1606,7 @@ function showLongFormChecklist(){
   document.getElementById("longChecklist").innerHTML = html;
   document.getElementById("longChecklist").classList.remove("hidden");
 }
-  function showSummary(){
-  showScreen("summaryScreen");
-
-  document.getElementById("finalScore").textContent =
-    "Score: " + score + " out of " + currentQuestions.length;
-
-  if(wrong.length > 0){
-    document.getElementById("weakSummary").textContent =
-      "Weak questions identified: " + wrong.length;
-    document.getElementById("retryBtn").classList.remove("hidden");
-  } else {
-    document.getElementById("weakSummary").textContent =
-      "No weak questions identified.";
-    document.getElementById("retryBtn").classList.add("hidden");
-  }
-
-  if(currentLongPrompt){
-    document.getElementById("longSummary").textContent =
-      "Long-form prompt used: " + currentLongPrompt;
-  } else {
-    document.getElementById("longSummary").textContent = "";
-  }
-}
+  
   function recordLongScore(){
   const selected = document.querySelector("input[name='longScore']:checked");
 
