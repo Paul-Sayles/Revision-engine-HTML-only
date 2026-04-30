@@ -1589,17 +1589,19 @@ function showLongFormChecklist(){
 
   html += "<ul>";
 
+  let improvements = [];
   checks.forEach(function(check){
     const found = check.words.some(function(word){
       return text.includes(normaliseText(word));
     });
 
     if(found){
-      hits++;
-      html += "<li><strong class='good'>✓</strong> " + check.label + "</li>";
-    } else {
-      html += "<li><strong class='bad'>✗</strong> " + check.label + "</li>";
-    }
+  hits++;
+  html += "<li><strong class='good'>✓</strong> " + check.label + "</li>";
+} else {
+  html += "<li><strong class='bad'>✗</strong> " + check.label + "</li>";
+  improvements.push(check.label);   ← ADD THIS LINE
+}
   });
 
   html += "</ul>";
@@ -1616,6 +1618,29 @@ function showLongFormChecklist(){
 
   html += "<p><strong>" + band + "</strong></p>";
 
+  if(improvements.length > 0){
+  html += "<h3>Improve your answer</h3><ul>";
+
+  improvements.forEach(function(item){
+    if(item.toLowerCase().includes("cost")){
+      html += "<li>Add a comparison of cost (e.g. high tooling vs low unit cost).</li>";
+    } else if(item.toLowerCase().includes("accuracy")){
+      html += "<li>Explain differences in accuracy or precision between processes.</li>";
+    } else if(item.toLowerCase().includes("process")){
+      html += "<li>Compare at least two manufacturing processes clearly.</li>";
+    } else if(item.toLowerCase().includes("material")){
+      html += "<li>Link each process to suitable materials.</li>";
+    } else if(item.toLowerCase().includes("example")){
+      html += "<li>Include a specific real-world example.</li>";
+    } else if(item.toLowerCase().includes("conclusion")){
+      html += "<li>Finish with a clear, justified conclusion.</li>";
+    } else {
+      html += "<li>Develop this point further: " + item + "</li>";
+    }
+  });
+
+  html += "</ul>";
+}
   document.getElementById("longChecklist").innerHTML = html;
   document.getElementById("longChecklist").classList.remove("hidden");
 }
