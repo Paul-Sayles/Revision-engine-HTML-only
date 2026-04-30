@@ -819,9 +819,6 @@ function showLongFormPrompt(){
     list.appendChild(li);
   });
 
-  showScreen("longFormScreen");
-}
-
 function makeLongFormPrompt(topic){
 
   const prompts = [
@@ -862,17 +859,6 @@ function makeLongFormPrompt(topic){
 
   return prompts[Math.floor(Math.random() * prompts.length)];
 }
-  const topicName = topic && topic.title ? topic.title : "this engineering topic";
-
-  return {
-    question: "Discuss " + topicName + " in relation to material choice, manufacturing method, safety, quality and product performance.",
-    points: [
-      "Use correct engineering vocabulary.",
-      "Give at least one real-world example.",
-      "Explain advantages and disadvantages.",
-      "Make a justified judgement."
-    ]
-  };
 }
 
 function showSummary(){
