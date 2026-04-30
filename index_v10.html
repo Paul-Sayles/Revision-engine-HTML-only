@@ -1060,9 +1060,15 @@ function getAllTopics(){
 
 
 function startQuickRevision(mode){
+  
   const allQuestions = getAllQuestions();
   let pool = [];
-
+if(mode === "long"){
+  currentTopic = { title: "Long Form Trainer" };
+  currentLongPrompt = "";
+  showLongFormPrompt();
+  return;
+}
   if(mode === "mcq"){
     pool = allQuestions.filter(function(q){ return q.type === "mcq"; });
     currentTopic = { title: "MCQ Sprint", questions: pool };
