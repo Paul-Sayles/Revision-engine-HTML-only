@@ -819,48 +819,49 @@ function showLongFormPrompt(){
     list.appendChild(li);
   });
 
+  showScreen("longFormScreen");
+}
+
 function makeLongFormPrompt(topic){
 
   const prompts = [
     {
       question: "Discuss the suitability of polymers for use in modern product design.",
       points: [
-        "Types of polymers (thermoplastics, thermosets)",
-        "Key properties (durability, flexibility, corrosion resistance)",
-        "Manufacturing processes (injection moulding, extrusion)",
-        "Environmental impact (recycling and sustainability)",
-        "Use a real-world example (e.g. ABS in electronics)",
-        "Finish with a justified conclusion"
+        "Types of polymers, including thermoplastics and thermosets.",
+        "Key properties such as durability, flexibility and corrosion resistance.",
+        "Suitable manufacturing processes such as injection moulding or extrusion.",
+        "Environmental impact, including recycling and sustainability.",
+        "Use a real-world example, such as ABS in electronics.",
+        "Finish with a justified conclusion."
       ]
     },
     {
       question: "Evaluate the use of different manufacturing processes in mass production.",
       points: [
-        "Compare at least two processes (casting, machining, forming)",
-        "Accuracy vs cost",
-        "Speed and scalability",
-        "Material suitability",
-        "Use a real-world example (e.g. injection moulding)",
-        "Provide a clear final judgement"
+        "Compare at least two processes, such as casting, machining or forming.",
+        "Discuss accuracy compared with cost.",
+        "Explain speed and scalability.",
+        "Link processes to suitable materials.",
+        "Use a real-world example, such as injection moulding.",
+        "Provide a clear final judgement."
       ]
     },
     {
       question: "How far do you agree that modern materials have improved product performance?",
       points: [
-        "Smart materials and composites",
-        "Strength-to-weight ratio",
-        "Durability and lifespan",
-        "Cost implications",
-        "Use a real-world example (e.g. carbon fibre)",
-        "Give a balanced conclusion"
+        "Refer to smart materials, composites or polymers.",
+        "Discuss strength-to-weight ratio.",
+        "Explain durability and product lifespan.",
+        "Consider cost implications.",
+        "Use a real-world example, such as carbon fibre.",
+        "Give a balanced conclusion."
       ]
     }
   ];
 
   return prompts[Math.floor(Math.random() * prompts.length)];
 }
-}
-
 function showSummary(){
   showScreen("summaryScreen");
 
