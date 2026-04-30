@@ -1543,15 +1543,38 @@ document.addEventListener("change", function(event){
 function showLongFormChecklist(){
   const answer = document.getElementById("longAnswer").value.trim();
   const text = normaliseText(answer);
+  const question = normaliseText(currentLongPrompt);
 
-  const checks = [
-    { label: "Uses polymer vocabulary", words: ["polymer", "thermoplastic", "thermoset", "plastic"] },
-    { label: "Mentions useful properties", words: ["durable", "flexible", "corrosion", "lightweight", "resistant"] },
-    { label: "Mentions manufacturing", words: ["injection moulding", "extrusion", "moulding", "forming"] },
-    { label: "Includes real-world example", words: ["abs", "electronics", "casing", "product", "example"] },
-    { label: "Mentions environment", words: ["recycle", "recycling", "sustainable", "waste", "pollution"] },
-    { label: "Includes conclusion", words: ["overall", "therefore", "in conclusion", "to conclude"] }
-  ];
+  let checks = [];
+
+  if(question.includes("manufacturing processes") || question.includes("mass production")){
+    checks = [
+      { label: "Compares different processes", words: ["injection moulding", "machining", "casting", "forming", "milling", "turning", "pressing"] },
+      { label: "Discusses accuracy", words: ["accuracy", "accurate", "precision", "tolerance", "consistent"] },
+      { label: "Discusses cost", words: ["cost", "expensive", "cheap", "economical", "tooling"] },
+      { label: "Mentions speed or scalability", words: ["speed", "fast", "volume", "mass production", "scalable", "quantity"] },
+      { label: "Links process to material", words: ["plastic", "polymer", "metal", "steel", "aluminium", "material"] },
+      { label: "Includes judgement or conclusion", words: ["overall", "therefore", "in conclusion", "best", "suitable", "depends"] }
+    ];
+  } else if(question.includes("modern materials")){
+    checks = [
+      { label: "Mentions modern materials", words: ["composite", "smart material", "polymer", "carbon fibre", "alloy"] },
+      { label: "Discusses performance", words: ["performance", "strength", "durability", "lifespan", "lightweight"] },
+      { label: "Explains advantages", words: ["advantage", "improve", "stronger", "lighter", "resistant"] },
+      { label: "Considers limitations", words: ["cost", "expensive", "limitation", "disadvantage", "however"] },
+      { label: "Uses real-world example", words: ["example", "car", "aircraft", "aerospace", "bike", "product"] },
+      { label: "Includes balanced conclusion", words: ["overall", "therefore", "in conclusion", "agree", "depends"] }
+    ];
+  } else {
+    checks = [
+      { label: "Uses polymer vocabulary", words: ["polymer", "thermoplastic", "thermoset", "plastic"] },
+      { label: "Mentions useful properties", words: ["durable", "flexible", "corrosion", "lightweight", "resistant"] },
+      { label: "Mentions manufacturing", words: ["injection moulding", "extrusion", "moulding", "forming"] },
+      { label: "Includes real-world example", words: ["abs", "electronics", "casing", "product", "example"] },
+      { label: "Mentions environment", words: ["recycle", "recycling", "sustainable", "waste", "pollution"] },
+      { label: "Includes conclusion", words: ["overall", "therefore", "in conclusion", "to conclude"] }
+    ];
+  }
 
   let hits = 0;
   let html = "";
@@ -1592,16 +1615,6 @@ function showLongFormChecklist(){
   }
 
   html += "<p><strong>" + band + "</strong></p>";
-
-  html += "<h3>6-mark checklist</h3>";
-  html += "<ul>";
-  html += "<li>Use technical vocabulary</li>";
-  html += "<li>Include a real-world example</li>";
-  html += "<li>Explain advantages and disadvantages</li>";
-  html += "<li>Develop points rather than listing them</li>";
-  html += "<li>Link to the question</li>";
-  html += "<li>Finish with a justified conclusion</li>";
-  html += "</ul>";
 
   document.getElementById("longChecklist").innerHTML = html;
   document.getElementById("longChecklist").classList.remove("hidden");
