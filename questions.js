@@ -607,6 +607,143 @@ const QUESTION_BANK = {
   correct: 1,
   explanation: "Milling removes material using a rotating cutter."
 },
+      {
+  type: "short",
+  question: "State one advantage of injection moulding.",
+  acceptable: [
+    ["high", "volume"],
+    ["mass", "production"],
+    ["repeatable"],
+    ["consistent"]
+  ],
+  mode: "any",
+  traps: [],
+  markScheme: "Allows high volume production with consistent quality.",
+  explanation: "Injection moulding is used for large-scale production."
+},
+{
+  type: "short",
+  question: "Explain why a jig is used in manufacturing.",
+  acceptable: [
+    ["accuracy"],
+    ["precision"],
+    ["repeatability"],
+    ["guide", "tool"]
+  ],
+  mode: "any",
+  traps: [],
+  markScheme: "Jigs guide tools to improve accuracy and repeatability.",
+  explanation: "They reduce human error during production."
+},
+{
+  type: "short",
+  question: "Describe one safety precaution when using a lathe.",
+  acceptable: [
+    ["tie", "hair"],
+    ["remove", "jewellery"],
+    ["wear", "goggles"],
+    ["secure", "clothing"]
+  ],
+  mode: "any",
+  traps: [],
+  markScheme: "Loose items must be secured to prevent entanglement.",
+  explanation: "Rotating parts can catch loose items."
+},
+{
+  type: "short",
+  question: "Explain why drilling is classed as a wasting process.",
+  acceptable: [
+    ["remove", "material"],
+    ["cut", "material"],
+    ["material", "lost"]
+  ],
+  mode: "any",
+  traps: [],
+  markScheme: "Material is removed and cannot be reused.",
+  explanation: "Wasting processes remove material."
+},
+{
+  type: "short",
+  question: "State one advantage of welding over bolting.",
+  acceptable: [
+    ["stronger"],
+    ["permanent"],
+    ["no", "fasteners"]
+  ],
+  mode: "any",
+  traps: [],
+  markScheme: "Welding creates a permanent strong joint.",
+  explanation: "Bolts can loosen, welds do not."
+},
+{
+  type: "short",
+  question: "Explain why 3D printing is useful for prototyping.",
+  acceptable: [
+    ["quick"],
+    ["fast"],
+    ["no", "tooling"],
+    ["low", "cost"]
+  ],
+  mode: "any",
+  traps: [],
+  markScheme: "It allows rapid production without expensive tooling.",
+  explanation: "Ideal for testing designs quickly."
+},
+{
+  type: "short",
+  question: "Describe one step in the vacuum forming process.",
+  acceptable: [
+    ["heat", "plastic"],
+    ["apply", "vacuum"],
+    ["form", "mould"],
+    ["cool"]
+  ],
+  mode: "any",
+  traps: [],
+  markScheme: "Plastic is heated and formed over a mould using vacuum.",
+  explanation: "Each step shapes the material."
+},
+{
+  type: "short",
+  question: "Explain why finishing processes are used.",
+  acceptable: [
+    ["appearance"],
+    ["protection"],
+    ["corrosion"],
+    ["improve", "surface"]
+  ],
+  mode: "any",
+  traps: [],
+  markScheme: "They improve appearance and protect against corrosion.",
+  explanation: "Finishing increases product lifespan."
+},
+{
+  type: "short",
+  question: "State one advantage of milling.",
+  acceptable: [
+    ["accuracy"],
+    ["precision"],
+    ["complex", "shapes"]
+  ],
+  mode: "any",
+  traps: [],
+  markScheme: "Milling allows accurate machining of complex shapes.",
+  explanation: "Rotating cutters provide precision."
+},
+{
+  type: "short",
+  question: "Explain why processes must follow a sequence.",
+  acceptable: [
+    ["correct", "order"],
+    ["avoid", "errors"],
+    ["quality"],
+    ["efficient"]
+  ],
+  mode: "any",
+  traps: [],
+  markScheme: "Correct sequencing ensures quality and efficiency.",
+  explanation: "Wrong order can cause defects."
+}
     ]
   },
 
