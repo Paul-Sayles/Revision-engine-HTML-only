@@ -896,26 +896,26 @@ function showSummary(){
     document.getElementById("retryBtn").classList.add("hidden");
   }
 
-const selected = document.querySelector("input[name='longScore']:checked");
+  const selected = document.querySelector("input[name='longScore']:checked");
 
-if(currentLongPrompt){
-  let longText = "Long-form prompt used: " + currentLongPrompt;
+  if(currentLongPrompt){
+    let longText = "Long-form prompt used: " + currentLongPrompt;
 
-  if(selected){
-    if(selected.value === "1"){
-      longText += " | Self-assessed: 1–2 marks (basic response)";
-    } else if(selected.value === "3"){
-      longText += " | Self-assessed: 3–4 marks (developing response)";
-    } else {
-      longText += " | Self-assessed: 5–6 marks (strong response)";
+    if(selected){
+      if(selected.value === "1"){
+        longText += " | Self-assessed: 1–2 marks";
+      } else if(selected.value === "3"){
+        longText += " | Self-assessed: 3–4 marks";
+      } else {
+        longText += " | Self-assessed: 5–6 marks";
+      }
     }
+
+    document.getElementById("longSummary").textContent = longText;
+  } else {
+    document.getElementById("longSummary").textContent = "";
   }
-
-  document.getElementById("longSummary").textContent = longText;
-} else {
-  document.getElementById("longSummary").textContent = "";
 }
-
 function retryWeakQuestions(){
   if(wrong.length === 0){
     return;
