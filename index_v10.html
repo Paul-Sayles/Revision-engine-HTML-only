@@ -425,11 +425,22 @@ textarea {
 
 <section id="longFormScreen" class="hidden">
   <h2>Long-Form Discussion Prompt</h2>
+
   <div class="feedback">
     <h3 id="longPrompt"></h3>
     <p><strong>Suggested discussion points:</strong></p>
     <ul id="longPoints"></ul>
   </div>
+
+  <div class="control-box">
+    <h3>Your 6-mark answer</h3>
+    <textarea id="longAnswer" placeholder="Write your answer here..."></textarea>
+    <br>
+    <button class="primary-btn" onclick="showLongFormChecklist()">Show 6-mark checklist</button>
+  </div>
+
+  <div id="longChecklist" class="feedback hidden"></div>
+
   <button class="primary-btn" onclick="showSummary()">Continue to Summary</button>
 </section>
 
@@ -1510,7 +1521,30 @@ document.addEventListener("change", function(event){
     }
   }
 });
+function showLongFormChecklist(){
+  const answer = document.getElementById("longAnswer").value.trim();
 
+  let html = "";
+
+  if(answer.length < 80){
+    html += "<p><strong class='bad'>Answer too short.</strong> Aim for developed paragraphs.</p>";
+  } else {
+    html += "<p><strong class='good'>Good length starting point.</strong></p>";
+  }
+
+  html += "<h3>6-mark checklist</h3>";
+  html += "<ul>";
+  html += "<li>Use technical vocabulary</li>";
+  html += "<li>Include a real-world example</li>";
+  html += "<li>Explain advantages and disadvantages</li>";
+  html += "<li>Develop points (not just list)</li>";
+  html += "<li>Link to the question</li>";
+  html += "<li>Finish with a justified conclusion</li>";
+  html += "</ul>";
+
+  document.getElementById("longChecklist").innerHTML = html;
+  document.getElementById("longChecklist").classList.remove("hidden");
+}
 initialiseApp();
 </script>
 
