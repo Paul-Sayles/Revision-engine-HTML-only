@@ -823,25 +823,45 @@ function showLongFormPrompt(){
 }
 
 function makeLongFormPrompt(topic){
-  if(topic && topic.longFormBank){
-    const bank = topic.longFormBank;
 
-    if(bank.topics && bank.stems && bank.focuses){
-      const longTopic = pickRandom(bank.topics);
-      const stem = pickRandom(bank.stems);
-      const focus = pickRandom(bank.focuses);
-
-      return {
-        question: stem + " " + longTopic + " in relation to " + focus + ".",
-        points: bank.discussionPoints || [
-          "Use engineering vocabulary.",
-          "Give a real-world example.",
-          "Make a justified judgement."
-        ]
-      };
+  const prompts = [
+    {
+      question: "Discuss the suitability of polymers for use in modern product design.",
+      points: [
+        "Types of polymers (thermoplastics, thermosets)",
+        "Key properties (durability, flexibility, corrosion resistance)",
+        "Manufacturing processes (injection moulding, extrusion)",
+        "Environmental impact (recycling and sustainability)",
+        "Use a real-world example (e.g. ABS in electronics)",
+        "Finish with a justified conclusion"
+      ]
+    },
+    {
+      question: "Evaluate the use of different manufacturing processes in mass production.",
+      points: [
+        "Compare at least two processes (casting, machining, forming)",
+        "Accuracy vs cost",
+        "Speed and scalability",
+        "Material suitability",
+        "Use a real-world example (e.g. injection moulding)",
+        "Provide a clear final judgement"
+      ]
+    },
+    {
+      question: "How far do you agree that modern materials have improved product performance?",
+      points: [
+        "Smart materials and composites",
+        "Strength-to-weight ratio",
+        "Durability and lifespan",
+        "Cost implications",
+        "Use a real-world example (e.g. carbon fibre)",
+        "Give a balanced conclusion"
+      ]
     }
-  }
+  ];
 
+  return prompts[Math.floor(Math.random() * prompts.length)];
+}
   const topicName = topic && topic.title ? topic.title : "this engineering topic";
 
   return {
