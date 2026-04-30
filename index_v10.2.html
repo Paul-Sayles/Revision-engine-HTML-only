@@ -900,7 +900,28 @@ function showSummary(){
   const selected = document.querySelector("input[name='longScore']:checked");
 
   if(currentLongPrompt){
-    let longText = "Long-form prompt used: " + currentLongPrompt;
+  let longText = "Long-form prompt used: " + currentLongPrompt;
+
+  if(longAutoBand){
+    longText += " | Auto-mark: " + longAutoBand;
+  }
+
+  const selected = document.querySelector("input[name='longScore']:checked");
+
+  if(selected){
+    if(selected.value === "1"){
+      longText += " | Self-assessed: 1–2 marks";
+    } else if(selected.value === "3"){
+      longText += " | Self-assessed: 3–4 marks";
+    } else {
+      longText += " | Self-assessed: 5–6 marks";
+    }
+  }
+
+  document.getElementById("longSummary").textContent = longText;
+} else {
+  document.getElementById("longSummary").textContent = "";
+}
 
     if(selected){
       if(selected.value === "1"){
