@@ -1685,6 +1685,15 @@ else {
 }
 
   html += "<p><strong>" + band + "</strong></p>";
+  html += "<h3>Examiner comment</h3>";
+
+if(band.includes("Level 1")){
+  html += "<p>This response shows basic awareness, but ideas are not developed enough for higher marks. Add technical vocabulary, a specific example and clearer explanation.</p>";
+} else if(band.includes("Level 2")){
+  html += "<p>This response shows some understanding, but it needs more developed explanation, stronger application to products, and a clearer justified conclusion.</p>";
+} else {
+  html += "<p>This is a developed response with relevant technical detail. To improve further, make sure each point is clearly linked back to the question.</p>";
+}
 longAutoBand = band;
   if(improvements.length > 0){
     html += "<h3>Improve your answer</h3><ul>";
