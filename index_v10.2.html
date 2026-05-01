@@ -1658,7 +1658,11 @@ html += "<h3>Examiner feedback</h3>";
 longWeakAreas = improvements;
 const totalChecks = checks.length;
 const missing = totalChecks - hits;
+let hasStrongConclusion = false;
 
+if(text.includes("most suitable") || text.includes("best") || text.includes("depends")){
+  hasStrongConclusion = true;
+}
 let band = "";
 
 // Level 1 cap (weak coverage OR vague language)
