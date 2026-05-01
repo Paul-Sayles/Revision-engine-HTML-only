@@ -1659,7 +1659,22 @@ longWeakAreas = improvements;
 const totalChecks = checks.length;
 const missing = totalChecks - hits;
 let hasStrongConclusion = false;
+let hasComparison = false;
 
+const comparisonWords = [
+  "however",
+  "in contrast",
+  "whereas",
+  "on the other hand",
+  "although",
+  "but"
+];
+
+comparisonWords.forEach(function(word){
+  if(text.includes(word)){
+    hasComparison = true;
+  }
+});
 if(text.includes("most suitable") || text.includes("best") || text.includes("depends")){
   hasStrongConclusion = true;
 }
