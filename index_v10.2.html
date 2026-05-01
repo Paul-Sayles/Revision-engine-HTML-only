@@ -1696,12 +1696,16 @@ else {
     band = "Level 1 (1–2 marks): Basic response with limited explanation.";
   } else if(hits <= 4){
     band = "Level 2 (3–4 marks): Some explanation given but lacks full development or balance.";
-  } else {
-if(!hasStrongConclusion){
-  band = "Level 2 (3–4 marks): Explanation is present but lacks a clear justified conclusion.";
-} else {
-  band = "Level 3 (5–6 marks): Developed, balanced response with clear explanation and justified conclusion.";
-}  }
+  }else {
+  if(!hasStrongConclusion){
+    band = "Level 2 (3–4 marks): Explanation is present but lacks a clear justified conclusion.";
+  }
+  else if(!hasComparison){
+    band = "Level 2 (3–4 marks): Explanation is developed but lacks comparison or balance.";
+  }
+  else{
+    band = "Level 3 (5–6 marks): Developed, balanced response with clear explanation, comparison and justified conclusion.";
+  }
 }
 
   html += "<p><strong>" + band + "</strong></p>";
