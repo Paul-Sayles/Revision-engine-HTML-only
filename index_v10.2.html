@@ -880,7 +880,35 @@ function makeLongFormPrompt(topic){
     }
   ];
 
-  return prompts[Math.floor(Math.random() * prompts.length)];
+  let selectedPrompt = prompts[Math.floor(Math.random() * prompts.length)];
+
+if(longWeakAreas.length > 0){
+  if(longWeakAreas.some(function(x){ return x.toLowerCase().includes("cost"); })){
+    selectedPrompt = {
+      question: "Evaluate the cost implications of different manufacturing processes in mass production.",
+      points: [
+        "Compare high tooling cost with low unit cost",
+        "Discuss why some processes are economical only at high volume",
+        "Link cost to speed, accuracy and material",
+        "Use a real-world manufacturing example",
+        "Finish with a justified judgement"
+      ]
+    };
+  } else if(longWeakAreas.some(function(x){ return x.toLowerCase().includes("example"); })){
+    selectedPrompt = {
+      question: "Explain the use of manufacturing processes with detailed real-world examples.",
+      points: [
+        "Name at least two manufacturing processes",
+        "Give a product example for each process",
+        "Explain why each process suits the product",
+        "Link the process to material and production volume",
+        "Finish with a clear conclusion"
+      ]
+    };
+  }
+}
+
+return selectedPrompt;
 }
 function showSummary(){
   showScreen("summaryScreen");
