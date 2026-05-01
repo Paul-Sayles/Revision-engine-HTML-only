@@ -1658,8 +1658,16 @@ function showLongFormChecklist(){
 
   html += "</ul>";
 longWeakAreas = improvements;
-  let band = "";
+ const totalChecks = checks.length;
+const missing = totalChecks - hits;
 
+let band = "";
+
+if(missing >= 3){
+  band = "Estimated band: 1–2 marks. Too many key areas missing.";
+} else if(missing === 2){
+  band = "Estimated band: 3–4 marks. Some understanding shown but key areas are missing.";
+} else {
   if(answer.length < 80 || hits <= 2){
     band = "Estimated band: 1–2 marks. Add more explanation, examples and technical vocabulary.";
   } else if(hits <= 4){
@@ -1667,6 +1675,7 @@ longWeakAreas = improvements;
   } else {
     band = "Estimated band: 5–6 marks. Strong response. Check that your conclusion is justified.";
   }
+}
 
   html += "<p><strong>" + band + "</strong></p>";
 longAutoBand = band;
