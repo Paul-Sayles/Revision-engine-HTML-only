@@ -1658,22 +1658,29 @@ function showLongFormChecklist(){
 
   html += "</ul>";
 longWeakAreas = improvements;
- const totalChecks = checks.length;
+const totalChecks = checks.length;
 const missing = totalChecks - hits;
 
 let band = "";
 
-if(missing >= 3){
-  band = "Estimated band: 1–2 marks. Too many key areas missing.";
-} else if(missing === 2){
-  band = "Estimated band: 3–4 marks. Some understanding shown but key areas are missing.";
-} else {
+// Level 1 cap (weak coverage OR vague language)
+if(vagueHits >= 3 || missing >= 3){
+  band = "Level 1 (1–2 marks): Basic response with limited explanation and little technical detail.";
+}
+
+// Level 2 (partial understanding)
+else if(missing === 2){
+  band = "Level 2 (3–4 marks): Some understanding shown but key areas are missing or underdeveloped.";
+}
+
+// Level 3 (strong response)
+else {
   if(answer.length < 80 || hits <= 2){
-    band = "Estimated band: 1–2 marks. Add more explanation, examples and technical vocabulary.";
+    band = "Level 1 (1–2 marks): Basic response with limited explanation.";
   } else if(hits <= 4){
-    band = "Estimated band: 3–4 marks. Good start, but develop your points and add a clearer conclusion.";
+    band = "Level 2 (3–4 marks): Some explanation given but lacks full development or balance.";
   } else {
-    band = "Estimated band: 5–6 marks. Strong response. Check that your conclusion is justified.";
+    band = "Level 3 (5–6 marks): Developed, balanced response with clear explanation and appropriate technical vocabulary.";
   }
 }
 
