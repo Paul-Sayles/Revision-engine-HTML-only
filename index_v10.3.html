@@ -732,8 +732,7 @@ function checkShortAnswer(){
 
   const q = currentQuestions[currentIndex];
   const answer = document.getElementById("shortAnswer").value;
-  const input = normaliseText(answer);
-
+const text = normaliseText(answer);
   const keywords = q.keywords || [];
   const traps = q.traps || [];
 
