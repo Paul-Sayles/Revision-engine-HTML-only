@@ -1811,10 +1811,8 @@ function recordLongScore(){
   }
 }
 
-function showTeacherEditor(){
-  showScreen("teacherEditorScreen");
-  document.getElementById("teacherEditorFeedback").classList.add("hidden");
-}
+
+  
 
 function addTeacherQuestion(){
   if(!currentTopic){
@@ -1876,6 +1874,18 @@ function exportQuestionBank(){
   a.click();
 
   URL.revokeObjectURL(url);
+}
+
+function showTeacherEditor(){
+  const pin = prompt("Enter teacher PIN:");
+
+  if(pin !== "1234"){
+    alert("Incorrect PIN.");
+    return;
+  }
+
+  showScreen("teacherEditorScreen");
+  document.getElementById("teacherEditorFeedback").classList.add("hidden");
 }
   
 initialiseApp();
