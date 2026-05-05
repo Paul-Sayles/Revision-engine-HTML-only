@@ -1758,46 +1758,51 @@ const QUESTION_BANK = {
   questions: [
 
     {
-      type: "long",
+      type: "short",
       question: "A company needs to manufacture 10,000 identical plastic phone cases. Suggest a suitable manufacturing process and justify your choice.",
       keywords: ["injection moulding", "high volume", "repeatable", "low unit cost", "identical"],
       acceptable: ["injection moulding"],
+      mode: "any",
       markScheme: "Level 3 (5–6 marks): Correct process + clear justification linked to volume, cost and consistency. Level 2 (3–4): Some justification. Level 1 (1–2): basic identification.",
       explanation: "Injection moulding is ideal for high-volume plastic products due to repeatability and low unit cost after tooling."
     },
 
     {
-      type: "long",
+      type: "short",
       question: "A prototype metal bracket is required quickly for testing. Suggest a suitable manufacturing process and justify your choice.",
       keywords: ["machining", "cnc", "one-off", "prototype", "fast"],
       acceptable: ["machining", "cnc"],
+      mode: "any",
       markScheme: "Level 3: Process selected with justification linked to flexibility, speed and no tooling. Lower levels for weaker links.",
       explanation: "Machining or CNC is suitable for one-off or prototype parts without expensive tooling."
     },
 
     {
-      type: "long",
+      type: "short",
       question: "A complex metal engine component is required in medium quantities. Suggest a suitable process and justify.",
       keywords: ["casting", "complex shape", "repeatable", "mould"],
       acceptable: ["casting"],
+      mode: "any",
       markScheme: "Level 3: Correct process with explanation of complex geometry and repeatability.",
       explanation: "Casting is suitable for complex shapes that would be difficult to machine."
     },
 
     {
-      type: "long",
+      type: "short",
       question: "A custom wooden table is required for a customer. Suggest a suitable production method and justify.",
       keywords: ["one-off", "custom", "bespoke"],
       acceptable: ["one-off production"],
+      mode: "any",
       markScheme: "Level 3: Correct production type with reasoning about customisation.",
       explanation: "One-off production allows full customisation."
     },
 
     {
-      type: "long",
+      type: "short",
       question: "A company produces 500 identical metal components, but may change design later. Suggest a production method and justify.",
       keywords: ["batch", "flexible", "changeover"],
       acceptable: ["batch production"],
+      mode: "any",
       markScheme: "Level 3: Correct process with flexibility reasoning.",
       explanation: "Batch production allows groups of products with design changes between runs."
     }
