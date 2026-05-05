@@ -176,7 +176,7 @@ const QUESTION_BANK = {
       explanation: "Machining removes material, creating waste."
     }
   ]
-}
+},
         {
           "title": "Polymers",
           "questions": [
