@@ -4,6 +4,180 @@ const QUESTION_BANK = {
       "title": "OCR Engineering J823 - Materials",
       "topics": [
         {
+  title: "R014 Dense Core — Manufacturing Processes & Production",
+  questions: [
+
+    // ===== PROCESSES: FORMING / MOULDING =====
+
+    {
+      type: "short",
+      question: "State one reason injection moulding is suitable for mass production.",
+      keywords: ["repeatable", "consistent", "fast", "low unit cost", "high volume"],
+      acceptable: ["repeatable", "consistent", "fast", "low unit cost", "high volume"],
+      traps: ["low setup cost"],
+      trapResponse: "Injection moulding has high setup/tooling cost; unit cost becomes low at high volume.",
+      mode: "any",
+      markScheme: "1 mark for repeatability, speed, consistency or low unit cost at scale.",
+      explanation: "Injection moulding produces identical parts quickly once the mould is made."
+    },
+    {
+      type: "short",
+      question: "State one disadvantage of injection moulding.",
+      keywords: ["high tooling cost", "expensive mould", "setup cost", "not suitable for small batch"],
+      acceptable: ["high tooling cost", "expensive mould", "setup cost", "not suitable for small batch"],
+      traps: ["slow production"],
+      trapResponse: "Injection moulding is fast in production; the main issue is high initial cost.",
+      mode: "any",
+      markScheme: "1 mark for high tooling/setup cost or poor suitability for low volume.",
+      explanation: "The mould must be manufactured first, which is expensive."
+    },
+
+    // ===== PROCESSES: WASTING =====
+
+    {
+      type: "short",
+      question: "State one advantage of machining.",
+      keywords: ["accuracy", "precision", "tight tolerance", "custom parts", "small batch"],
+      acceptable: ["accuracy", "precision", "tight tolerance", "custom parts", "small batch"],
+      traps: ["low waste"],
+      trapResponse: "Machining removes material, so it usually produces waste.",
+      mode: "any",
+      markScheme: "1 mark for accuracy, precision, or suitability for small/custom production.",
+      explanation: "Machining allows precise control of dimensions."
+    },
+    {
+      type: "short",
+      question: "State one disadvantage of machining.",
+      keywords: ["waste", "slow", "expensive", "material removal", "high unit cost"],
+      acceptable: ["waste", "slow", "expensive", "material removal", "high unit cost"],
+      traps: ["no accuracy"],
+      trapResponse: "Machining is often used because it is highly accurate.",
+      mode: "any",
+      markScheme: "1 mark for waste, slow production or high cost.",
+      explanation: "Material is removed, increasing waste and cost."
+    },
+
+    // ===== PROCESSES: CASTING =====
+
+    {
+      type: "short",
+      question: "State one reason casting is used in manufacturing.",
+      keywords: ["complex shapes", "large components", "metal parts", "repeatable", "hollow shapes"],
+      acceptable: ["complex shapes", "large components", "metal parts", "repeatable", "hollow shapes"],
+      traps: ["no mould needed"],
+      trapResponse: "Casting requires a mould or pattern to form the shape.",
+      mode: "any",
+      markScheme: "1 mark for complex shapes, large components or repeatability.",
+      explanation: "Molten material can fill complex mould shapes."
+    },
+
+    // ===== PRODUCTION AIDS =====
+
+    {
+      type: "short",
+      question: "State one purpose of a jig in manufacturing.",
+      keywords: ["accuracy", "repeatability", "positioning", "guiding tool", "consistency"],
+      acceptable: ["accuracy", "repeatability", "positioning", "guiding tool", "consistency"],
+      traps: ["strengthens material"],
+      trapResponse: "A jig does not change material properties; it controls positioning.",
+      mode: "any",
+      markScheme: "1 mark for accuracy, repeatability or positioning.",
+      explanation: "Jigs help ensure consistent placement or movement during production."
+    },
+
+    // ===== SCALE OF PRODUCTION =====
+
+    {
+      type: "short",
+      question: "State one characteristic of mass production.",
+      keywords: ["high volume", "standardised", "automation", "low unit cost", "repetitive"],
+      acceptable: ["high volume", "standardised", "automation", "low unit cost", "repetitive"],
+      traps: ["custom made"],
+      trapResponse: "Mass production focuses on identical products, not customisation.",
+      mode: "any",
+      markScheme: "1 mark for high volume, standardisation or low unit cost.",
+      explanation: "Mass production produces large quantities of identical items."
+    },
+    {
+      type: "short",
+      question: "State one characteristic of batch production.",
+      keywords: ["groups", "flexible", "medium volume", "changeover", "variety"],
+      acceptable: ["groups", "flexible", "medium volume", "changeover", "variety"],
+      traps: ["continuous flow"],
+      trapResponse: "Continuous flow is linked to mass production, not batch production.",
+      mode: "any",
+      markScheme: "1 mark for grouped production or flexibility.",
+      explanation: "Batch production produces items in sets or groups."
+    },
+
+    // ===== QUALITY / CONSISTENCY =====
+
+    {
+      type: "short",
+      question: "State one reason consistency is important in manufacturing.",
+      keywords: ["quality", "fit", "interchangeable", "reliability", "reduce defects"],
+      acceptable: ["quality", "fit", "interchangeable", "reliability", "reduce defects"],
+      traps: ["increases weight"],
+      trapResponse: "Consistency affects quality and fit, not weight.",
+      mode: "any",
+      markScheme: "1 mark for quality, fit, interchangeability or reliability.",
+      explanation: "Consistent products fit and function correctly."
+    },
+
+    // ===== SAFETY =====
+
+    {
+      type: "short",
+      question: "State one safety precaution when using machinery.",
+      keywords: ["goggles", "guards", "secure work", "tie hair", "no loose clothing"],
+      acceptable: ["goggles", "guards", "secure work", "tie hair", "no loose clothing"],
+      traps: ["work by hand"],
+      trapResponse: "Work should be secured, not held loosely.",
+      mode: "any",
+      markScheme: "1 mark for a valid safety precaution.",
+      explanation: "Machinery can be dangerous if proper precautions are not taken."
+    },
+
+    // ===== MCQs (EXAM STYLE) =====
+
+    {
+      type: "mcq",
+      question: "Which process is best for producing high volumes of identical plastic parts?",
+      options: ["Injection moulding", "Machining", "Drilling", "Filing"],
+      correct: 0,
+      explanation: "Injection moulding is used for mass production of plastics."
+    },
+    {
+      type: "mcq",
+      question: "Which process removes material to form a shape?",
+      options: ["Machining", "Casting", "Moulding", "Forming"],
+      correct: 0,
+      explanation: "Machining removes material using cutting tools."
+    },
+    {
+      type: "mcq",
+      question: "What is the main function of a jig?",
+      options: ["Position or guide work accurately", "Melt material", "Test strength", "Polish surfaces"],
+      correct: 0,
+      explanation: "Jigs improve accuracy and repeatability."
+    },
+    {
+      type: "mcq",
+      question: "Which type of production involves making products in groups?",
+      options: ["Batch production", "Mass production", "Continuous production", "One-off production"],
+      correct: 0,
+      explanation: "Batch production produces items in sets."
+    },
+    {
+      type: "mcq",
+      question: "Which is a key disadvantage of machining?",
+      options: ["Material waste", "Low accuracy", "No flexibility", "Only works on plastics"],
+      correct: 0,
+      explanation: "Machining removes material, creating waste."
+    }
+  ]
+}
+        {
           "title": "Polymers",
           "questions": [
             {
