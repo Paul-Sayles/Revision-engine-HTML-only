@@ -462,6 +462,35 @@ textarea {
   <button class="secondary-btn" onclick="backToTopics()">Back to Topics</button>
 </section>
 
+<section id="teacherEditorScreen" class="hidden">
+  <h2>Teacher Add Question</h2>
+
+  <div class="control-box">
+    <label>Question</label>
+    <textarea id="teacherQuestion" placeholder="Type the question..."></textarea>
+
+    <label>Correct answers / keywords</label>
+    <input id="teacherKeyword1" placeholder="Keyword 1">
+    <input id="teacherKeyword2" placeholder="Keyword 2">
+    <input id="teacherKeyword3" placeholder="Keyword 3">
+    <input id="teacherKeyword4" placeholder="Keyword 4">
+
+    <label>Trap answers / common mistakes</label>
+    <input id="teacherTrap1" placeholder="Trap answer 1">
+    <input id="teacherTrap2" placeholder="Trap answer 2">
+
+    <label>Mark scheme / explanation</label>
+    <textarea id="teacherExplanation" placeholder="Explain the correct answer..."></textarea>
+  </div>
+
+  <button class="secondary-btn" onclick="showTeacherEditor()">Teacher Add Question</button>
+  <button class="primary-btn" onclick="addTeacherQuestion()">Add Question</button>
+  <button class="secondary-btn" onclick="exportQuestionBank()">Export Updated Bank</button>
+  <button class="secondary-btn" onclick="backToTopics()">Back</button>
+
+  <div id="teacherEditorFeedback" class="feedback hidden"></div>
+</section>
+  
 </main>
 </div>
 
@@ -494,6 +523,7 @@ function initialiseApp(){
 
 function showScreen(id){
   [
+    "teacherEditorScreen",
     "topicScreen",
     "sessionScreen",
     "questionScreen",
@@ -1781,6 +1811,74 @@ function recordLongScore(){
       "<strong class='good'>Strong response.</strong> Check your conclusion clearly answers the question.";
   }
 }
+
+function showTeacherEditor(){
+  showScreen("teacherEditorScreen");
+  document.getElementById("teacherEditorFeedback").classList.add("hidden");
+}
+
+function addTeacherQuestion(){
+  if(!currentTopic){
+    const topics = getAllTopics();
+    currentTopic = topics[0];
+  }
+
+  const question = document.getElementById("teacherQuestion").value.trim();
+
+  const keywords = [
+    document.getElementById("teacherKeyword1").value.trim(),
+    document.getElementById("teacherKeyword2").value.trim(),
+    document.getElementById("teacherKeyword3").value.trim(),
+    document.getElementById("teacherKeyword4").value.trim()
+  ].filter(Boolean);
+
+  const traps = [
+    document.getElementById("teacherTrap1").value.trim(),
+    document.getElementById("teacherTrap2").value.trim()
+  ].filter(Boolean);
+
+  const explanation = document.getElementById("teacherExplanation").value.trim();
+
+  if(!question || keywords.length === 0){
+    document.getElementById("teacherEditorFeedback").innerHTML =
+      "<strong class='bad'>Add a question and at least one correct keyword.</strong>";
+    document.getElementById("teacherEditorFeedback").classList.remove("hidden");
+    return;
+  }
+
+  const newQuestion = {
+    type: "short",
+    question: question,
+    keywords: keywords,
+    acceptable: keywords,
+    traps: traps,
+    mode: "any",
+    explanation: explanation,
+    markScheme: explanation
+  };
+
+  currentTopic.questions.push(newQuestion);
+
+  document.getElementById("teacherEditorFeedback").innerHTML =
+    "<strong class='good'>Question added.</strong> Export the updated bank to save it permanently.";
+  document.getElementById("teacherEditorFeedback").classList.remove("hidden");
+
+  loadTopics();
+}
+
+function exportQuestionBank(){
+  const output = "const QUESTION_BANK = " + JSON.stringify(data, null, 2) + ";";
+  const blob = new Blob([output], { type: "text/javascript" });
+  const url = URL.createObjectURL(blob);
+
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "questions.js";
+  a.click();
+
+  URL.revokeObjectURL(url);
+}
+  
 initialiseApp();
 </script>
 
