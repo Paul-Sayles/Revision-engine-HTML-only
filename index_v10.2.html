@@ -1508,7 +1508,9 @@ function pickRandom(array){
 function normaliseText(text){
   return String(text)
     .toLowerCase()
+    .replace(/-/g, "")              // remove hyphens
     .replace(/[.,!?;:()]/g, "")
+    .replace(/\s+/g, " ")           // clean spacing
     .trim();
 }
 
