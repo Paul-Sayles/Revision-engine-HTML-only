@@ -1756,11 +1756,12 @@ longAutoBand = band;
     html += "</ul>";
   }
 
-  document.getElementById("longChecklist").innerHTML = html;
+   document.getElementById("longChecklist").innerHTML = html;
   document.getElementById("longChecklist").classList.remove("hidden");
 }
+}
   
-  function recordLongScore(){
+function recordLongScore(){
   const selected = document.querySelector("input[name='longScore']:checked");
 
   if(!selected){
