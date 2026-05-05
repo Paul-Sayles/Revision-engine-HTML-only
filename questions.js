@@ -1594,212 +1594,165 @@ const QUESTION_BANK = {
       "title": "OCR Engineering J823 - Manufacturing",
       "topics": [
          {
-    title: "General Manufacturing Processes",
-    questions: [
 {
-  type: "mcq",
-  question: "Which of the following is a wasting process?",
-  options: ["Casting", "Drilling", "Forging", "3D printing"],
-  correct: 1,
-  explanation: "Drilling removes material, making it a wasting process."
-},
-{
-  type: "mcq",
-  question: "Which process involves shaping heated metal using force?",
-  options: ["Forging", "Injection moulding", "Laser cutting", "Turning"],
-  correct: 0,
-  explanation: "Forging shapes heated metal using compressive force."
-},
-{
-  type: "mcq",
-  question: "Which process is additive?",
-  options: ["Milling", "Casting", "3D printing", "Turning"],
-  correct: 2,
-  explanation: "3D printing builds material layer by layer."
-},
-{
-  type: "mcq",
-  question: "Which tool is used in turning operations?",
-  options: ["Lathe", "Pillar drill", "Laser cutter", "Vacuum former"],
-  correct: 0,
-  explanation: "A lathe is used for turning operations."
-},
-{
-  type: "mcq",
-  question: "What type of process is injection moulding?",
-  options: ["Wasting", "Forming", "Additive", "Joining"],
-  correct: 1,
-  explanation: "Injection moulding shapes molten material into a mould."
-},
-      {
-  type: "mcq",
-  question: "Which of the following is a wasting process?",
-  options: ["Casting", "Drilling", "Forging", "3D printing"],
-  correct: 1,
-  explanation: "Drilling removes material, making it a wasting process."
-},
-{
-  type: "mcq",
-  question: "Which process involves shaping heated metal using force?",
-  options: ["Forging", "Injection moulding", "Laser cutting", "Turning"],
-  correct: 0,
-  explanation: "Forging shapes heated metal using compressive force."
-},
-{
-  type: "mcq",
-  question: "Which process is additive?",
-  options: ["Milling", "Casting", "3D printing", "Turning"],
-  correct: 2,
-  explanation: "3D printing builds material layer by layer."
-},
-{
-  type: "mcq",
-  question: "Which tool is used in turning operations?",
-  options: ["Lathe", "Pillar drill", "Laser cutter", "Vacuum former"],
-  correct: 0,
-  explanation: "A lathe is used for turning operations."
-},
-{
-  type: "mcq",
-  question: "What type of process is injection moulding?",
-  options: ["Wasting", "Forming", "Additive", "Joining"],
-  correct: 1,
-  explanation: "Injection moulding shapes molten material into a mould."
-},
-{
-  type: "mcq",
-  question: "Which process is best for producing complex plastic shapes in high volume?",
-  options: ["Vacuum forming", "Injection moulding", "Turning", "Casting"],
-  correct: 1,
-  explanation: "Injection moulding is ideal for high-volume complex plastic parts."
-},
-{
-  type: "mcq",
-  question: "Which process joins metals permanently using heat?",
-  options: ["Bolting", "Welding", "Clipping", "Riveting"],
-  correct: 1,
-  explanation: "Welding joins metals using heat."
-},
-{
-  type: "mcq",
-  question: "Which of the following is a finishing process?",
-  options: ["Milling", "Drilling", "Painting", "Turning"],
-  correct: 2,
-  explanation: "Painting is used to improve surface finish."
-},
-{
-  type: "mcq",
-  question: "What is the main purpose of a jig?",
-  options: ["Improve accuracy", "Heat material", "Melt plastic", "Join metals"],
-  correct: 0,
-  explanation: "Jigs are used to guide tools and improve accuracy."
-},
-{
-  type: "mcq",
-  question: "Which process uses a rotating cutting tool to remove material?",
-  options: ["Casting", "Milling", "Forging", "Extrusion"],
-  correct: 1,
-  explanation: "Milling removes material using a rotating cutter."
-},
-{
-  type: "mcq",
-  question: "Which process is best for producing complex plastic shapes in high volume?",
-  options: ["Vacuum forming", "Injection moulding", "Turning", "Casting"],
-  correct: 1,
-  explanation: "Injection moulding is ideal for high-volume complex plastic parts."
-},
-{
-  type: "mcq",
-  question: "Which process joins metals permanently using heat?",
-  options: ["Bolting", "Welding", "Clipping", "Riveting"],
-  correct: 1,
-  explanation: "Welding joins metals using heat."
-},
-{
-  type: "mcq",
-  question: "Which of the following is a finishing process?",
-  options: ["Milling", "Drilling", "Painting", "Turning"],
-  correct: 2,
-  explanation: "Painting is used to improve surface finish."
-},
-{
-  type: "mcq",
-  question: "What is the main purpose of a jig?",
-  options: ["Improve accuracy", "Heat material", "Melt plastic", "Join metals"],
-  correct: 0,
-  explanation: "Jigs are used to guide tools and improve accuracy."
-},
-{
-  type: "mcq",
-  question: "Which process uses a rotating cutting tool to remove material?",
-  options: ["Casting", "Milling", "Forging", "Extrusion"],
-  correct: 1,
-  explanation: "Milling removes material using a rotating cutter."
-},    ]
-  },
-        {
-          "title": "Casting",
-          "questions": [
-            {
-              "type": "mcq",
-              "question": "What is casting?",
-              "options": [
-                "Pouring molten material into a mould",
-                "Cutting metal with a drill",
-                "Joining two metals with heat",
-                "Bending sheet metal"
-              ],
-              "correct": 0,
-              "explanation": "Casting involves pouring molten material into a mould and allowing it to solidify."
-            },
-            {
-              "type": "mcq",
-              "question": "What material state is used in casting?",
-              "options": [
-                "Molten liquid",
-                "Powder",
-                "Solid bar",
-                "Foam"
-              ],
-              "correct": 0,
-              "explanation": "The material is heated until molten before being poured into the mould."
-            },
-            {
-              "type": "mcq",
-              "question": "Which casting process uses a pattern pressed into sand?",
-              "options": [
-                "Sand casting",
-                "Injection moulding",
-                "Brazing",
-                "Turning"
-              ],
-              "correct": 0,
-              "explanation": "Sand casting uses a sand mould formed around a pattern."
-            },
-            {
-              "type": "mcq",
-              "question": "What happens after molten metal is poured into a mould?",
-              "options": [
-                "It solidifies",
-                "It evaporates",
-                "It becomes plastic",
-                "It is soldered"
-              ],
-              "correct": 0,
-              "explanation": "The molten metal cools and solidifies into the mould shape."
-            },
-            {
-              "type": "mcq",
-              "question": "Why is a pattern used in sand casting?",
-              "options": [
-                "To create the mould cavity",
-                "To polish the metal",
-                "To cool the casting",
-                "To join two parts"
-              ],
-              "correct": 0,
-              "explanation": "The pattern creates the shape of the mould cavity."
-            },
+  title: "General Manufacturing Processes",
+  questions: [
+
+    // ===== PROCESS TYPES =====
+
+    {
+      type: "mcq",
+      question: "Which process is a wasting process?",
+      options: ["Casting", "Drilling", "Forging", "Injection moulding"],
+      correct: 1,
+      explanation: "Drilling removes material, producing swarf."
+    },
+    {
+      type: "mcq",
+      question: "Which process is additive?",
+      options: ["Milling", "Turning", "3D printing", "Drilling"],
+      correct: 2,
+      explanation: "Additive processes build material layer by layer."
+    },
+    {
+      type: "mcq",
+      question: "Which process is a forming process?",
+      options: ["Forging", "Drilling", "Milling", "Grinding"],
+      correct: 0,
+      explanation: "Forging reshapes material using force."
+    },
+
+    // ===== PROCESS UNDERSTANDING =====
+
+    {
+      type: "short",
+      question: "State one reason injection moulding is suitable for high-volume production.",
+      keywords: ["repeatable", "consistent", "fast", "identical", "low unit cost"],
+      acceptable: ["repeatable", "consistent", "fast", "identical", "low unit cost"],
+      traps: ["low setup cost", "no tooling"],
+      trapResponse: "Injection moulding has high tooling cost; it becomes economical at high volume.",
+      mode: "any",
+      markScheme: "1 mark for repeatability, speed, identical parts or low unit cost at scale.",
+      explanation: "The mould allows rapid production of identical components."
+    },
+    {
+      type: "short",
+      question: "State one disadvantage of injection moulding.",
+      keywords: ["high cost", "tooling", "expensive mould", "setup cost", "small batch"],
+      acceptable: ["high cost", "tooling", "expensive mould", "setup cost", "small batch"],
+      traps: ["slow production", "inaccurate"],
+      trapResponse: "Injection moulding is fast and accurate; the main issue is high initial cost.",
+      mode: "any",
+      markScheme: "1 mark for high tooling/setup cost or poor suitability for low volume.",
+      explanation: "Mould manufacture is expensive."
+    },
+
+    // ===== MACHINING =====
+
+    {
+      type: "short",
+      question: "State one advantage of machining.",
+      keywords: ["accuracy", "precision", "tolerance", "custom", "small batch"],
+      acceptable: ["accuracy", "precision", "tolerance", "custom", "small batch"],
+      traps: ["no waste", "low material use"],
+      trapResponse: "Machining removes material, so waste is produced.",
+      mode: "any",
+      markScheme: "1 mark for accuracy, precision or suitability for custom work.",
+      explanation: "Machining allows tight control of dimensions."
+    },
+    {
+      type: "short",
+      question: "State one disadvantage of machining.",
+      keywords: ["waste", "swarf", "slow", "cost", "material removal"],
+      acceptable: ["waste", "swarf", "slow", "cost", "material removal"],
+      traps: ["low accuracy", "high speed"],
+      trapResponse: "Machining is often used because it is accurate; speed can be a limitation.",
+      mode: "any",
+      markScheme: "1 mark for waste, slow production or cost.",
+      explanation: "Material is removed and often discarded."
+    },
+
+    // ===== CASTING =====
+
+    {
+      type: "short",
+      question: "State one advantage of casting.",
+      keywords: ["complex", "shape", "large", "repeatable", "hollow"],
+      acceptable: ["complex", "shape", "large", "repeatable", "hollow"],
+      traps: ["no mould", "no tooling"],
+      trapResponse: "Casting requires a mould or pattern to form the shape.",
+      mode: "any",
+      markScheme: "1 mark for complex shapes or large components.",
+      explanation: "Molten material fills mould cavities."
+    },
+
+    // ===== PRODUCTION TYPES =====
+
+    {
+      type: "mcq",
+      question: "Which production method is best for large quantities of identical products?",
+      options: ["One-off production", "Batch production", "Mass production", "Prototype production"],
+      correct: 2,
+      explanation: "Mass production produces large quantities at low unit cost."
+    },
+    {
+      type: "mcq",
+      question: "Which production method produces items in groups?",
+      options: ["Mass production", "Batch production", "Continuous production", "One-off production"],
+      correct: 1,
+      explanation: "Batch production makes items in sets."
+    },
+
+    // ===== QUALITY / CONSISTENCY =====
+
+    {
+      type: "short",
+      question: "State one reason consistency is important in manufacturing.",
+      keywords: ["quality", "fit", "function", "interchangeable", "reliable"],
+      acceptable: ["quality", "fit", "function", "interchangeable", "reliable"],
+      traps: ["increase weight", "improve colour"],
+      trapResponse: "Consistency affects function and fit, not weight or colour.",
+      mode: "any",
+      markScheme: "1 mark for quality, fit, function or interchangeability.",
+      explanation: "Consistent parts work together correctly."
+    },
+
+    // ===== JIGS =====
+
+    {
+      type: "mcq",
+      question: "What is the main function of a jig?",
+      options: ["Guide or position work accurately", "Melt material", "Increase temperature", "Change material properties"],
+      correct: 0,
+      explanation: "Jigs improve accuracy and repeatability."
+    },
+
+    // ===== PROCESS IDENTITY =====
+
+    {
+      type: "mcq",
+      question: "Which process uses a rotating cutting tool?",
+      options: ["Casting", "Milling", "Forging", "Extrusion"],
+      correct: 1,
+      explanation: "Milling uses a rotating cutter to remove material."
+    },
+    {
+      type: "mcq",
+      question: "Which process permanently joins metals using heat?",
+      options: ["Screwing", "Welding", "Clipping", "Bolting"],
+      correct: 1,
+      explanation: "Welding fuses metals together using heat."
+    },
+    {
+      type: "mcq",
+      question: "Which process is used to improve surface finish?",
+      options: ["Drilling", "Turning", "Painting", "Casting"],
+      correct: 2,
+      explanation: "Painting is a finishing process."
+    }
+
+  ]
+
             {
               "type": "mcq",
               "question": "Which product could be made by casting?",
