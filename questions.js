@@ -177,6 +177,547 @@ const QUESTION_BANK = {
     }
   ]
 },
+{
+  title: "R014 Dense Core — Materials & Properties",
+  questions: [
+    {
+      type: "short",
+      question: "State one property of mild steel.",
+      keywords: ["strong", "tough", "ductile", "magnetic", "rusts"],
+      acceptable: ["strong", "tough", "ductile", "magnetic", "rusts"],
+      traps: ["does not rust"],
+      trapResponse: "Mild steel can rust unless protected.",
+      mode: "any",
+      markScheme: "1 mark for a valid property of mild steel.",
+      explanation: "Mild steel is strong and tough, but it can corrode."
+    },
+    {
+      type: "short",
+      question: "State one property of aluminium.",
+      keywords: ["lightweight", "corrosion resistant", "ductile", "malleable", "good conductor"],
+      acceptable: ["lightweight", "corrosion resistant", "ductile", "malleable", "good conductor"],
+      traps: ["heavy"],
+      trapResponse: "Aluminium is commonly used because it is lightweight.",
+      mode: "any",
+      markScheme: "1 mark for a valid property such as lightweight or corrosion resistant.",
+      explanation: "Aluminium is lightweight and resists corrosion."
+    },
+    {
+      type: "short",
+      question: "State one property of acrylic.",
+      keywords: ["transparent", "clear", "rigid", "brittle", "weather resistant"],
+      acceptable: ["transparent", "clear", "rigid", "brittle", "weather resistant"],
+      traps: ["flexible rubber"],
+      trapResponse: "Acrylic is usually rigid, not rubber-like.",
+      mode: "any",
+      markScheme: "1 mark for a valid acrylic property.",
+      explanation: "Acrylic is often used where a clear plastic is required."
+    },
+    {
+      type: "short",
+      question: "State one property of rubber.",
+      keywords: ["flexible", "elastic", "grippy", "water resistant", "insulator"],
+      acceptable: ["flexible", "elastic", "grippy", "water resistant", "insulator"],
+      traps: ["brittle"],
+      trapResponse: "Rubber is normally flexible and elastic.",
+      mode: "any",
+      markScheme: "1 mark for a valid property of rubber.",
+      explanation: "Rubber is useful where flexibility, grip or sealing is needed."
+    },
+    {
+      type: "short",
+      question: "State one reason stainless steel is used for products exposed to moisture.",
+      keywords: ["corrosion resistant", "rust resistant", "does not rust easily", "hygienic"],
+      acceptable: ["corrosion resistant", "rust resistant", "does not rust easily", "hygienic"],
+      traps: ["rusts quickly"],
+      trapResponse: "Stainless steel is selected because it resists corrosion.",
+      mode: "any",
+      markScheme: "1 mark for corrosion/rust resistance or hygiene.",
+      explanation: "Stainless steel contains chromium, which helps resist corrosion."
+    },
+    {
+      type: "short",
+      question: "State one meaning of ductile.",
+      keywords: ["drawn into wire", "stretched", "deformed without breaking"],
+      acceptable: ["drawn into wire", "stretched", "deformed without breaking"],
+      traps: ["breaks easily"],
+      trapResponse: "Ductile materials deform before breaking.",
+      mode: "any",
+      markScheme: "1 mark for being drawn into wire or deformed without breaking.",
+      explanation: "Ductility is the ability to be stretched into wire."
+    },
+    {
+      type: "short",
+      question: "State one meaning of malleable.",
+      keywords: ["hammered", "rolled", "shaped", "formed without breaking"],
+      acceptable: ["hammered", "rolled", "shaped", "formed without breaking"],
+      traps: ["cannot be shaped"],
+      trapResponse: "Malleable materials can be shaped without breaking.",
+      mode: "any",
+      markScheme: "1 mark for shaped, hammered or rolled without breaking.",
+      explanation: "Malleability is the ability to be shaped under compression."
+    },
+    {
+      type: "short",
+      question: "State one meaning of brittle.",
+      keywords: ["breaks easily", "snaps", "little deformation", "fractures"],
+      acceptable: ["breaks easily", "snaps", "little deformation", "fractures"],
+      traps: ["stretches easily"],
+      trapResponse: "Stretching relates more to ductility or elasticity.",
+      mode: "any",
+      markScheme: "1 mark for breaking/snapping with little deformation.",
+      explanation: "Brittle materials break suddenly rather than bending."
+    },
+    {
+      type: "mcq",
+      question: "Which material is commonly selected for being lightweight and corrosion resistant?",
+      options: ["Aluminium", "Mild steel", "Cast iron", "Lead"],
+      correct: 0,
+      explanation: "Aluminium is lightweight and corrosion resistant."
+    },
+    {
+      type: "mcq",
+      question: "Which property means a material can be drawn into wire?",
+      options: ["Ductility", "Brittleness", "Hardness", "Opacity"],
+      correct: 0,
+      explanation: "Ductility means a material can be drawn into wire."
+    },
+    {
+      type: "mcq",
+      question: "Which property means a material breaks with little deformation?",
+      options: ["Brittleness", "Elasticity", "Malleability", "Ductility"],
+      correct: 0,
+      explanation: "Brittle materials fracture rather than deform."
+    },
+    {
+      type: "mcq",
+      question: "Which material is most suitable for a transparent display cover?",
+      options: ["Acrylic", "Mild steel", "Rubber", "Copper"],
+      correct: 0,
+      explanation: "Acrylic is a transparent plastic."
+    }
+  ]
+},
+
+        {
+  title: "R014 Dense Core — Forms of Supply & Stock Types",
+  questions: [
+
+    {
+      type: "short",
+      question: "State one form of supply for metal.",
+      keywords: ["sheet", "plate", "bar", "rod", "tube", "wire"],
+      acceptable: ["sheet", "plate", "bar", "rod", "tube", "wire"],
+      traps: ["powder coating"],
+      trapResponse: "Powder coating is a finishing process, not a form of supply.",
+      mode: "any",
+      markScheme: "1 mark for a valid form of supply.",
+      explanation: "Metals are supplied in forms such as sheet, bar or tube."
+    },
+    {
+      type: "short",
+      question: "State one form of supply for plastic.",
+      keywords: ["granules", "pellets", "sheet", "film", "powder"],
+      acceptable: ["granules", "pellets", "sheet", "film", "powder"],
+      traps: ["molten"],
+      trapResponse: "Molten plastic is a processing state, not a supply form.",
+      mode: "any",
+      markScheme: "1 mark for a valid plastic supply form.",
+      explanation: "Plastics are often supplied as pellets or granules."
+    },
+    {
+      type: "short",
+      question: "State one reason materials are supplied in standard forms.",
+      keywords: ["ease of storage", "transport", "handling", "processing", "cost efficiency"],
+      acceptable: ["ease of storage", "transport", "handling", "processing", "cost efficiency"],
+      traps: ["random shape"],
+      trapResponse: "Materials are standardised, not random.",
+      mode: "any",
+      markScheme: "1 mark for storage, transport or processing efficiency.",
+      explanation: "Standard forms make manufacturing more efficient."
+    },
+
+    // ===== MATCHING MATERIAL TO FORM =====
+
+    {
+      type: "short",
+      question: "State one suitable form of supply for a metal shaft.",
+      keywords: ["rod", "bar"],
+      acceptable: ["rod", "bar"],
+      traps: ["sheet"],
+      trapResponse: "Shafts require solid stock like rod or bar, not sheet.",
+      mode: "any",
+      markScheme: "1 mark for rod or bar.",
+      explanation: "Round components are typically produced from rod or bar stock."
+    },
+    {
+      type: "short",
+      question: "State one suitable form of supply for a flat panel.",
+      keywords: ["sheet", "plate"],
+      acceptable: ["sheet", "plate"],
+      traps: ["wire"],
+      trapResponse: "Wire is not suitable for flat panels.",
+      mode: "any",
+      markScheme: "1 mark for sheet or plate.",
+      explanation: "Flat components are made from sheet materials."
+    },
+    {
+      type: "short",
+      question: "State one suitable form of supply for electrical wiring.",
+      keywords: ["wire"],
+      acceptable: ["wire"],
+      traps: ["sheet"],
+      trapResponse: "Wiring requires thin flexible conductors, not sheet.",
+      mode: "any",
+      markScheme: "1 mark for wire.",
+      explanation: "Electrical conductors are supplied as wire."
+    },
+
+    // ===== PROCESS LINKS =====
+
+    {
+      type: "short",
+      question: "State the typical form of supply used in injection moulding.",
+      keywords: ["granules", "pellets"],
+      acceptable: ["granules", "pellets"],
+      traps: ["sheet"],
+      trapResponse: "Injection moulding uses pellets or granules, not sheet.",
+      mode: "any",
+      markScheme: "1 mark for granules or pellets.",
+      explanation: "Plastic is melted from pellet form during moulding."
+    },
+    {
+      type: "short",
+      question: "State the typical form of supply used in machining.",
+      keywords: ["bar", "rod", "block"],
+      acceptable: ["bar", "rod", "block"],
+      traps: ["powder"],
+      trapResponse: "Machining uses solid stock, not powder.",
+      mode: "any",
+      markScheme: "1 mark for solid stock such as bar or block.",
+      explanation: "Machining removes material from solid stock."
+    },
+
+    // ===== MCQs =====
+
+    {
+      type: "mcq",
+      question: "Which form of supply is most suitable for making pipes?",
+      options: ["Tube", "Sheet", "Powder", "Granules"],
+      correct: 0,
+      explanation: "Tubes are hollow and ideal for pipe applications."
+    },
+    {
+      type: "mcq",
+      question: "Which form of supply is used in injection moulding?",
+      options: ["Pellets", "Sheet", "Wire", "Rod"],
+      correct: 0,
+      explanation: "Injection moulding uses plastic pellets."
+    },
+    {
+      type: "mcq",
+      question: "Which form of supply is best for flat components?",
+      options: ["Sheet", "Wire", "Rod", "Granules"],
+      correct: 0,
+      explanation: "Sheet material is used for flat shapes."
+    },
+    {
+      type: "mcq",
+      question: "Which form of supply is most suitable for making shafts?",
+      options: ["Rod", "Sheet", "Powder", "Film"],
+      correct: 0,
+      explanation: "Rods are used to create cylindrical components."
+    }
+  ]
+},
+
+{
+  title: "R014 Dense Core — Sustainability, Waste & Modern Manufacturing",
+  questions: [
+
+    // ===== SUSTAINABILITY CORE =====
+
+    {
+      type: "short",
+      question: "State one meaning of sustainability in manufacturing.",
+      keywords: ["meet needs without future harm", "protect environment", "long term use", "reduce environmental impact"],
+      acceptable: ["meet needs without future harm", "protect environment", "long term use", "reduce environmental impact"],
+      traps: ["use as much material as possible"],
+      trapResponse: "Sustainability focuses on reducing impact, not increasing material use.",
+      mode: "any",
+      markScheme: "1 mark for protecting environment or long-term resource use.",
+      explanation: "Sustainability ensures resources are available for future generations."
+    },
+
+    {
+      type: "short",
+      question: "State one way manufacturing can be made more sustainable.",
+      keywords: ["recycle", "reuse", "reduce waste", "energy efficiency", "renewable energy"],
+      acceptable: ["recycle", "reuse", "reduce waste", "energy efficiency", "renewable energy"],
+      traps: ["increase waste"],
+      trapResponse: "Sustainability reduces waste, not increases it.",
+      mode: "any",
+      markScheme: "1 mark for recycling, reuse or reducing waste.",
+      explanation: "Sustainable manufacturing reduces environmental impact."
+    },
+
+    // ===== 6 Rs (HIGH VALUE) =====
+
+    {
+      type: "short",
+      question: "State one of the 6 Rs used in sustainable design.",
+      keywords: ["reduce", "reuse", "recycle", "repair", "refuse", "rethink"],
+      acceptable: ["reduce", "reuse", "recycle", "repair", "refuse", "rethink"],
+      traps: ["replace everything"],
+      trapResponse: "The 6 Rs aim to reduce impact, not increase consumption.",
+      mode: "any",
+      markScheme: "1 mark for any valid R.",
+      explanation: "The 6 Rs guide sustainable product design."
+    },
+
+    // ===== WASTE =====
+
+    {
+      type: "short",
+      question: "State one type of waste in manufacturing.",
+      keywords: ["material waste", "time waste", "energy waste", "transport waste", "defects"],
+      acceptable: ["material waste", "time waste", "energy waste", "transport waste", "defects"],
+      traps: ["perfect production"],
+      trapResponse: "Waste exists in all real manufacturing systems.",
+      mode: "any",
+      markScheme: "1 mark for a valid waste type.",
+      explanation: "Waste reduces efficiency and increases cost."
+    },
+
+    {
+      type: "short",
+      question: "State one way waste can be reduced in manufacturing.",
+      keywords: ["better planning", "accurate cutting", "reuse material", "automation", "quality control"],
+      acceptable: ["better planning", "accurate cutting", "reuse material", "automation", "quality control"],
+      traps: ["ignore waste"],
+      trapResponse: "Ignoring waste increases cost and inefficiency.",
+      mode: "any",
+      markScheme: "1 mark for valid waste reduction method.",
+      explanation: "Reducing waste improves efficiency and sustainability."
+    },
+
+    // ===== MODERN MANUFACTURING =====
+
+    {
+      type: "short",
+      question: "State one advantage of automation in manufacturing.",
+      keywords: ["consistency", "speed", "accuracy", "24/7 production", "reduced labour"],
+      acceptable: ["consistency", "speed", "accuracy", "24/7 production", "reduced labour"],
+      traps: ["always cheaper to set up"],
+      trapResponse: "Automation has high initial setup cost.",
+      mode: "any",
+      markScheme: "1 mark for consistency, speed or accuracy.",
+      explanation: "Automation improves efficiency and repeatability."
+    },
+
+    {
+      type: "short",
+      question: "State one disadvantage of automation.",
+      keywords: ["high cost", "job loss", "setup cost", "lack of flexibility"],
+      acceptable: ["high cost", "job loss", "setup cost", "lack of flexibility"],
+      traps: ["no maintenance"],
+      trapResponse: "Automated systems still require maintenance.",
+      mode: "any",
+      markScheme: "1 mark for cost, job loss or inflexibility.",
+      explanation: "Automation can be expensive and reduce human roles."
+    },
+
+    // ===== ENERGY =====
+
+    {
+      type: "short",
+      question: "State one benefit of using renewable energy in manufacturing.",
+      keywords: ["reduces pollution", "sustainable", "low carbon", "environmentally friendly"],
+      acceptable: ["reduces pollution", "sustainable", "low carbon", "environmentally friendly"],
+      traps: ["increases emissions"],
+      trapResponse: "Renewable energy reduces emissions.",
+      mode: "any",
+      markScheme: "1 mark for reduced pollution or sustainability.",
+      explanation: "Renewable energy sources reduce environmental impact."
+    },
+
+    // ===== MCQs =====
+
+    {
+      type: "mcq",
+      question: "Which of the following is part of the 6 Rs?",
+      options: ["Reuse", "Replace", "Rebuild", "Repaint"],
+      correct: 0,
+      explanation: "Reuse is one of the 6 Rs of sustainability."
+    },
+    {
+      type: "mcq",
+      question: "What is the main aim of sustainable manufacturing?",
+      options: ["Reduce environmental impact", "Increase waste", "Maximise cost", "Reduce accuracy"],
+      correct: 0,
+      explanation: "Sustainable manufacturing reduces environmental impact."
+    },
+    {
+      type: "mcq",
+      question: "Which is a disadvantage of automation?",
+      options: ["High setup cost", "Low accuracy", "Slow production", "Poor consistency"],
+      correct: 0,
+      explanation: "Automation often has high initial cost."
+    },
+    {
+      type: "mcq",
+      question: "Which of the following reduces waste?",
+      options: ["Recycling material", "Throwing material away", "Ignoring defects", "Overproduction"],
+      correct: 0,
+      explanation: "Recycling reduces waste and improves sustainability."
+    }
+  ]
+},
+
+{
+  title: "R014 Dense Core — Production Methods, Quality & Tolerances",
+  questions: [
+    {
+      type: "short",
+      question: "State one reason tolerances are used in engineering drawings.",
+      keywords: ["acceptable variation", "fit", "function", "quality", "interchangeable"],
+      acceptable: ["acceptable variation", "fit", "function", "quality", "interchangeable"],
+      traps: ["make parts random"],
+      trapResponse: "Tolerances control variation; they do not make parts random.",
+      mode: "any",
+      markScheme: "1 mark for acceptable variation, fit, function, quality or interchangeability.",
+      explanation: "Tolerances define the permitted variation in a dimension."
+    },
+    {
+      type: "short",
+      question: "State one reason quality control is used in manufacturing.",
+      keywords: ["reduce defects", "check accuracy", "meet specification", "consistency", "customer satisfaction"],
+      acceptable: ["reduce defects", "check accuracy", "meet specification", "consistency", "customer satisfaction"],
+      traps: ["increase defects"],
+      trapResponse: "Quality control aims to reduce defects, not increase them.",
+      mode: "any",
+      markScheme: "1 mark for checking accuracy, reducing defects or meeting specification.",
+      explanation: "Quality control checks that products meet required standards."
+    },
+    {
+      type: "short",
+      question: "State one method of checking quality.",
+      keywords: ["inspection", "measuring", "testing", "go no-go gauge", "visual check"],
+      acceptable: ["inspection", "measuring", "testing", "go no-go gauge", "visual check"],
+      traps: ["guessing"],
+      trapResponse: "Quality should be checked using measurement, inspection or testing.",
+      mode: "any",
+      markScheme: "1 mark for a valid quality checking method.",
+      explanation: "Quality checks may include measurement, testing or inspection."
+    },
+    {
+      type: "short",
+      question: "State one advantage of one-off production.",
+      keywords: ["custom", "bespoke", "unique", "flexible", "made to order"],
+      acceptable: ["custom", "bespoke", "unique", "flexible", "made to order"],
+      traps: ["lowest unit cost"],
+      trapResponse: "One-off production usually has a high unit cost.",
+      mode: "any",
+      markScheme: "1 mark for customisation, uniqueness or flexibility.",
+      explanation: "One-off production is used for individual or bespoke products."
+    },
+    {
+      type: "short",
+      question: "State one disadvantage of one-off production.",
+      keywords: ["expensive", "slow", "high labour", "high unit cost", "not repeatable"],
+      acceptable: ["expensive", "slow", "high labour", "high unit cost", "not repeatable"],
+      traps: ["best for mass production"],
+      trapResponse: "One-off production is not normally used for mass production.",
+      mode: "any",
+      markScheme: "1 mark for high cost, slow speed or high labour requirement.",
+      explanation: "One-off production takes longer and often requires skilled labour."
+    },
+    {
+      type: "short",
+      question: "State one advantage of batch production.",
+      keywords: ["flexible", "variety", "medium volume", "change product", "efficient"],
+      acceptable: ["flexible", "variety", "medium volume", "change product", "efficient"],
+      traps: ["only one product ever made"],
+      trapResponse: "Batch production allows groups of products to be made.",
+      mode: "any",
+      markScheme: "1 mark for flexibility, variety or medium-volume efficiency.",
+      explanation: "Batch production allows products to be made in groups."
+    },
+    {
+      type: "short",
+      question: "State one advantage of mass production.",
+      keywords: ["low unit cost", "high volume", "fast", "consistent", "repeatable"],
+      acceptable: ["low unit cost", "high volume", "fast", "consistent", "repeatable"],
+      traps: ["best for bespoke products"],
+      trapResponse: "Mass production is best for standardised products, not bespoke products.",
+      mode: "any",
+      markScheme: "1 mark for high volume, speed, consistency or low unit cost.",
+      explanation: "Mass production makes large numbers of identical products efficiently."
+    },
+    {
+      type: "short",
+      question: "State one disadvantage of mass production.",
+      keywords: ["high setup cost", "less flexible", "expensive equipment", "repetitive", "storage"],
+      acceptable: ["high setup cost", "less flexible", "expensive equipment", "repetitive", "storage"],
+      traps: ["very flexible"],
+      trapResponse: "Mass production is usually less flexible than batch or one-off production.",
+      mode: "any",
+      markScheme: "1 mark for high setup cost, poor flexibility or expensive equipment.",
+      explanation: "Mass production often needs dedicated equipment and setup."
+    },
+    {
+      type: "short",
+      question: "State one reason a product specification is used.",
+      keywords: ["requirements", "quality", "dimensions", "materials", "performance"],
+      acceptable: ["requirements", "quality", "dimensions", "materials", "performance"],
+      traps: ["ignore customer needs"],
+      trapResponse: "A specification records requirements; it does not ignore them.",
+      mode: "any",
+      markScheme: "1 mark for defining requirements such as material, size or performance.",
+      explanation: "A product specification sets out what the product must achieve."
+    },
+    {
+      type: "short",
+      question: "State one reason defects are a problem in manufacturing.",
+      keywords: ["waste", "cost", "rework", "rejects", "customer dissatisfaction", "unsafe"],
+      acceptable: ["waste", "cost", "rework", "rejects", "customer dissatisfaction", "unsafe"],
+      traps: ["improve quality"],
+      trapResponse: "Defects reduce quality and increase cost.",
+      mode: "any",
+      markScheme: "1 mark for waste, cost, rework, rejection, safety or customer issues.",
+      explanation: "Defects may lead to rejected products, extra cost or safety concerns."
+    },
+    {
+      type: "mcq",
+      question: "What does a tolerance show?",
+      options: ["Permitted variation in a dimension", "The colour of a product", "The cost of material", "The delivery method"],
+      correct: 0,
+      explanation: "Tolerance shows the acceptable variation from a stated dimension."
+    },
+    {
+      type: "mcq",
+      question: "Which method is suitable for making a bespoke one-off product?",
+      options: ["One-off production", "Mass production", "Continuous production", "Automated flow production only"],
+      correct: 0,
+      explanation: "One-off production is used for unique or custom products."
+    },
+    {
+      type: "mcq",
+      question: "Which production method is best for large numbers of identical products?",
+      options: ["Mass production", "One-off production", "Prototype production", "Manual marking out only"],
+      correct: 0,
+      explanation: "Mass production is used for high-volume identical products."
+    },
+    {
+      type: "mcq",
+      question: "Which is a quality control method?",
+      options: ["Inspection", "Ignoring defects", "Overproduction", "Guessing dimensions"],
+      correct: 0,
+      explanation: "Inspection is used to check products meet requirements."
+    }
+  ]
+},
+        
         {
           "title": "Polymers",
           "questions": [
