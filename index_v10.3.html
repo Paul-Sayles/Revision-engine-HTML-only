@@ -756,13 +756,22 @@ const trapHit = traps.some(function(t){
     return;
   }
 
-  let correct = false;
+ let correct = false;
 
-  if(q.mode === "all"){
-    correct = matched.length === keywords.length;
-  } else {
-    correct = matched.length > 0;
-  }
+const questionText = normaliseText(q.question);
+const oneAnswerQuestion =
+  questionText.includes("stateone") ||
+  questionText.includes("identifyone") ||
+  questionText.includes("giveone") ||
+  questionText.includes("nameone");
+
+if(oneAnswerQuestion){
+  correct = matched.length > 0;
+} else if(q.mode === "all"){
+  correct = matched.length === keywords.length;
+} else {
+  correct = matched.length > 0;
+}
 
   if(correct){
     score++;
