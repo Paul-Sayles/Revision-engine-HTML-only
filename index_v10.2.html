@@ -738,12 +738,12 @@ function checkShortAnswer(){
   const traps = q.traps || [];
 
   const matched = keywords.filter(function(k){
-    return input.includes(normaliseText(k));
-  });
+  return text.includes(normaliseText(k));
+});
 
-  const trapHit = traps.some(function(t){
-    return input.includes(normaliseText(t));
-  });
+const trapHit = traps.some(function(t){
+  return text.includes(normaliseText(t));
+});
 
   if(trapHit){
     wrong.push(q);
