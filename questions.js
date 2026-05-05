@@ -1594,7 +1594,6 @@ const QUESTION_BANK = {
       "title": "OCR Engineering J823 - Manufacturing",
       "topics": [
          {
-{
   title: "General Manufacturing Processes",
   questions: [
 
@@ -1752,10 +1751,13 @@ const QUESTION_BANK = {
     }
 
   ]
-
-            {
-              "type": "mcq",
-              "question": "Which product could be made by casting?",
+},
+{
+  title: "Casting",
+  questions: [
+    {
+      "type": "mcq",
+      "question": "Which product could be made by casting?",
               "options": [
                 "Engine block",
                 "Paper label",
