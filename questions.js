@@ -968,7 +968,7 @@ const QUESTION_BANK = {
       explanation: "3D printing is an additive manufacturing process."
     }
   ]
-}.
+},
 
 {
   title: "R014 Exam Focus — 6 Mark Questions",
@@ -2077,6 +2077,94 @@ const QUESTION_BANK = {
   ]
 },
 
+{
+  title: "R014 Exam Focus — Scenario Questions",
+  questions: [
+
+    {
+      type: "scenario",
+      question: "A company is manufacturing a plastic casing for a handheld device in large quantities.",
+      parts: [
+        {
+          q: "Identify a suitable manufacturing process.",
+          marks: 1,
+          answer: ["injection moulding"]
+        },
+        {
+          q: "State one reason why this process is suitable.",
+          marks: 1,
+          answer: ["mass production", "high volume", "consistent"]
+        },
+        {
+          q: "Explain one advantage of this process.",
+          marks: 2,
+          answer: ["low unit cost", "repeatable", "accurate"]
+        },
+        {
+          q: "Evaluate one disadvantage of this process.",
+          marks: 2,
+          answer: ["high tooling cost", "expensive mould", "not flexible"]
+        }
+      ]
+    },
+
+    {
+      type: "scenario",
+      question: "A metal shaft needs to be produced with high accuracy in small quantities.",
+      parts: [
+        {
+          q: "Identify a suitable manufacturing process.",
+          marks: 1,
+          answer: ["machining", "turning"]
+        },
+        {
+          q: "State one reason this process is suitable.",
+          marks: 1,
+          answer: ["accuracy", "precision", "small batch"]
+        },
+        {
+          q: "Explain one advantage of this process.",
+          marks: 2,
+          answer: ["tight tolerance", "custom", "high quality"]
+        },
+        {
+          q: "Evaluate one disadvantage.",
+          marks: 2,
+          answer: ["waste", "slow", "expensive"]
+        }
+      ]
+    },
+
+    {
+      type: "scenario",
+      question: "A manufacturer wants to reduce environmental impact when producing products.",
+      parts: [
+        {
+          q: "Identify one sustainable approach.",
+          marks: 1,
+          answer: ["recycling", "renewable materials", "reduce waste"]
+        },
+        {
+          q: "State one reason this is important.",
+          marks: 1,
+          answer: ["environment", "reduce landfill", "save resources"]
+        },
+        {
+          q: "Explain one benefit.",
+          marks: 2,
+          answer: ["cost saving", "less waste", "energy saving"]
+        },
+        {
+          q: "Evaluate one limitation.",
+          marks: 2,
+          answer: ["cost", "availability", "quality issues"]
+        }
+      ]
+    }
+
+  ]
+}
+        
 {
   title: "Process Selection & Justification",
   questions: [
