@@ -1,1 +1,1907 @@
 
+<!--
+REVISION MACHINE
+Version: v10.5
+Linked files: index_v10.html + questions.js
+Last update: Long Form Trainer (basic trigger added)
+Next task: Upgrade to OCR 6-mark engine
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Revision Machine - Stable Master</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #eef2f7;
+  color: #222;
+}
+
+.app {
+  max-width: 900px;
+  margin: 30px auto;
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+}
+
+header {
+  background: #1f3b57;
+  color: white;
+  padding: 24px;
+}
+
+main {
+  padding: 28px;
+}
+
+.hidden {
+  display: none;
+}
+
+.topic-card,
+.session-card,
+.option {
+  display: block;
+  width: 100%;
+  margin: 10px 0;
+  padding: 14px;
+  border-radius: 10px;
+  border: 1px solid #ccd6e0;
+  background: #f8fafc;
+  cursor: pointer;
+  text-align: left;
+  font-size: 16px;
+}
+
+.topic-card:hover,
+.session-card:hover,
+.option:hover {
+  background: #edf4ff;
+}
+
+.primary-btn,
+.secondary-btn {
+  padding: 11px 16px;
+  margin: 10px 6px 0 0;
+  border: 0;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 15px;
+}
+
+.primary-btn {
+  background: #1f3b57;
+  color: white;
+}
+
+.secondary-btn {
+  background: #dbe3ec;
+  color: #222;
+}
+
+.feedback {
+  margin-top: 18px;
+  padding: 16px;
+  background: #f8fafc;
+  border-left: 6px solid #1f3b57;
+  border-radius: 8px;
+}
+
+textarea {
+  width: 100%;
+  min-height: 100px;
+  font-size: 16px;
+  padding: 12px;
+  box-sizing: border-box;
+}
+
+.good {
+  color: green;
+  font-weight: bold;
+}
+
+.bad {
+  color: red;
+  font-weight: bold;
+}
+
+.keyword-hit {
+  display: inline-block;
+  background: #d4edda;
+  padding: 5px 8px;
+  margin: 3px;
+  border-radius: 6px;
+}
+
+.keyword-miss {
+  display: inline-block;
+  background: #f8d7da;
+  padding: 5px 8px;
+  margin: 3px;
+  border-radius: 6px;
+}
+
+.trap-box {
+  background: #ff0000;
+  color: white;
+  padding: 22px;
+  font-size: 28px;
+  font-weight: bold;
+  text-align: center;
+  border-radius: 12px;
+  margin-bottom: 15px;
+}
+
+.error-box {
+  background: #ffe1e1;
+  border-left: 6px solid #c0392b;
+  padding: 16px;
+  border-radius: 8px;
+}
+
+.control-box {
+  background: #f8fafc;
+  border: 1px solid #ccd6e0;
+  border-radius: 10px;
+  padding: 14px;
+  margin: 12px 0 18px 0;
+}
+
+.quick-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 12px;
+  margin: 16px 0 20px 0;
+}
+
+.quick-card {
+  border: 1px solid #ccd6e0;
+  border-radius: 12px;
+  background: #f8fafc;
+  padding: 16px;
+  cursor: pointer;
+  text-align: left;
+}
+
+.quick-card:hover {
+  background: #edf4ff;
+}
+
+.quick-card strong {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 17px;
+}
+
+.exam-front {
+  border: 2px solid #111;
+  padding: 22px;
+  margin-bottom: 22px;
+}
+
+.exam-title {
+  font-size: 22px;
+  font-weight: bold;
+  margin: 20px 0;
+}
+
+.exam-info-box {
+  border: 1px solid #111;
+  padding: 12px;
+  margin: 14px 0;
+}
+
+.exam-section-title {
+  text-align: center;
+  font-weight: bold;
+  font-size: 18px;
+  margin: 24px 0 18px 0;
+}
+
+.exam-question {
+  margin: 18px 0 26px 0;
+  page-break-inside: avoid;
+}
+
+.exam-mark {
+  font-weight: bold;
+  float: right;
+}
+
+.exam-lines {
+  margin-top: 10px;
+  line-height: 2.25;
+}
+
+.exam-lines span {
+  display: block;
+  border-bottom: 1px dotted #555;
+  height: 24px;
+}
+
+.exam-mcq-option {
+  margin: 8px 0 8px 28px;
+}
+
+.exam-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 12px 0;
+}
+
+.exam-table th,
+.exam-table td {
+  border: 1px solid #111;
+  padding: 8px;
+  vertical-align: top;
+}
+
+.exam-table th {
+  font-weight: bold;
+}
+
+.checkbox-row {
+  display: inline-block;
+  margin: 8px 18px 8px 0;
+  font-size: 16px;
+}
+
+.mock-paper {
+  background: white;
+}
+
+.mock-question {
+  margin: 18px 0;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #ddd;
+}
+
+.answer-lines {
+  margin-top: 10px;
+  line-height: 2.1;
+}
+
+.scenario-part {
+  margin-bottom: 20px;
+  padding: 15px;
+  border: 1px solid #ccd6e0;
+  border-radius: 10px;
+  background: #f8fafc;
+}
+
+.scenario-feedback-part {
+  margin-top: 12px;
+  padding: 12px;
+  background: #eef2f7;
+  border-radius: 8px;
+}
+  
+@media print {
+  body {
+    background: white;
+  }
+
+  .app {
+    max-width: none;
+    margin: 0;
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  header,
+  .no-print,
+  button {
+    display: none !important;
+  }
+
+  .exam-front,
+  .exam-paper {
+    font-family: Arial, sans-serif;
+    color: #000;
+  }
+
+  main {
+    padding: 0;
+  }
+
+  .mock-question {
+    break-inside: avoid;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+<header>
+  <h1>Revision Machine</h1>
+  <p>Stable Master — session engine, validation, marking logic, trap answers, mock paper generator</p>
+</header>
+
+<main>
+
+<section id="topicScreen">
+  <h2>Revision Machine</h2>
+
+  <div class="control-box">
+    <h3>Digital Revision</h3>
+    <p>Quick practice modes for classroom or homework use.</p>
+    <div class="quick-grid">
+      <button class="quick-card" onclick="startQuickRevision('mcq')">
+        <strong>MCQ Sprint</strong>
+        Fast recall practice with instant feedback.
+      </button>
+      <button class="quick-card" onclick="startQuickRevision('short')">
+        <strong>Short Answer Drill</strong>
+        Keyword marking, traps and mark-scheme feedback.
+      </button>
+      <button class="quick-card" onclick="startQuickRevision('mixed')">
+        <strong>Mixed Digital Revision</strong>
+        Balanced MCQ and short-answer practice.
+      </button>
+      <button class="quick-card" onclick="startQuickRevision('long')">
+  <strong>Long Form Trainer</strong>
+  6-mark extended response practice.
+</button>
+    </div>
+  </div>
+
+  <div class="control-box">
+    <h3>Paper Practice</h3>
+    <p>Generate OCR-style practice papers for print or PDF.</p>
+    <button class="primary-btn" onclick="generateOCRStyleMock()">Generate OCR-Style Mock Paper</button>
+    <button class="secondary-btn" onclick="showWorksheet()">Printable Worksheet</button>
+    <button class="secondary-btn" onclick="runBankCheck()">Check Question Bank</button>
+    <button class="secondary-btn" onclick="showTeacherEditor()">Teacher Add Question</button>
+  </div>
+
+  <h2>Choose Topic</h2>
+  <div id="topics"></div>
+</section>
+
+<section id="checkScreen" class="hidden">
+  <h2>Question Bank Check</h2>
+  <div id="checkResults"></div>
+  <button class="secondary-btn" onclick="backToTopics()">Back</button>
+</section>
+
+<section id="worksheetScreen" class="hidden">
+  <h2>Printable Worksheet</h2>
+  <div id="worksheetContent"></div>
+  <button class="primary-btn" onclick="window.print()">Print</button>
+  <button class="secondary-btn" onclick="backToTopics()">Back</button>
+</section>
+
+<section id="mockSetupScreen" class="hidden">
+  <h2>Random Mock Paper Generator</h2>
+
+  <div class="control-box">
+    <h3>Question Types</h3>
+    <label class="checkbox-row"><input type="checkbox" id="mockTypeMcq" checked> MCQ</label>
+    <label class="checkbox-row"><input type="checkbox" id="mockTypeShort" checked> Short answer</label>
+    <label class="checkbox-row"><input type="checkbox" id="mockTypeLong" checked> Long form</label>
+  </div>
+
+  <div class="control-box">
+    <h3>Paper Size</h3>
+    <label><input type="radio" name="mockSize" value="short"> Short paper</label><br>
+    <label><input type="radio" name="mockSize" value="standard" checked> Standard mock</label><br>
+    <label><input type="radio" name="mockSize" value="full"> Full paper</label>
+  </div>
+
+  <button class="primary-btn" onclick="generateMockPaper()">Generate Paper</button>
+  <button class="secondary-btn" onclick="backToTopics()">Back</button>
+</section>
+
+<section id="mockPaperScreen" class="hidden">
+  <div class="no-print">
+    <button class="primary-btn" onclick="window.print()">Print / Save as PDF</button>
+    <button class="secondary-btn" onclick="showMockSetup()">Generate Another</button>
+    <button class="secondary-btn" onclick="backToTopics()">Back to Topics</button>
+  </div>
+  <div id="mockPaperContent" class="mock-paper"></div>
+</section>
+
+<section id="sessionScreen" class="hidden">
+  <h2 id="sessionTitle"></h2>
+
+  <div class="control-box">
+    <h3>Select Question Types</h3>
+    <label class="checkbox-row"><input type="checkbox" id="typeMcq" checked> MCQ</label>
+    <label class="checkbox-row"><input type="checkbox" id="typeShort" checked> Short answer</label>
+    <label class="checkbox-row"><input type="checkbox" id="typeLong" checked> Long form prompt</label>
+  </div>
+
+  <p>Choose a session size.</p>
+  <div id="sessionOptions"></div>
+  <button class="secondary-btn" onclick="backToTopics()">Back</button>
+</section>
+
+<section id="questionScreen" class="hidden">
+  <h2 id="topicTitle"></h2>
+  <p id="progress"></p>
+  <h3 id="questionText"></h3>
+
+  <div id="mcqArea"></div>
+
+  <div id="shortArea" class="hidden">
+    <textarea id="shortAnswer" placeholder="Type your answer here..."></textarea><br>
+    <button id="checkShortBtn" class="primary-btn" onclick="checkShortAnswer()">Check Answer</button>
+  </div>
+
+  <div id="feedback" class="feedback hidden"></div>
+
+  <button id="nextBtn" class="primary-btn hidden" onclick="nextQuestion()">Next</button>
+</section>
+
+<section id="scenarioScreen" class="hidden">
+  <h2 id="scenarioTopicTitle"></h2>
+  <p id="scenarioProgress"></p>
+  <h3 id="scenarioQuestion"></h3>
+
+  <div id="scenarioParts"></div>
+
+  <button class="primary-btn" onclick="checkScenarioAnswer()">Check Answer</button>
+
+  <div id="scenarioFeedback" class="feedback hidden"></div>
+
+  <button
+    id="scenarioNextButton"
+    class="primary-btn hidden"
+    onclick="nextQuestion()"
+  >
+    Next
+  </button>
+</section>
+  
+<section id="longFormScreen" class="hidden">
+  <h2>Long-Form Discussion Prompt</h2>
+
+  <div class="feedback">
+    <h3 id="longPrompt"></h3>
+    <p><strong>Suggested discussion points:</strong></p>
+    <ul id="longPoints"></ul>
+  </div>
+
+  <div class="control-box">
+    <h3>Your 6-mark answer</h3>
+    <textarea id="longAnswer" placeholder="Write your answer here..."></textarea>
+    <br>
+    <button class="primary-btn" onclick="showLongFormChecklist()">Show 6-mark checklist</button>
+  </div>
+
+  <div id="longChecklist" class="feedback hidden"></div>
+<div class="control-box">
+  <h3>Self-assess your answer</h3>
+  <label><input type="radio" name="longScore" value="1"> 1–2 marks: basic points, little explanation</label><br>
+  <label><input type="radio" name="longScore" value="3"> 3–4 marks: some explanation and example</label><br>
+  <label><input type="radio" name="longScore" value="5"> 5–6 marks: developed answer with justified conclusion</label><br>
+  <button class="secondary-btn" onclick="recordLongScore()">Record self-assessment</button>
+  <p id="longScoreFeedback"></p>
+</div>
+  <button class="primary-btn" onclick="showSummary()">Continue to Summary</button>
+</section>
+
+<section id="summaryScreen" class="hidden">
+  <h2>Summary</h2>
+  <p id="finalScore"></p>
+  <p id="weakSummary"></p>
+  <p id="longSummary"></p>
+
+  <button id="retryBtn" class="primary-btn hidden" onclick="retryWeakQuestions()">Retry Weak Questions</button>
+  <button class="secondary-btn" onclick="restartSameTopic()">Restart Same Topic</button>
+  <button class="secondary-btn" onclick="backToTopics()">Back to Topics</button>
+</section>
+
+<section id="teacherEditorScreen" class="hidden">
+  <h2>Teacher Add Question</h2>
+
+  <div class="control-box">
+    <label>Question</label>
+    <textarea id="teacherQuestion" placeholder="Type the question..."></textarea>
+
+    <label>Correct answers / keywords</label>
+    <input id="teacherKeyword1" placeholder="Keyword 1">
+    <input id="teacherKeyword2" placeholder="Keyword 2">
+    <input id="teacherKeyword3" placeholder="Keyword 3">
+    <input id="teacherKeyword4" placeholder="Keyword 4">
+
+    <label>Trap answers / common mistakes</label>
+    <input id="teacherTrap1" placeholder="Trap answer 1">
+    <input id="teacherTrap2" placeholder="Trap answer 2">
+
+    <label>Mark scheme / explanation</label>
+    <textarea id="teacherExplanation" placeholder="Explain the correct answer..."></textarea>
+  </div>
+
+  <button class="secondary-btn" onclick="showTeacherEditor()">Teacher Add Question</button>
+  <button class="primary-btn" onclick="addTeacherQuestion()">Add Question</button>
+  <button class="secondary-btn" onclick="exportQuestionBank()">Export Updated Bank</button>
+  <button class="secondary-btn" onclick="backToTopics()">Back</button>
+
+  <div id="teacherEditorFeedback" class="feedback hidden"></div>
+</section>
+  
+</main>
+</div>
+
+<script src="questions.js"></script>
+
+<script>
+let data = null;
+let currentTopic = null;
+let currentQuestions = [];
+let currentIndex = 0;
+let score = 0;
+let wrong = [];
+let answered = false;
+let currentLongPrompt = "";
+  let longAutoBand = "";
+ let longWeakAreas = [];
+let performance = {};
+let sessionAllowLong = true;
+
+function initialiseApp(){
+  if(typeof QUESTION_BANK === "undefined"){
+    document.getElementById("topics").innerHTML =
+      "<div class='error-box'><strong>Question bank not found.</strong><br>Make sure questions.js is in the same folder as this file.</div>";
+    return;
+  }
+
+  data = QUESTION_BANK;
+  loadTopics();
+}
+
+function showScreen(id){
+  [
+    "teacherEditorScreen",
+    "topicScreen",
+    "sessionScreen",
+    "questionScreen",
+    "scenarioScreen",
+    "longFormScreen",
+    "summaryScreen",
+    "checkScreen",
+    "worksheetScreen",
+    "mockSetupScreen",
+    "mockPaperScreen"
+  ].forEach(function(screen){
+    document.getElementById(screen).classList.add("hidden");
+  });
+
+  document.getElementById(id).classList.remove("hidden");
+}
+
+function loadTopics(){
+  const box = document.getElementById("topics");
+  box.innerHTML = "";
+
+  if(!data.units || data.units.length === 0){
+    box.innerHTML = "<div class='error-box'>No units found in question bank.</div>";
+    return;
+  }
+
+  data.units.forEach(function(unit){
+    const heading = document.createElement("h3");
+    heading.textContent = unit.title || "Untitled Unit";
+    box.appendChild(heading);
+
+    if(!unit.topics || unit.topics.length === 0){
+      const warning = document.createElement("p");
+      warning.textContent = "No topics found in this unit.";
+      box.appendChild(warning);
+      return;
+    }
+
+    unit.topics.forEach(function(topic){
+      const count = topic.questions ? topic.questions.length : 0;
+
+      const btn = document.createElement("button");
+      btn.className = "topic-card";
+      btn.innerHTML =
+        "<strong>" + safeText(topic.title || "Untitled Topic") + "</strong><br>" +
+        count + " banked questions";
+
+      btn.onclick = function(){
+        if(count === 0){
+          alert("This topic has no questions yet.");
+          return;
+        }
+        chooseSession(topic);
+      };
+
+      box.appendChild(btn);
+    });
+  });
+}
+
+function chooseSession(topic){
+  currentTopic = topic;
+  showScreen("sessionScreen");
+
+  document.getElementById("sessionTitle").textContent = topic.title;
+
+  document.getElementById("typeMcq").checked = true;
+  document.getElementById("typeShort").checked = true;
+  document.getElementById("typeLong").checked = true;
+
+  buildSessionOptions();
+}
+
+function buildSessionOptions(){
+  const box = document.getElementById("sessionOptions");
+  box.innerHTML = "";
+
+  const availableQuestions = getFilteredTopicQuestions();
+
+  const available = availableQuestions.length;
+
+  if(available === 0){
+    box.innerHTML = "<div class='error-box'>No questions match the selected types.</div>";
+    return;
+  }
+
+  [5,10,15,20].forEach(function(size){
+    if(available >= size){
+      const btn = document.createElement("button");
+      btn.className = "session-card";
+      btn.textContent = size + " question session";
+      btn.onclick = function(){ startTopic(size); };
+      box.appendChild(btn);
+    }
+  });
+
+  const allBtn = document.createElement("button");
+  allBtn.className = "session-card";
+  allBtn.textContent = "Full filtered set (" + available + " questions)";
+  allBtn.onclick = function(){ startTopic(available); };
+  box.appendChild(allBtn);
+}
+
+function getFilteredTopicQuestions(){
+  if(!currentTopic || !currentTopic.questions){
+    return [];
+  }
+
+  const allowMcq = document.getElementById("typeMcq").checked;
+  const allowShort = document.getElementById("typeShort").checked;
+
+  sessionAllowLong = document.getElementById("typeLong").checked;
+
+  return currentTopic.questions.filter(function(q){
+    if(q.type === "mcq" && allowMcq) return true;
+    if(q.type === "short" && allowShort) return true;
+    return false;
+  });
+}
+
+function startTopic(size){
+  if(!currentTopic || !currentTopic.questions || currentTopic.questions.length === 0){
+    alert("Cannot start: no questions available.");
+    return;
+  }
+
+  const filteredQuestions = getFilteredTopicQuestions();
+
+  if(filteredQuestions.length === 0){
+    alert("Cannot start: no MCQ or short-answer questions selected.");
+    return;
+  }
+
+  const safeSize = Math.min(size, filteredQuestions.length);
+
+  if(safeSize <= 0){
+    alert("Cannot start: session size is zero.");
+    return;
+  }
+
+  currentQuestions = buildAdaptiveSet(filteredQuestions, safeSize);
+  currentIndex = 0;
+  score = 0;
+  wrong = [];
+  currentLongPrompt = "";
+  answered = false;
+
+  showScreen("questionScreen");
+  document.getElementById("topicTitle").textContent = currentTopic.title;
+  showQuestion();
+}
+
+function showQuestion(){
+  if(!currentQuestions || currentQuestions.length === 0){
+    showScreen("summaryScreen");
+    document.getElementById("finalScore").textContent = "No questions were loaded.";
+    return;
+  }
+
+  answered = false;
+
+  const q = currentQuestions[currentIndex];
+
+  document.getElementById("progress").textContent =
+    "Question " + (currentIndex + 1) + " of " + currentQuestions.length;
+
+  document.getElementById("questionText").textContent = q.question || "[Missing question text]";
+
+  document.getElementById("mcqArea").innerHTML = "";
+  document.getElementById("shortArea").classList.add("hidden");
+  document.getElementById("shortAnswer").value = "";
+  document.getElementById("shortAnswer").disabled = false;
+  document.getElementById("checkShortBtn").disabled = false;
+
+  document.getElementById("feedback").classList.add("hidden");
+  document.getElementById("feedback").innerHTML = "";
+  document.getElementById("nextBtn").classList.add("hidden");
+
+  if(q.type === "short"){
+    document.getElementById("shortArea").classList.remove("hidden");
+  } else if(q.type === "mcq"){
+    showMCQ(q);
+  } else {
+    document.getElementById("feedback").innerHTML =
+      "<strong class='bad'>Question type error.</strong><p>This question has no valid type.</p>";
+    document.getElementById("feedback").classList.remove("hidden");
+    document.getElementById("nextBtn").classList.remove("hidden");
+    answered = true;
+  }
+}
+
+function showMCQ(q){
+  const box = document.getElementById("mcqArea");
+  box.innerHTML = "";
+
+  if(!q.options || q.options.length === 0){
+    box.innerHTML = "<div class='error-box'>MCQ has no options.</div>";
+    document.getElementById("nextBtn").classList.remove("hidden");
+    return;
+  }
+
+  q.options.forEach(function(option, index){
+    const btn = document.createElement("button");
+    btn.className = "option";
+    btn.textContent = option;
+    btn.onclick = function(){ checkMCQ(index); };
+    box.appendChild(btn);
+  });
+}
+
+function checkMCQ(index){
+  if(answered) return;
+  answered = true;
+
+  const q = currentQuestions[currentIndex];
+  const correct = index === q.correct;
+
+  if(correct){
+    score++;
+    trackPerformance(q, true);
+    document.getElementById("feedback").innerHTML =
+      "<strong class='good'>Correct</strong><p>" + safeText(q.explanation) + "</p>";
+  } else {
+    wrong.push(q);
+    trackPerformance(q, false);
+    document.getElementById("feedback").innerHTML =
+      "<strong class='bad'>Incorrect</strong><p>" + safeText(q.explanation) + "</p>";
+  }
+
+  document.getElementById("feedback").classList.remove("hidden");
+  document.getElementById("nextBtn").classList.remove("hidden");
+}
+
+function checkShortAnswer(){
+  if(answered) return;
+  answered = true;
+
+  const q = currentQuestions[currentIndex];
+  const answer = document.getElementById("shortAnswer").value;
+const text = normaliseText(answer);
+  const keywords = q.keywords || [];
+  const traps = q.traps || [];
+
+  const matched = keywords.filter(function(k){
+  return text.includes(normaliseText(k));
+});
+
+const trapHit = traps.some(function(t){
+  return text.includes(normaliseText(t));
+});
+
+  if(trapHit){
+    wrong.push(q);
+    trackPerformance(q, false);
+    document.getElementById("feedback").innerHTML =
+      "<div class='trap-box'>✘ TRAP ANSWER</div>" +
+      "<p>" + safeText(q.trapResponse || q.markScheme || "") + "</p>";
+
+    lockShortAnswer();
+    revealFeedback();
+    return;
+  }
+
+ let correct = false;
+
+const questionText = normaliseText(q.question);
+const oneAnswerQuestion =
+  questionText.includes("stateone") ||
+  questionText.includes("identifyone") ||
+  questionText.includes("giveone") ||
+  questionText.includes("nameone");
+
+if(oneAnswerQuestion){
+  correct = matched.length > 0;
+} else if(q.mode === "all"){
+  correct = matched.length === keywords.length;
+} else {
+  correct = matched.length > 0;
+}
+
+  if(correct){
+    score++;
+    trackPerformance(q, true);
+  } else {
+    wrong.push(q);
+    trackPerformance(q, false);
+  }
+
+  let html = correct
+    ? "<strong class='good'>Correct</strong><br>"
+    : "<strong class='bad'>Needs improvement</strong><br>";
+
+  keywords.forEach(function(k){
+    if(matched.includes(k)){
+      html += "<span class='keyword-hit'>Found: " + safeText(k) + "</span>";
+    } else {
+      html += "<span class='keyword-miss'>Missing: " + safeText(k) + "</span>";
+    }
+  });
+
+  html += "<p><strong>Mark scheme:</strong> " + safeText(q.markScheme) + "</p>";
+  html += "<p>" + safeText(q.explanation) + "</p>";
+
+  document.getElementById("feedback").innerHTML = html;
+
+  lockShortAnswer();
+  revealFeedback();
+}
+
+function lockShortAnswer(){
+  document.getElementById("shortAnswer").disabled = true;
+  document.getElementById("checkShortBtn").disabled = true;
+}
+
+function revealFeedback(){
+  document.getElementById("feedback").classList.remove("hidden");
+  document.getElementById("nextBtn").classList.remove("hidden");
+}
+
+function nextQuestion(){
+  currentIndex++;
+
+  if(currentIndex >= currentQuestions.length){
+    if(sessionAllowLong){
+      showLongFormPrompt();
+    } else {
+      showSummary();
+    }
+  } else {
+    showQuestion();
+  }
+}
+
+function showLongFormPrompt(){
+  const prompt = makeLongFormPrompt(currentTopic);
+
+  if(!prompt){
+    showSummary();
+    return;
+  }
+
+  currentLongPrompt = prompt.question || "Long-form question";
+  longAutoBand = "";
+
+  document.getElementById("longPrompt").textContent = currentLongPrompt;
+  document.getElementById("longAnswer").value = "";
+  document.getElementById("longChecklist").innerHTML = "";
+  document.getElementById("longChecklist").classList.add("hidden");
+  document.getElementById("longScoreFeedback").innerHTML = "";
+
+  const checkedScore = document.querySelector("input[name='longScore']:checked");
+  if(checkedScore){
+    checkedScore.checked = false;
+  }
+
+  const list = document.getElementById("longPoints");
+  list.innerHTML = "";
+
+  const points = prompt.points || prompt.keywords || [
+    "Name a suitable process or material.",
+    "Explain why it suits the product or situation.",
+    "Refer to cost, quantity, accuracy, material or sustainability where relevant.",
+    "Use technical vocabulary.",
+    "Finish with a justified conclusion."
+  ];
+
+  points.forEach(function(point){
+    const li = document.createElement("li");
+    li.textContent = point;
+    list.appendChild(li);
+  });
+
+  showScreen("longFormScreen");
+}
+
+function makeLongFormPrompt(topic){
+
+  const prompts = [
+    {
+      question: "Discuss the suitability of polymers for use in modern product design.",
+      points: [
+        "Types of polymers, including thermoplastics and thermosets.",
+        "Key properties such as durability, flexibility and corrosion resistance.",
+        "Suitable manufacturing processes such as injection moulding or extrusion.",
+        "Environmental impact, including recycling and sustainability.",
+        "Use a real-world example, such as ABS in electronics.",
+        "Finish with a justified conclusion."
+      ]
+    },
+    {
+      question: "Evaluate the use of different manufacturing processes in mass production.",
+      points: [
+        "Compare at least two processes, such as casting, machining or forming.",
+        "Discuss accuracy compared with cost.",
+        "Explain speed and scalability.",
+        "Link processes to suitable materials.",
+        "Use a real-world example, such as injection moulding.",
+        "Provide a clear final judgement."
+      ]
+    },
+    {
+      question: "How far do you agree that modern materials have improved product performance?",
+      points: [
+        "Refer to smart materials, composites or polymers.",
+        "Discuss strength-to-weight ratio.",
+        "Explain durability and product lifespan.",
+        "Consider cost implications.",
+        "Use a real-world example, such as carbon fibre.",
+        "Give a balanced conclusion."
+      ]
+    }
+  ];
+
+  let selectedPrompt = prompts[Math.floor(Math.random() * prompts.length)];
+
+if(longWeakAreas.length > 0){
+  if(longWeakAreas.some(function(x){ return x.toLowerCase().includes("cost"); })){
+    selectedPrompt = {
+      question: "Evaluate the cost implications of different manufacturing processes in mass production.",
+      points: [
+        "Compare high tooling cost with low unit cost",
+        "Discuss why some processes are economical only at high volume",
+        "Link cost to speed, accuracy and material",
+        "Use a real-world manufacturing example",
+        "Finish with a justified judgement"
+      ]
+    };
+  } else if(longWeakAreas.some(function(x){ return x.toLowerCase().includes("example"); })){
+    selectedPrompt = {
+      question: "Explain the use of manufacturing processes with detailed real-world examples.",
+      points: [
+        "Name at least two manufacturing processes",
+        "Give a product example for each process",
+        "Explain why each process suits the product",
+        "Link the process to material and production volume",
+        "Finish with a clear conclusion"
+      ]
+    };
+  }
+}
+
+return selectedPrompt;
+}
+function showSummary(){
+  showScreen("summaryScreen");
+
+  const total = currentQuestions && currentQuestions.length ? currentQuestions.length : 0;
+  document.getElementById("finalScore").textContent =
+    "Score: " + score + " out of " + total;
+
+  if(wrong.length > 0){
+    document.getElementById("weakSummary").textContent =
+      "Weak questions identified: " + wrong.length;
+    document.getElementById("retryBtn").classList.remove("hidden");
+  } else {
+    document.getElementById("weakSummary").textContent =
+      "No weak questions identified.";
+    document.getElementById("retryBtn").classList.add("hidden");
+  }
+
+  if(currentLongPrompt){
+    let longText = "Long-form prompt used: " + currentLongPrompt;
+
+    if(longAutoBand){
+      longText += " | Auto-mark: " + longAutoBand;
+    }
+
+    const selected = document.querySelector("input[name='longScore']:checked");
+
+    if(selected){
+      if(selected.value === "1"){
+        longText += " | Self-assessed: 1–2 marks";
+      } else if(selected.value === "3"){
+        longText += " | Self-assessed: 3–4 marks";
+      } else {
+        longText += " | Self-assessed: 5–6 marks";
+      }
+    }
+
+    document.getElementById("longSummary").textContent = longText;
+  } else {
+    document.getElementById("longSummary").textContent = "";
+  }
+}
+function retryWeakQuestions(){
+  if(wrong.length === 0){
+    return;
+  }
+
+  currentQuestions = shuffle(copyQuestions(wrong));
+  currentIndex = 0;
+  score = 0;
+  wrong = [];
+  currentLongPrompt = "";
+
+  showScreen("questionScreen");
+  document.getElementById("topicTitle").textContent = currentTopic.title + " — Weak Retry";
+  showQuestion();
+}
+
+function restartSameTopic(){
+  if(currentTopic){
+    chooseSession(currentTopic);
+  }
+}
+
+function backToTopics(){
+  currentTopic = null;
+  currentQuestions = [];
+  currentIndex = 0;
+  score = 0;
+  wrong = [];
+  currentLongPrompt = "";
+  showScreen("topicScreen");
+}
+
+function showMockSetup(){
+  showScreen("mockSetupScreen");
+}
+
+function generateMockPaper(){
+  const includeMcq = document.getElementById("mockTypeMcq").checked;
+  const includeShort = document.getElementById("mockTypeShort").checked;
+  const includeLong = document.getElementById("mockTypeLong").checked;
+
+  if(!includeMcq && !includeShort && !includeLong){
+    alert("Select at least one question type.");
+    return;
+  }
+
+  const size = document.querySelector("input[name='mockSize']:checked").value;
+  const allQuestions = getAllQuestions();
+
+  const mcqs = shuffle(allQuestions.filter(function(q){ return q.type === "mcq"; }));
+  const shorts = shuffle(allQuestions.filter(function(q){ return q.type === "short"; }));
+  const topics = getAllTopics();
+
+  let mcqCount = 0;
+  let shortCount = 0;
+  let longCount = 0;
+
+  if(size === "short"){
+    mcqCount = 8;
+    shortCount = 6;
+    longCount = 1;
+  } else if(size === "full"){
+    mcqCount = 20;
+    shortCount = 20;
+    longCount = 3;
+  } else {
+    mcqCount = 12;
+    shortCount = 12;
+    longCount = 2;
+  }
+
+  let paper = {
+    mcq: includeMcq ? mcqs.slice(0, mcqCount) : [],
+    short: includeShort ? shorts.slice(0, shortCount) : [],
+    long: []
+  };
+
+  if(includeLong){
+    const shuffledTopics = shuffle(topics.slice());
+    for(let i = 0; i < longCount && i < shuffledTopics.length; i++){
+      paper.long.push(makeLongFormPrompt(shuffledTopics[i]));
+    }
+  }
+
+  if(paper.mcq.length === 0 && paper.short.length === 0 && paper.long.length === 0){
+    alert("No questions available for the selected mock paper.");
+    return;
+  }
+
+  renderMockPaper(paper, size);
+}
+
+function renderMockPaper(paper, size){
+  let html = "";
+  let questionNumber = 1;
+
+  html += "<h2>OCR Engineering J823 — Random Mock Paper</h2>";
+  html += "<p>Name: ________________________________ Date: ________________</p>";
+  html += "<p><strong>Paper type:</strong> " + safeText(size) + "</p>";
+  html += "<hr>";
+
+  if(paper.mcq.length > 0){
+    html += "<h3>Section A — Multiple Choice</h3>";
+    paper.mcq.forEach(function(q){
+      html += "<div class='mock-question'>";
+      html += "<p><strong>Q" + questionNumber + ". " + safeText(q.question) + "</strong></p>";
+      (q.options || []).forEach(function(opt, i){
+        html += "<p style='margin-left:20px'>☐ " + String.fromCharCode(65 + i) + ". " + safeText(opt) + "</p>";
+      });
+      html += "</div>";
+      questionNumber++;
+    });
+  }
+
+  if(paper.short.length > 0){
+    html += "<h3>Section B — Short Answer</h3>";
+    paper.short.forEach(function(q){
+      html += "<div class='mock-question'>";
+      html += "<p><strong>Q" + questionNumber + ". " + safeText(q.question) + "</strong></p>";
+      html += "<div class='answer-lines'>Answer: _______________________________________________________<br>";
+      html += "_______________________________________________________________<br>";
+      html += "_______________________________________________________________</div>";
+      html += "</div>";
+      questionNumber++;
+    });
+  }
+
+  if(paper.long.length > 0){
+    html += "<h3>Section C — Long Form</h3>";
+    paper.long.forEach(function(prompt){
+      html += "<div class='mock-question'>";
+      html += "<p><strong>Q" + questionNumber + ". " + safeText(prompt.question) + "</strong></p>";
+      html += "<p><strong>Use these points to help structure your answer:</strong></p><ul>";
+      prompt.points.forEach(function(point){
+        html += "<li>" + safeText(point) + "</li>";
+      });
+      html += "</ul>";
+      html += "<div class='answer-lines'>Answer: _______________________________________________________<br>";
+      html += "_______________________________________________________________<br>";
+      html += "_______________________________________________________________<br>";
+      html += "_______________________________________________________________<br>";
+      html += "_______________________________________________________________<br>";
+      html += "_______________________________________________________________</div>";
+      html += "</div>";
+      questionNumber++;
+    });
+  }
+
+  document.getElementById("mockPaperContent").innerHTML = html;
+  showScreen("mockPaperScreen");
+}
+
+function getAllQuestions(){
+  let questions = [];
+
+  if(!data || !data.units){
+    return questions;
+  }
+
+  data.units.forEach(function(unit){
+    (unit.topics || []).forEach(function(topic){
+      (topic.questions || []).forEach(function(q){
+        questions.push(q);
+      });
+    });
+  });
+
+  return questions;
+}
+
+function getAllTopics(){
+  let topics = [];
+
+  if(!data || !data.units){
+    return topics;
+  }
+
+  data.units.forEach(function(unit){
+    (unit.topics || []).forEach(function(topic){
+      topics.push(topic);
+    });
+  });
+
+  return topics;
+}
+
+
+function startQuickRevision(mode){
+  
+  const allQuestions = getAllQuestions();
+  let pool = [];
+if(mode === "long"){
+  currentTopic = { title: "Long Form Trainer" };
+  currentLongPrompt = "";
+  showLongFormPrompt();
+  return;
+}
+  if(mode === "mcq"){
+    pool = allQuestions.filter(function(q){ return q.type === "mcq"; });
+    currentTopic = { title: "MCQ Sprint", questions: pool };
+    sessionAllowLong = false;
+  } else if(mode === "short"){
+    pool = allQuestions.filter(function(q){ return q.type === "short"; });
+    currentTopic = { title: "Short Answer Drill", questions: pool };
+    sessionAllowLong = false;
+  } else {
+    pool = allQuestions.filter(function(q){ return q.type === "mcq" || q.type === "short"; });
+    currentTopic = { title: "Mixed Digital Revision", questions: pool };
+    sessionAllowLong = true;
+  }
+
+  if(pool.length === 0){
+    alert("No questions available for this revision mode.");
+    return;
+  }
+
+  currentQuestions = shuffle(copyQuestions(pool)).slice(0, Math.min(20, pool.length));
+  currentIndex = 0;
+  score = 0;
+  wrong = [];
+  currentLongPrompt = "";
+  answered = false;
+
+  showScreen("questionScreen");
+  document.getElementById("topicTitle").textContent = currentTopic.title;
+  showQuestion();
+}
+
+function generateOCRStyleMock(){
+  const allQuestions = getAllQuestions();
+  const mcqs = shuffle(allQuestions.filter(function(q){ return q.type === "mcq"; })).slice(0, 10);
+
+  if(mcqs.length < 10){
+    alert("Not enough MCQ questions for Section A.");
+    return;
+  }
+
+  const topics = shuffle(getAllTopics().slice());
+
+  const scenarioTopics = [
+    pickTopicByName("Materials") || topics[0],
+    pickTopicByName("Additive") || topics[1],
+    pickTopicByName("Finishing") || topics[2],
+    pickTopicByName("Machining") || topics[3],
+    pickTopicByName("CAD") || topics[4],
+    pickTopicByName("Drawing") || topics[5]
+  ].filter(Boolean);
+
+  let html = "";
+
+  html += "<div class='exam-front'>";
+  html += "<p><strong>Practice Paper</strong></p>";
+  html += "<p>Level 1/Level 2 Cambridge National-style Engineering Manufacture</p>";
+  html += "<div class='exam-title'>Principles of Engineering Manufacture</div>";
+  html += "<p><strong>Time allowed:</strong> 1 hour 15 minutes</p>";
+  html += "<div class='exam-info-box'>";
+  html += "<p><strong>INSTRUCTIONS</strong></p>";
+  html += "<p>Use black ink if printed. Answer all the questions. Write your answers in the spaces provided.</p>";
+  html += "<p><strong>INFORMATION</strong></p>";
+  html += "<p>The total mark for this practice paper is 70. Marks for each question are shown in brackets.</p>";
+  html += "</div>";
+  html += "<p>Name: ________________________________ Date: ________________</p>";
+  html += "</div>";
+
+  html += "<div class='exam-paper'>";
+  html += "<div class='exam-section-title'>Section A</div>";
+  html += "<p>Put a tick (✓) in the box next to the one correct answer for each question.</p>";
+
+  let qNum = 1;
+
+  mcqs.forEach(function(q){
+    html += "<div class='exam-question'>";
+    html += "<p><strong>" + qNum + " " + safeText(q.question) + "</strong> <span class='exam-mark'>[1]</span></p>";
+    (q.options || []).forEach(function(opt, i){
+      html += "<div class='exam-mcq-option'>(" + String.fromCharCode(97 + i) + ") ☐ " + safeText(opt) + "</div>";
+    });
+    html += "</div>";
+    qNum++;
+  });
+
+  html += "<div class='exam-section-title'>Section B</div>";
+
+  html += renderMaterialScenario(11, scenarioTopics[0]);
+  html += renderAdditiveScenario(12, scenarioTopics[1]);
+  html += renderLeanFinishingScenario(13, scenarioTopics[2]);
+  html += renderDrillingScenario(14, scenarioTopics[3]);
+  html += renderAutomationJigsScenario(15, scenarioTopics[4]);
+  html += renderDrawingSustainabilityScenario(16, scenarioTopics[5]);
+
+  html += "</div>";
+
+  document.getElementById("mockPaperContent").innerHTML = html;
+  showScreen("mockPaperScreen");
+}
+
+function pickTopicByName(fragment){
+  const topics = getAllTopics();
+  const target = normaliseText(fragment);
+  for(let i = 0; i < topics.length; i++){
+    if(normaliseText(topics[i].title).includes(target)){
+      return topics[i];
+    }
+  }
+  return null;
+}
+
+function renderLines(count){
+  let html = "<div class='exam-lines'>";
+  for(let i = 0; i < count; i++){
+    html += "<span></span>";
+  }
+  html += "</div>";
+  return html;
+}
+
+function renderMaterialScenario(num, topic){
+  let html = "";
+  html += "<div class='exam-question'>";
+  html += "<p><strong>" + num + " A manufacturer is selecting a material for a lightweight engineered product.</strong></p>";
+  html += "<p>(a) Identify one suitable material. <span class='exam-mark'>[1]</span></p>" + renderLines(1);
+  html += "<p>(b) State two typical forms of supply for your material.</p>";
+  html += "<p>1 " + renderLines(1) + "</p><p>2 " + renderLines(1) + "</p>";
+  html += "<p><span class='exam-mark'>[2]</span></p>";
+  html += "<p>(c) Evaluate how the properties of your material make it suitable for the product. <span class='exam-mark'>[4]</span></p>" + renderLines(7);
+  html += "<p>(d) State three other typical applications of your material. <span class='exam-mark'>[3]</span></p>" + renderLines(5);
+  html += "</div>";
+  return html;
+}
+
+function renderAdditiveScenario(num, topic){
+  let html = "";
+  html += "<div class='exam-question'>";
+  html += "<p><strong>" + num + " A small plastic product will be manufactured using 3D printing.</strong></p>";
+  html += "<p>(a) Describe four steps required to manufacture this product using fused deposition modelling. <span class='exam-mark'>[4]</span></p>" + renderNumberedLines(4, 2);
+  html += "<p>(b) Explain one safety measure that should be taken when using a 3D printer. <span class='exam-mark'>[2]</span></p>" + renderLines(4);
+  html += "<p>(c) Explain two reasons why additive processes are suitable for this product. <span class='exam-mark'>[4]</span></p>" + renderNumberedLines(2, 4);
+  html += "</div>";
+  return html;
+}
+
+function renderLeanFinishingScenario(num, topic){
+  let html = "";
+  html += "<div class='exam-question'>";
+  html += "<p><strong>" + num + " A manufacturer is reviewing waste and finishing processes.</strong></p>";
+  html += "<p>(a) Complete the table to describe categories of waste and how reducing them improves manufacturing performance. <span class='exam-mark'>[6]</span></p>";
+  html += "<table class='exam-table'><tr><th>Category of waste</th><th>Description</th><th>How reducing it improves performance</th></tr>";
+  html += "<tr><td>Transportation</td><td></td><td></td></tr>";
+  html += "<tr><td>Over-production</td><td></td><td></td></tr>";
+  html += "<tr><td>Defects</td><td></td><td></td></tr></table>";
+  html += "<p>(b) A steel product can be painted, powder coated or galvanised.</p>";
+  html += "<p>(i) State one reason painting might be selected. <span class='exam-mark'>[1]</span></p>" + renderLines(2);
+  html += "<p>(ii) Explain what powder coating is. <span class='exam-mark'>[2]</span></p>" + renderLines(4);
+  html += "<p>(iii) State one advantage of powder coating compared with painting. <span class='exam-mark'>[1]</span></p>" + renderLines(2);
+  html += "</div>";
+  return html;
+}
+
+function renderDrillingScenario(num, topic){
+  let html = "";
+  html += "<div class='exam-question'>";
+  html += "<p><strong>" + num + " A 5 mm diameter hole will be drilled through a thin plastic part. The tolerance is ±0.2 mm.</strong></p>";
+  html += "<p>(a) Calculate the maximum and minimum acceptable diameters. <span class='exam-mark'>[2]</span></p>";
+  html += "<p>Maximum " + renderLines(1) + "</p><p>Minimum " + renderLines(1) + "</p>";
+  html += "<p>(b) Describe four steps required to accurately drill the hole. <span class='exam-mark'>[4]</span></p>" + renderNumberedLines(4, 2);
+  html += "<p>(c) Explain two safety measures that should be taken when drilling the hole. <span class='exam-mark'>[4]</span></p>" + renderNumberedLines(2, 3);
+  html += "</div>";
+  return html;
+}
+
+function renderAutomationJigsScenario(num, topic){
+  let html = "";
+  html += "<div class='exam-question'>";
+  html += "<p><strong>" + num + " Mass manufacturing often involves automated systems and jigs.</strong></p>";
+  html += "<p>(a) Describe how fully automated robotic control is used to manufacture two products. <span class='exam-mark'>[4]</span></p>";
+  html += "<p>1. Product " + renderLines(1) + "</p><p>How it is manufactured " + renderLines(3) + "</p>";
+  html += "<p>2. Product " + renderLines(1) + "</p><p>How it is manufactured " + renderLines(3) + "</p>";
+  html += "<p>(b) Discuss the advantages and limitations of using jigs when mass manufacturing products. <span class='exam-mark'>[6]</span></p>" + renderLines(11);
+  html += "</div>";
+  return html;
+}
+
+function renderDrawingSustainabilityScenario(num, topic){
+  let html = "";
+  html += "<div class='exam-question'>";
+  html += "<p><strong>" + num + " Engineering drawings use abbreviations and standard line types.</strong></p>";
+  html += "<p>(a) State what each abbreviation stands for.</p>";
+  html += "<p>(i) AF " + renderLines(1) + " <span class='exam-mark'>[1]</span></p>";
+  html += "<p>(ii) DIA " + renderLines(1) + " <span class='exam-mark'>[1]</span></p>";
+  html += "<p>(iii) MAT " + renderLines(1) + " <span class='exam-mark'>[1]</span></p>";
+  html += "<p>(iv) SQ " + renderLines(1) + " <span class='exam-mark'>[1]</span></p>";
+  html += "<p>(b) Explain what hidden detail lines and centre lines mean in an orthographic drawing. <span class='exam-mark'>[4]</span></p>" + renderNumberedLines(2, 4);
+  html += "<p>(c) Explain what sustainable means when selecting materials. <span class='exam-mark'>[2]</span></p>" + renderLines(4);
+  html += "</div>";
+  return html;
+}
+
+function renderNumberedLines(items, linesEach){
+  let html = "";
+  for(let i = 1; i <= items; i++){
+    html += "<p>" + i + ". </p>" + renderLines(linesEach);
+  }
+  return html;
+}
+
+
+function runBankCheck(){
+  let errors = 0;
+  let warnings = 0;
+  let log = "";
+
+  try {
+    if(!data || !data.units){
+      throw new Error("QUESTION_BANK.units is missing.");
+    }
+
+    data.units.forEach(function(unit, unitIndex){
+      if(!unit.title){
+        log += "⚠️ Unit " + (unitIndex + 1) + " missing title<br>";
+        warnings++;
+      }
+
+      if(!unit.topics || unit.topics.length === 0){
+        log += "❌ Unit missing topics: " + safeText(unit.title) + "<br>";
+        errors++;
+        return;
+      }
+
+      unit.topics.forEach(function(topic, topicIndex){
+        const topicName = topic.title || "Untitled Topic";
+
+        if(!topic.title){
+          log += "⚠️ Topic " + (topicIndex + 1) + " missing title<br>";
+          warnings++;
+        }
+
+        if(!topic.questions || topic.questions.length === 0){
+          log += "❌ Topic has no questions: " + safeText(topicName) + "<br>";
+          errors++;
+          return;
+        }
+
+        topic.questions.forEach(function(q, i){
+          const ref = "[" + topicName + " Q" + (i + 1) + "] ";
+
+          if(!q.type){
+            log += "❌ Missing type " + ref + "<br>";
+            errors++;
+          }
+
+          if(!q.question){
+            log += "❌ Missing question text " + ref + "<br>";
+            errors++;
+          }
+
+          if(q.type === "mcq"){
+            if(!q.options || q.options.length < 2){
+              log += "❌ MCQ missing options " + ref + "<br>";
+              errors++;
+            }
+
+            if(typeof q.correct !== "number"){
+              log += "❌ MCQ missing correct index " + ref + "<br>";
+              errors++;
+            }
+
+            if(q.options && typeof q.correct === "number" && (q.correct < 0 || q.correct >= q.options.length)){
+              log += "❌ MCQ correct index out of range " + ref + "<br>";
+              errors++;
+            }
+          }
+
+          if(q.type === "short"){
+            if(!q.keywords || q.keywords.length === 0){
+              log += "❌ Short question missing keywords " + ref + "<br>";
+              errors++;
+            }
+
+            if(!q.mode){
+              log += "⚠️ Short question missing mode " + ref + "<br>";
+              warnings++;
+            }
+
+            if(q.mode && q.mode !== "any" && q.mode !== "all"){
+              log += "❌ Invalid short question mode " + ref + "<br>";
+              errors++;
+            }
+          }
+        });
+      });
+    });
+  } catch(error){
+    log += "<div class='error-box'><strong>Critical bank error:</strong><br>" + safeText(error.message) + "</div>";
+    errors++;
+  }
+
+  if(errors === 0 && warnings === 0){
+    log = "✅ Bank is clean";
+  } else {
+    log = "<p><strong>Errors:</strong> " + errors + "</p>" +
+          "<p><strong>Warnings:</strong> " + warnings + "</p><hr>" + log;
+  }
+
+  document.getElementById("checkResults").innerHTML = log;
+  showScreen("checkScreen");
+}
+
+function copyQuestions(questions){
+  return questions.map(function(q){
+    return {
+      type: q.type || "",
+      mode: q.mode || "all",
+      question: q.question || "",
+      options: q.options ? q.options.slice() : [],
+      correct: q.correct,
+      explanation: q.explanation || "",
+      keywords: q.keywords ? q.keywords.slice() : [],
+      traps: q.traps ? q.traps.slice() : [],
+      trapResponse: q.trapResponse || "",
+      markScheme: q.markScheme || ""
+    };
+  });
+}
+
+function shuffle(array){
+  for(let i = array.length - 1; i > 0; i--){
+    const j = Math.floor(Math.random() * (i + 1));
+    const temp = array[i];
+    array[i] = array[j];
+    array[j] = temp;
+  }
+  return array;
+}
+
+function pickRandom(array){
+  return array[Math.floor(Math.random() * array.length)];
+}
+
+function normaliseText(text){
+  return String(text)
+    .toLowerCase()
+    .replace(/-/g, "")        // remove hyphens
+    .replace(/[.,!?;:()]/g, "")
+    .replace(/\s+/g, "")      // REMOVE spaces completely
+    .trim();
+}
+
+function safeText(value){
+  return String(value || "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
+}
+
+function showWorksheet(){
+  if(!data || !data.units){
+    alert("Question bank not loaded.");
+    return;
+  }
+
+  let html = "<h3>Revision Worksheet</h3>";
+  html += "<p>Name: __________________________ Date: _______________</p>";
+
+  data.units.forEach(function(unit){
+    html += "<h3>" + safeText(unit.title || "Untitled Unit") + "</h3>";
+
+    (unit.topics || []).forEach(function(topic){
+      html += "<h4>" + safeText(topic.title || "Untitled Topic") + "</h4>";
+
+      const questions = topic.questions || [];
+      questions.slice(0, 5).forEach(function(q, index){
+        html += "<p><strong>" + (index + 1) + ". " + safeText(q.question || "") + "</strong></p>";
+
+        if(q.type === "mcq" && q.options){
+          q.options.forEach(function(opt, i){
+            html += "<p style='margin-left:20px'>" + String.fromCharCode(65 + i) + ". " + safeText(opt) + "</p>";
+          });
+        } else {
+          html += "<p>Answer: ________________________________________________</p>";
+        }
+      });
+    });
+  });
+
+  document.getElementById("worksheetContent").innerHTML = html;
+  showScreen("worksheetScreen");
+}
+
+function buildAdaptiveSet(questions, size){
+  const weighted = questions.map(function(q){
+    const perf = performance[q.question] || { correct: 0, wrong: 0 };
+    const weight = 1 + perf.wrong - perf.correct;
+    return { q, weight: Math.max(1, weight) };
+  });
+
+  const pool = [];
+
+  weighted.forEach(function(item){
+    for(let i = 0; i < item.weight; i++){
+      pool.push(item.q);
+    }
+  });
+
+  return shuffle(copyQuestions(pool)).slice(0, size);
+}
+
+function trackPerformance(q, correct){
+  const key = q.question;
+
+  if(!performance[key]){
+    performance[key] = { correct: 0, wrong: 0 };
+  }
+
+  if(correct){
+    performance[key].correct++;
+  } else {
+    performance[key].wrong++;
+  }
+}
+
+document.addEventListener("change", function(event){
+  if(event.target && (event.target.id === "typeMcq" || event.target.id === "typeShort" || event.target.id === "typeLong")){
+    if(currentTopic){
+      buildSessionOptions();
+    }
+  }
+});
+function showLongFormChecklist(){
+  const answer = document.getElementById("longAnswer").value.trim();
+  const text = normaliseText(answer);
+  const question = normaliseText(currentLongPrompt);
+
+  let checks = [];
+
+  if(question.includes("manufacturingprocess") || question.includes("massproduction") || question.includes("phonecases") || question.includes("bracket") || question.includes("enginecomponent")){
+    checks = [
+      { label: "Names a suitable manufacturing process", words: ["injection moulding", "machining", "cnc", "casting", "3d printing", "vacuum forming"] },
+      { label: "Links process to production quantity", words: ["high volume", "mass production", "batch", "one-off", "prototype", "quantity", "10000", "500"] },
+      { label: "Discusses cost or tooling", words: ["cost", "expensive", "cheap", "economical", "tooling", "mould", "setup"] },
+      { label: "Discusses consistency or accuracy", words: ["consistent", "identical", "accuracy", "accurate", "precision", "repeatable", "tolerance"] },
+      { label: "Links process to material", words: ["plastic", "polymer", "metal", "steel", "aluminium", "wood", "material"] },
+      { label: "Includes justified conclusion", words: ["overall", "therefore", "in conclusion", "best", "suitable", "depends", "because"] }
+    ];
+  } else if(question.includes("modernmaterials")){
+    checks = [
+      { label: "Mentions modern materials", words: ["composite", "smart material", "polymer", "carbon fibre", "alloy"] },
+      { label: "Discusses performance", words: ["performance", "strength", "durability", "lifespan", "lightweight"] },
+      { label: "Explains advantages", words: ["advantage", "improve", "stronger", "lighter", "resistant"] },
+      { label: "Considers limitations", words: ["cost", "expensive", "limitation", "disadvantage", "however"] },
+      { label: "Uses real-world example", words: ["example", "car", "aircraft", "aerospace", "bike", "product"] },
+      { label: "Includes balanced conclusion", words: ["overall", "therefore", "in conclusion", "agree", "depends"] }
+    ];
+  } else {
+    checks = [
+      { label: "Uses relevant technical vocabulary", words: ["polymer", "thermoplastic", "thermoset", "plastic", "material", "process"] },
+      { label: "Mentions useful properties", words: ["durable", "flexible", "corrosion", "lightweight", "resistant", "strong"] },
+      { label: "Mentions manufacturing", words: ["injection moulding", "extrusion", "moulding", "forming", "machining", "casting"] },
+      { label: "Includes real-world example", words: ["abs", "electronics", "casing", "product", "example"] },
+      { label: "Mentions environment or waste", words: ["recycle", "recycling", "sustainable", "waste", "pollution"] },
+      { label: "Includes conclusion", words: ["overall", "therefore", "in conclusion", "to conclude", "most suitable", "best", "depends", "however"] }
+    ];
+  }
+
+  let hits = 0;
+  let html = "";
+  let improvements = [];
+
+  html += "<h3>Examiner feedback</h3>";
+
+  if(answer.length < 80){
+    html += "<p><strong class='bad'>Answer too short.</strong> Aim for developed paragraphs.</p>";
+  } else {
+    html += "<p><strong class='good'>Good length starting point.</strong></p>";
+  }
+
+  html += "<ul>";
+
+  checks.forEach(function(check){
+    const found = check.words.some(function(word){
+      return text.includes(normaliseText(word));
+    });
+
+    if(found){
+      hits++;
+      html += "<li><strong class='good'>✓</strong> " + safeText(check.label) + "</li>";
+    } else {
+      html += "<li><strong class='bad'>✗</strong> " + safeText(check.label) + "</li>";
+      improvements.push(check.label);
+    }
+  });
+
+  html += "</ul>";
+  longWeakAreas = improvements;
+
+  const missing = checks.length - hits;
+  let hasStrongConclusion = false;
+  let hasComparison = false;
+
+  ["however", "incontrast", "whereas", "ontheotherhand", "although", "but"].forEach(function(word){
+    if(text.includes(normaliseText(word))){
+      hasComparison = true;
+    }
+  });
+
+  if(text.includes("mostsuitable") || text.includes("best") || text.includes("depends") || text.includes("therefore") || text.includes("because")){
+    hasStrongConclusion = true;
+  }
+
+  let band = "";
+
+  if(answer.length < 80 || missing >= 3){
+    band = "Level 1 (1–2 marks): Basic response with limited explanation and little technical detail.";
+  } else if(missing === 2 || hits <= 4){
+    band = "Level 2 (3–4 marks): Some understanding shown but key areas are missing or underdeveloped.";
+  } else if(!hasStrongConclusion){
+    band = "Level 2 (3–4 marks): Explanation is present but lacks a clear justified conclusion.";
+  } else if(!hasComparison){
+    band = "Level 2 (3–4 marks): Explanation is developed but lacks comparison or balance.";
+  } else {
+    band = "Level 3 (5–6 marks): Developed, balanced response with clear explanation, comparison and justified conclusion.";
+  }
+
+  html += "<p><strong>" + safeText(band) + "</strong></p>";
+  html += "<h3>Examiner comment</h3>";
+
+  if(band.includes("Level 1")){
+    html += "<p>This response shows basic awareness, but ideas are not developed enough for higher marks. Add technical vocabulary, a specific example and clearer explanation.</p>";
+  } else if(band.includes("Level 2")){
+    html += "<p>This response shows some understanding, but it needs more developed explanation, stronger application to products, and a clearer justified conclusion.</p>";
+  } else {
+    html += "<p>This is a developed response with relevant technical detail. To improve further, make sure each point is clearly linked back to the question.</p>";
+  }
+
+  longAutoBand = band;
+
+  if(improvements.length > 0){
+    html += "<h3>Improve your answer</h3><ul>";
+
+    improvements.forEach(function(item){
+      const lower = item.toLowerCase();
+
+      if(lower.includes("cost")){
+        html += "<li>Add a comparison of cost, such as high tooling cost versus low unit cost.</li>";
+      } else if(lower.includes("accuracy") || lower.includes("consistency")){
+        html += "<li>Explain accuracy, repeatability or consistency clearly.</li>";
+      } else if(lower.includes("process")){
+        html += "<li>Name the process and explain why it suits the product.</li>";
+      } else if(lower.includes("material")){
+        html += "<li>Link the process to a suitable material.</li>";
+      } else if(lower.includes("quantity")){
+        html += "<li>Link the method to one-off, batch or mass production quantity.</li>";
+      } else if(lower.includes("example")){
+        html += "<li>Include a specific real-world example.</li>";
+      } else if(lower.includes("conclusion")){
+        html += "<li>Finish with a clear, justified conclusion.</li>";
+      } else {
+        html += "<li>Develop this point further: " + safeText(item) + "</li>";
+      }
+    });
+
+    html += "</ul>";
+  }
+
+  document.getElementById("longChecklist").innerHTML = html;
+  document.getElementById("longChecklist").classList.remove("hidden");
+}
+function recordLongScore(){
+  const selected = document.querySelector("input[name='longScore']:checked");
+
+  if(!selected){
+    document.getElementById("longScoreFeedback").innerHTML =
+      "<strong class='bad'>Choose a mark band first.</strong>";
+    return;
+  }
+
+  if(selected.value === "1"){
+    document.getElementById("longScoreFeedback").innerHTML =
+      "<strong>Target:</strong> Add explanation, technical vocabulary and a real example.";
+  } else if(selected.value === "3"){
+    document.getElementById("longScoreFeedback").innerHTML =
+      "<strong>Target:</strong> Develop both sides and finish with a justified conclusion.";
+  } else {
+    document.getElementById("longScoreFeedback").innerHTML =
+      "<strong class='good'>Strong response.</strong> Check your conclusion clearly answers the question.";
+  }
+}
+
+function showTeacherEditor(){
+  showScreen("teacherEditorScreen");
+  document.getElementById("teacherEditorFeedback").classList.add("hidden");
+}
+
+function addTeacherQuestion(){
+  if(!currentTopic){
+    const topics = getAllTopics();
+    currentTopic = topics[0];
+  }
+
+  const question = document.getElementById("teacherQuestion").value.trim();
+
+  const keywords = [
+    document.getElementById("teacherKeyword1").value.trim(),
+    document.getElementById("teacherKeyword2").value.trim(),
+    document.getElementById("teacherKeyword3").value.trim(),
+    document.getElementById("teacherKeyword4").value.trim()
+  ].filter(Boolean);
+
+  const traps = [
+    document.getElementById("teacherTrap1").value.trim(),
+    document.getElementById("teacherTrap2").value.trim()
+  ].filter(Boolean);
+
+  const explanation = document.getElementById("teacherExplanation").value.trim();
+
+  if(!question || keywords.length === 0){
+    document.getElementById("teacherEditorFeedback").innerHTML =
+      "<strong class='bad'>Add a question and at least one correct keyword.</strong>";
+    document.getElementById("teacherEditorFeedback").classList.remove("hidden");
+    return;
+  }
+
+  const newQuestion = {
+    type: "short",
+    question: question,
+    keywords: keywords,
+    acceptable: keywords,
+    traps: traps,
+    mode: "any",
+    explanation: explanation,
+    markScheme: explanation
+  };
+
+  currentTopic.questions.push(newQuestion);
+
+  document.getElementById("teacherEditorFeedback").innerHTML =
+    "<strong class='good'>Question added.</strong> Export the updated bank to save it permanently.";
+  document.getElementById("teacherEditorFeedback").classList.remove("hidden");
+
+  loadTopics();
+}
+
+function exportQuestionBank(){
+  const output = "const QUESTION_BANK = " + JSON.stringify(data, null, 2) + ";";
+  const blob = new Blob([output], { type: "text/javascript" });
+  const url = URL.createObjectURL(blob);
+
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "questions.js";
+  a.click();
+
+  URL.revokeObjectURL(url);
+}
+  
+initialiseApp();
+</script>
+
+<script src="scenario_engine.js"></script>
+
+</body>
+</html>
