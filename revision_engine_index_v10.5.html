@@ -265,6 +265,21 @@ textarea {
   line-height: 2.1;
 }
 
+.scenario-part {
+  margin-bottom: 20px;
+  padding: 15px;
+  border: 1px solid #ccd6e0;
+  border-radius: 10px;
+  background: #f8fafc;
+}
+
+.scenario-feedback-part {
+  margin-top: 12px;
+  padding: 12px;
+  background: #eef2f7;
+  border-radius: 8px;
+}
+  
 @media print {
   body {
     background: white;
@@ -424,6 +439,26 @@ textarea {
   <button id="nextBtn" class="primary-btn hidden" onclick="nextQuestion()">Next</button>
 </section>
 
+<section id="scenarioScreen" class="hidden">
+  <h2 id="scenarioTopicTitle"></h2>
+  <p id="scenarioProgress"></p>
+  <h3 id="scenarioQuestion"></h3>
+
+  <div id="scenarioParts"></div>
+
+  <button class="primary-btn" onclick="checkScenarioAnswer()">Check Answer</button>
+
+  <div id="scenarioFeedback" class="feedback hidden"></div>
+
+  <button
+    id="scenarioNextButton"
+    class="primary-btn hidden"
+    onclick="nextQuestion()"
+  >
+    Next
+  </button>
+</section>
+  
 <section id="longFormScreen" class="hidden">
   <h2>Long-Form Discussion Prompt</h2>
 
@@ -528,6 +563,7 @@ function showScreen(id){
     "topicScreen",
     "sessionScreen",
     "questionScreen",
+    "scenarioScreen",
     "longFormScreen",
     "summaryScreen",
     "checkScreen",
@@ -1863,6 +1899,8 @@ function exportQuestionBank(){
   
 initialiseApp();
 </script>
+
+<script src="scenario_engine.js"></script>
 
 </body>
 </html>
