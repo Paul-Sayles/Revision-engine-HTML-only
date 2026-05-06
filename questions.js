@@ -2160,7 +2160,7 @@ const QUESTION_BANK = {
           answer: ["cost", "availability", "quality issues"]
         }
       ]
-    }
+    },
 
   ]
 }
