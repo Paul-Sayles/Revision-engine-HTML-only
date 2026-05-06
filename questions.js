@@ -717,6 +717,121 @@ const QUESTION_BANK = {
     }
   ]
 },
+
+{
+  title: "R014 Dense Core — Forms of Supply",
+  questions: [
+
+    {
+      type: "short",
+      question: "State one form of supply for metal.",
+      keywords: ["sheet", "bar", "rod", "tube", "plate", "wire"],
+      acceptable: ["sheet", "bar", "rod", "tube", "plate", "wire"],
+      traps: ["liquid"],
+      trapResponse: "Form of supply refers to stock shape, not state like liquid.",
+      mode: "any",
+      markScheme: "1 mark for a valid metal form such as sheet, bar or rod.",
+      explanation: "Metals are supplied in standard stock forms for manufacturing."
+    },
+    {
+      type: "short",
+      question: "State one form of supply for plastic.",
+      keywords: ["sheet", "pellets", "granules", "powder", "filament"],
+      acceptable: ["sheet", "pellets", "granules", "powder", "filament"],
+      traps: ["brick"],
+      trapResponse: "Plastics are supplied as pellets, sheets or filament, not bricks.",
+      mode: "any",
+      markScheme: "1 mark for a valid plastic supply form.",
+      explanation: "Plastics are often supplied as pellets for moulding or sheets for forming."
+    },
+    {
+      type: "short",
+      question: "State one advantage of using standard stock forms.",
+      keywords: ["ready to use", "reduces waste", "cost effective", "available", "saves time"],
+      acceptable: ["ready to use", "reduces waste", "cost effective", "available", "saves time"],
+      traps: ["increases cost"],
+      trapResponse: "Standard stock usually reduces cost due to availability and efficiency.",
+      mode: "any",
+      markScheme: "1 mark for reduced waste, cost or time saving.",
+      explanation: "Using standard forms avoids unnecessary processing."
+    },
+    {
+      type: "short",
+      question: "State one reason sheet material is used.",
+      keywords: ["flat", "easy to cut", "easy to form", "uniform thickness"],
+      acceptable: ["flat", "easy to cut", "easy to form", "uniform thickness"],
+      traps: ["already shaped"],
+      trapResponse: "Sheet is flat and needs forming into shape.",
+      mode: "any",
+      markScheme: "1 mark for flat form, ease of cutting or forming.",
+      explanation: "Sheet material is used for products that are cut and shaped."
+    },
+    {
+      type: "short",
+      question: "State one use of bar stock.",
+      keywords: ["machining", "turning", "components", "shafts", "pins"],
+      acceptable: ["machining", "turning", "components", "shafts", "pins"],
+      traps: ["large flat panels"],
+      trapResponse: "Flat panels are made from sheet, not bar stock.",
+      mode: "any",
+      markScheme: "1 mark for machining or component production.",
+      explanation: "Bar stock is commonly used in machining processes."
+    },
+    {
+      type: "short",
+      question: "State one advantage of supplying plastic as pellets.",
+      keywords: ["easy to melt", "consistent", "feed into machine", "efficient"],
+      acceptable: ["easy to melt", "consistent", "feed into machine", "efficient"],
+      traps: ["used directly without processing"],
+      trapResponse: "Pellets must be melted before forming.",
+      mode: "any",
+      markScheme: "1 mark for ease of melting or feeding into machinery.",
+      explanation: "Pellets are ideal for injection moulding and extrusion."
+    },
+    {
+      type: "short",
+      question: "State one reason wire is used as a form of supply.",
+      keywords: ["flexible", "conduct electricity", "easy to shape", "thin"],
+      acceptable: ["flexible", "conduct electricity", "easy to shape", "thin"],
+      traps: ["rigid structure"],
+      trapResponse: "Wire is typically flexible, not rigid.",
+      mode: "any",
+      markScheme: "1 mark for flexibility or conductivity.",
+      explanation: "Wire is used for electrical and flexible applications."
+    },
+
+    // ===== MCQs =====
+
+    {
+      type: "mcq",
+      question: "Which is a common form of supply for metals?",
+      options: ["Sheet", "Liquid", "Gas", "Powder only"],
+      correct: 0,
+      explanation: "Metals are commonly supplied as sheet, bar, rod or tube."
+    },
+    {
+      type: "mcq",
+      question: "Which form of plastic is used in 3D printing?",
+      options: ["Filament", "Brick", "Slab", "Plate"],
+      correct: 0,
+      explanation: "3D printers commonly use plastic filament."
+    },
+    {
+      type: "mcq",
+      question: "Which stock form is best for flat panels?",
+      options: ["Sheet", "Rod", "Wire", "Pellets"],
+      correct: 0,
+      explanation: "Sheet material is flat and used for panels."
+    },
+    {
+      type: "mcq",
+      question: "Which form is most suitable for machining cylindrical parts?",
+      options: ["Bar", "Sheet", "Powder", "Film"],
+      correct: 0,
+      explanation: "Bar stock is used for turning cylindrical components."
+    }
+  ]
+},
         
         {
           "title": "Polymers",
