@@ -832,6 +832,215 @@ const QUESTION_BANK = {
     }
   ]
 },
+
+{
+  title: "R014 Dense Core — Sustainability & Modern Manufacturing",
+  questions: [
+
+    {
+      type: "short",
+      question: "State one reason recycling materials is important.",
+      keywords: ["reduce waste", "conserve resources", "reduce landfill", "save energy", "environment"],
+      acceptable: ["reduce waste", "conserve resources", "reduce landfill", "save energy", "environment"],
+      traps: ["increase pollution"],
+      trapResponse: "Recycling is used to reduce environmental impact, not increase it.",
+      mode: "any",
+      markScheme: "1 mark for reducing waste, conserving resources or saving energy.",
+      explanation: "Recycling reduces the need for raw materials and landfill use."
+    },
+    {
+      type: "short",
+      question: "State one sustainable property of a material.",
+      keywords: ["recyclable", "biodegradable", "renewable", "low energy production"],
+      acceptable: ["recyclable", "biodegradable", "renewable", "low energy production"],
+      traps: ["toxic"],
+      trapResponse: "Toxicity is not a sustainable property.",
+      mode: "any",
+      markScheme: "1 mark for a valid sustainability-related property.",
+      explanation: "Sustainable materials reduce environmental impact."
+    },
+    {
+      type: "short",
+      question: "State one advantage of using renewable materials.",
+      keywords: ["replaceable", "sustainable", "reduce depletion", "environmentally friendly"],
+      acceptable: ["replaceable", "sustainable", "reduce depletion", "environmentally friendly"],
+      traps: ["run out quickly"],
+      trapResponse: "Renewable materials can be replenished naturally.",
+      mode: "any",
+      markScheme: "1 mark for sustainability or replaceability.",
+      explanation: "Renewable materials can be reused or regrown."
+    },
+    {
+      type: "short",
+      question: "State one reason reducing waste is important in manufacturing.",
+      keywords: ["cost", "environment", "efficiency", "less material use"],
+      acceptable: ["cost", "environment", "efficiency", "less material use"],
+      traps: ["slower production"],
+      trapResponse: "Reducing waste generally improves efficiency, not slows it.",
+      mode: "any",
+      markScheme: "1 mark for cost saving or environmental benefit.",
+      explanation: "Less waste reduces costs and environmental damage."
+    },
+    {
+      type: "short",
+      question: "State one advantage of automation in manufacturing.",
+      keywords: ["accuracy", "consistency", "speed", "repeatability", "reduced labour"],
+      acceptable: ["accuracy", "consistency", "speed", "repeatability", "reduced labour"],
+      traps: ["less consistent"],
+      trapResponse: "Automation increases consistency and repeatability.",
+      mode: "any",
+      markScheme: "1 mark for accuracy, speed or consistency.",
+      explanation: "Automation improves efficiency and reduces human error."
+    },
+    {
+      type: "short",
+      question: "State one disadvantage of automation.",
+      keywords: ["cost", "job loss", "setup cost", "maintenance"],
+      acceptable: ["cost", "job loss", "setup cost", "maintenance"],
+      traps: ["always cheap"],
+      trapResponse: "Automation often has high setup costs.",
+      mode: "any",
+      markScheme: "1 mark for cost, maintenance or job impact.",
+      explanation: "Automation requires expensive equipment and setup."
+    },
+    {
+      type: "short",
+      question: "State one example of a modern manufacturing technology.",
+      keywords: ["3d printing", "automation", "robotics", "cnc", "cad"],
+      acceptable: ["3d printing", "automation", "robotics", "cnc", "cad"],
+      traps: ["hand tools"],
+      trapResponse: "Hand tools are traditional, not modern manufacturing technology.",
+      mode: "any",
+      markScheme: "1 mark for a valid modern technology.",
+      explanation: "Modern manufacturing uses digital and automated systems."
+    },
+    {
+      type: "short",
+      question: "State one advantage of CAD in manufacturing.",
+      keywords: ["accuracy", "modify easily", "visualisation", "precision", "testing"],
+      acceptable: ["accuracy", "modify easily", "visualisation", "precision", "testing"],
+      traps: ["cannot edit"],
+      trapResponse: "CAD allows easy modification of designs.",
+      mode: "any",
+      markScheme: "1 mark for accuracy, editing or visualisation.",
+      explanation: "CAD allows precise design and quick changes."
+    },
+    {
+      type: "short",
+      question: "State one advantage of 3D printing.",
+      keywords: ["low waste", "rapid prototyping", "complex shapes", "custom"],
+      acceptable: ["low waste", "rapid prototyping", "complex shapes", "custom"],
+      traps: ["high waste"],
+      trapResponse: "3D printing is additive, so waste is typically low.",
+      mode: "any",
+      markScheme: "1 mark for rapid prototyping, low waste or complexity.",
+      explanation: "3D printing builds parts layer by layer."
+    },
+
+    // ===== MCQs =====
+
+    {
+      type: "mcq",
+      question: "Which is a renewable material?",
+      options: ["Timber", "Steel", "Plastic", "Concrete"],
+      correct: 0,
+      explanation: "Timber is renewable when sourced sustainably."
+    },
+    {
+      type: "mcq",
+      question: "What is a key advantage of automation?",
+      options: ["Consistency", "Higher error rate", "Slower production", "Manual control"],
+      correct: 0,
+      explanation: "Automation improves consistency and repeatability."
+    },
+    {
+      type: "mcq",
+      question: "Which technology is used to design products digitally?",
+      options: ["CAD", "CAM only", "Lathe", "Drill"],
+      correct: 0,
+      explanation: "CAD (Computer-Aided Design) is used for digital design."
+    },
+    {
+      type: "mcq",
+      question: "Which process builds objects layer by layer?",
+      options: ["3D printing", "Casting", "Machining", "Forging"],
+      correct: 0,
+      explanation: "3D printing is an additive manufacturing process."
+    }
+  ]
+}.
+
+{
+  title: "R014 Exam Focus — 6 Mark Questions",
+  questions: [
+
+    {
+      type: "long",
+      question: "Evaluate the use of injection moulding for manufacturing plastic products.",
+      points: [
+        "High tooling cost vs low unit cost",
+        "Suitable for mass production",
+        "Produces consistent and accurate parts",
+        "Limited flexibility once mould is made",
+        "Material considerations (thermoplastics)",
+        "Clear justified conclusion"
+      ]
+    },
+
+    {
+      type: "long",
+      question: "Discuss the advantages and disadvantages of machining processes.",
+      points: [
+        "High accuracy and precision",
+        "Suitable for small batch or custom work",
+        "Material waste (subtractive process)",
+        "Higher cost and slower than mass production",
+        "Requires skilled operation",
+        "Balanced conclusion"
+      ]
+    },
+
+    {
+      type: "long",
+      question: "Evaluate how material properties influence manufacturing processes.",
+      points: [
+        "Strength, ductility, malleability",
+        "How properties affect process choice",
+        "Examples (metals vs polymers)",
+        "Impact on performance and durability",
+        "Link to real-world product",
+        "Conclusion"
+      ]
+    },
+
+    {
+      type: "long",
+      question: "Discuss the impact of automation on manufacturing.",
+      points: [
+        "Improved accuracy and consistency",
+        "Increased production speed",
+        "High setup and maintenance cost",
+        "Reduction in labour requirements",
+        "Examples of automated systems",
+        "Balanced conclusion"
+      ]
+    },
+
+    {
+      type: "long",
+      question: "Evaluate the importance of sustainability in modern manufacturing.",
+      points: [
+        "Reducing waste and energy use",
+        "Use of recyclable and renewable materials",
+        "Environmental impact",
+        "Cost implications",
+        "Examples (recycling, efficient processes)",
+        "Justified conclusion"
+      ]
+    }
+
+  ]
+},
         
         {
           "title": "Polymers",
